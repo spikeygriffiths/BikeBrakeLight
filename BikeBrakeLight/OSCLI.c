@@ -12,5 +12,6 @@
 char* OSCLI(char* cmd)
 {
 	OSprintf("Executing %s\r\n", cmd);
+	// Could write the rest of this, if I ever have an input..!
 	return "Bad cmd";
 }

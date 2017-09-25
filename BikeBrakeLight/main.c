@@ -33,7 +33,7 @@ int main(void)
 	OSIssueEvent(EVENT_POSTINIT, 0);
 	//sei();	// Enable interrupts
 	for (;;) {
-		OSIssueEvent(EVENT_TICK, 0);	// Could give the arg in elapsed ms once we have a timer...
+		OSIssueEvent(EVENT_TICK, 1);	// Could give the arg in elapsed ms once we have a timer...
 	}
 }
 

@@ -8,6 +8,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 #include <stdbool.h>
+#include <stddef.h>
 
 typedef unsigned char U8;
 typedef unsigned short U16;
@@ -35,8 +36,10 @@ typedef enum {
 	EVENT_SLEEP,
 	EVENT_WAKE,
 	EVENT_BUTTON,
+	EVENT_BRAKE,
 } Event;
 
+//#define NULL (void *)0
 #define OSIssueEvent(event, eventArg) _OSIssueEvent(event, (U32)eventArg)
 
 void _OSIssueEvent(Event event, U32 eventArg);
@@ -56,9 +59,9 @@ void OSEventHandler(Event event, U32 eventArg);
 // ADC PF4 Light sensor
 // OUT PF5 Light sensor enable
 // ADC PF6 Battery voltage level
-#define LED0 (1 << 5)	// on PORTB
-#define LED1 (1 << 6)	// on PORTB
-#define LED2 (1 << 7)	// on PORTB
+#define LED0 (1 << 5)	// on PORTB.  Bottom left
+#define LED1 (1 << 6)	// on PORTB.  Bottom right
+#define LED2 (1 << 7)	// on PORTB.  Top
 #define IND_LED (1 << 0) // on PORTF
 #define LGHTLVL_EN (1 << 5) // on PORTF
 #define BTN (PIND & 0x01)

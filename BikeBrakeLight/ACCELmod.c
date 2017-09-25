@@ -11,29 +11,67 @@
 #include "main.h"
 #include "osstr.h"
 #include "UARTmod.h"	// For OSprintf
+#include "ACCELmod.h"
 
-U8 ACCELReadReg(U8 reg);
+void ACCELWriteReg8(ADXL363_REG reg, U8 val);
+U8 ACCELReadReg8(ADXL363_REG reg);
+S16 ACCELReadReg16(ADXL363_REG reg);
 U8 SPItrx(U8 cData);
 
 void ACCELEventHandler(U8 eventId, U16 eventArg)
 {
+	U8 accelState;
+	S16 x,y,z;
+	
 	switch (eventId) {
 	case EVENT_INIT:
 		// Initialise ATmega SPI
 		SPCR = (1<<MSTR)|(0<<SPR0);	// Master, MSB first, POL & PHA both 0, set clock rate fck/2
 		SPSR = (1<<SPI2X);	// Finish selecting fclk/2, being 512KHz at 1MHz sys clk
-		// Configure ADXL363 for generating wake or brake interrupts
 		break;
-	case EVENT_BUTTON:
-		if (!eventArg) {	// Button release
-			OSprintf("ADXL DEVID_AD register = 0x%2x\r\n", ACCELReadReg(0x00));	
-			OSprintf("ADXL DEVID_DevId register = 0x%2x\r\n", ACCELReadReg(0x02));	
+	case EVENT_POSTINIT:
+		// Configure ADXL363 for generating wake or brake interrupts
+		ACCELWriteReg8(ADXL363_THRESH_ACT_L, G / 4);	// > Quarter G on any axis to wake up
+		ACCELWriteReg8(ADXL363_TIME_ACT, 10);	// Assume 100Hz sampling rate, so require threshold to be exceeded for 0.1 seconds before interrupting
+		ACCELWriteReg8(ADXL363_THRESH_INACT_L, G / 6);	// < 1/6 G on any axis to go to sleep
+		ACCELWriteReg8(ADXL363_ACT_INACT_CTL, 0x03);	// Turn on activity and make it relative (to ignore gravity)
+		ACCELWriteReg8(ADXL363_INTMAP2, 0x10);	// Map Activity state to INT2
+		ACCELWriteReg8(ADXL363_POWER_CTL, 0x0A);	// Set ADXL into Measurement and Wakeup state
+		break;
+	case EVENT_TICK:
+		accelState = ACCELReadReg8(ADXL363_STATUS) & 0x70;	// Read whether we're awake (and acknowledge it as well) as well as Active or Inactive
+		if (accelState & 0x10) {
+			x = ACCELReadReg16(ADXL363_XDATA_L);
+			y = ACCELReadReg16(ADXL363_YDATA_L);
+			z = ACCELReadReg16(ADXL363_ZDATA_L);
+			//OSprintf("ADXL Status register = 0x%2x\r\n", accelState);	
+			OSprintf("%d, %d, %d\r\n", x, y, z);	// X = Left / right, Y = Up / Down, Z = Forward / Back
+			if (z > 500) OSIssueEvent(EVENT_BRAKE, 0);
 		}
 		break;
+	/*case EVENT_BUTTON:
+		if (!eventArg) {	// Button release
+			//OSprintf("ADXL DEVID_AD register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID_AD));	
+			//OSprintf("ADXL DevId register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID));	
+			//OSprintf("ADXL_Power_Ctl 0x%2x\r\n", ACCELReadReg8(ADXL363_POWER_CTL));
+			OSprintf("%d, %d, %d\r\n", ACCELReadReg16(ADXL363_XDATA_L), ACCELReadReg16(ADXL363_YDATA_L), ACCELReadReg16(ADXL363_ZDATA_L));	// X = Left / right, Y = Up / Down, Z = Forward / Back
+		}
+		break;*/
 	}
 }
 
-U8 ACCELReadReg(U8 reg)
+void ACCELWriteReg8(ADXL363_REG reg, U8 val)
+{
+	PORTB &= ~0x01;	// Slave Select low to select ADXL363
+	SPCR |= (1<<SPE);// Enable SPI
+	SPItrx(0x0A);	// Write register command
+	SPItrx(reg);	// Select register
+	SPItrx(val);	// Send value
+	SPCR &= ~(1<<SPE);// Disable SPI
+	PORTB |= 0x01;	// Deselect SS by driving it high at end of transaction
+}
+
+U8 ACCELReadReg8(ADXL363_REG reg)
 {
 	U8 val;
 	PORTB &= ~0x01;	// Slave Select low to select ADXL363
@@ -46,6 +84,20 @@ U8 ACCELReadReg(U8 reg)
 	return val;
 }
 
+S16 ACCELReadReg16(ADXL363_REG reg)
+{
+	U16 val;
+	PORTB &= ~0x01;	// Slave Select low to select ADXL363
+	SPCR |= (1<<SPE);// Enable SPI
+	SPItrx(0x0B);	// Read register command
+	SPItrx(reg);		// Select register
+	val = SPItrx(0xFF);	// Send dummy byte to get lo byte
+	val |= ((U16)SPItrx(0xFF) << 8);	// Send dummy byte to get hi byte
+	SPCR &= ~(1<<SPE);// Disable SPI
+	PORTB |= 0x01;	// Deselect SS by driving it high at end of transaction
+	return val;
+}
+
 U8 SPItrx(U8 cData)
 {
 	SPDR = cData;	// Start transmission
@@ -53,7 +105,7 @@ U8 SPItrx(U8 cData)
 	return SPDR;	// Return Data Register
 }
 
-int ACCELgetZ(void)
+int ACCELGetAxis(ADXL363_REG reg)	// Use ADXL363_XDATA_L for X, ADXL363_YDATA_L for Y and ADXL363_ZDATA_L for Z
 {
-	return -1;	// Replace this with actual reading!
+	return ACCELReadReg16(reg);	// X = Left / right, Y = Up / Down, Z = Forward / Back
 }

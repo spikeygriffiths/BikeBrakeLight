@@ -8,16 +8,23 @@
 #include "UARTmod.h"
 #include "OSCLI.h"
 
+//#define UART_READCHAR
+
+#ifdef UART_READCHAR
 #define MAX_CMDLEN (32)
 char cmdBuf[MAX_CMDLEN];	// Handy buffer for accumulating commands from serial port
+#endif	//def UART_READCHAR
 
 void UARTEventHandler(U8 eventId, U16 eventArg)
 {
 	switch (eventId) {
 	case EVENT_INIT:
 		UARTInit();
+#ifdef UART_READCHAR
 		*cmdBuf = 0;
+#endif	//def UART_READCHAR
 		break;
+#ifdef UART_READCHAR
 	case EVENT_TICK:
 		if (UARTgets(cmdBuf)) {
 			if ((lastErr = OSCLI(cmdBuf))) {
@@ -26,6 +33,7 @@ void UARTEventHandler(U8 eventId, U16 eventArg)
 			*cmdBuf = 0;	// Ready for a new command
 		}
 		break;
+#endif	//def UART_READCHAR
 	}
 }
 
@@ -33,7 +41,11 @@ void UARTInit(void)
 {
 	UBRR1H = 0;
 	UBRR1L = 12;	//3!=19200, 6!=9600, but 12==4800baud with 1MHz clock
-	UCSR1B = (1<<RXEN1)|(1<<TXEN1);  // enable uart RX and TX
+#ifdef UART_READCHAR
+	UCSR1B = (1<<RXEN1)|(1<<TXEN1);  // Enable both uart TX & Rx
+#else	//ifndef UART_READCHAR
+	UCSR1B = (1<<TXEN1);  // Just enable uart TX (Leave Rx for ADXL Int2)
+#endif	//def UART_READCHAR
 	UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);  // set 8N1 frame format
 }
 
@@ -42,7 +54,16 @@ void UARTputc(char c)
 	while (!(UCSR1A & (1<<UDRE1))) ;  // wait for Uart Data Register Empty bit to be set
 	UDR1 = c;  // send char
 }
+
+void OSprintf(char* str, ...)	// Actually UARTprintf()
+{
+    va_list args;
+    va_start(args, str);
+    OSvsprintf(UARTputc, str, args);
+    va_end(args);
+}
  
+#ifdef UART_READCHAR
 bool UARTgetc(char* c) {
 	if (UCSR1A & 0x80) {	//(1<<RXC1)) {
 		*c = UDR1;
@@ -81,11 +102,4 @@ bool UARTgets(char* buf)
 	}
 	return false;
 }
-
-void OSprintf(char* str, ...)	// Actually UARTprintf()
-{
-    va_list args;
-    va_start(args, str);
-    OSvsprintf(UARTputc, str, args);
-    va_end(args);
-}
+#endif	//def UART_READCHAR
