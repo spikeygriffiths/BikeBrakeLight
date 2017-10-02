@@ -7,16 +7,24 @@
 #include <avr/io.h>
 //#include <stdio.h>
 //#include <stdarg.h>
+#include <avr/interrupt.h>
 #include <stdbool.h>
 #include "main.h"
 #include "osstr.h"
 #include "UARTmod.h"	// For OSprintf
 #include "ACCELmod.h"
 
+bool accelInt = false;
+
 void ACCELWriteReg8(ADXL363_REG reg, U8 val);
 U8 ACCELReadReg8(ADXL363_REG reg);
 S16 ACCELReadReg16(ADXL363_REG reg);
 U8 SPItrx(U8 cData);
+
+ISR(INT2_vect)	// Accelerometer interrupt
+{
+	accelInt = true;
+}
 
 void ACCELEventHandler(U8 eventId, U16 eventArg)
 {
@@ -39,24 +47,31 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 		ACCELWriteReg8(ADXL363_POWER_CTL, 0x0A);	// Set ADXL into Measurement and Wakeup state
 		break;
 	case EVENT_TICK:
-		accelState = ACCELReadReg8(ADXL363_STATUS) & 0x70;	// Read whether we're awake (and acknowledge it as well) as well as Active or Inactive
-		if (accelState & 0x10) {
-			x = ACCELReadReg16(ADXL363_XDATA_L);
-			y = ACCELReadReg16(ADXL363_YDATA_L);
-			z = ACCELReadReg16(ADXL363_ZDATA_L);
-			//OSprintf("ADXL Status register = 0x%2x\r\n", accelState);	
-			OSprintf("%d, %d, %d\r\n", x, y, z);	// X = Left / right, Y = Up / Down, Z = Forward / Back
-			if (z > 500) OSIssueEvent(EVENT_BRAKE, 0);
+	// Could be EVENT_WAKE?
+		if (accelInt) {
+			accelInt = false;
+			OSprintf("Accel Interrupt\r\n");
+			accelState = ACCELReadReg8(ADXL363_STATUS) & 0x70;	// Read whether we're awake (and acknowledge it as well) as well as Active or Inactive
+			if (accelState & 0x10) {
+				x = ACCELReadReg16(ADXL363_XDATA_L);
+				y = ACCELReadReg16(ADXL363_YDATA_L);
+				z = ACCELReadReg16(ADXL363_ZDATA_L);
+				//OSprintf("ADXL Status register = 0x%2x\r\n", accelState);	
+				OSprintf("%d, %d, %d\r\n", x, y, z);	// X = Left / right, Y = Up / Down, Z = Forward / Back
+				if (z > (G / 4)) OSIssueEvent(EVENT_BRAKE, 0);	// Quarter G deceleration (is this right?) to cause a BRAKE event
+			}
 		}
 		break;
-	/*case EVENT_BUTTON:
+	case EVENT_BUTTON:
 		if (!eventArg) {	// Button release
 			//OSprintf("ADXL DEVID_AD register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID_AD));	
 			//OSprintf("ADXL DevId register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID));	
 			//OSprintf("ADXL_Power_Ctl 0x%2x\r\n", ACCELReadReg8(ADXL363_POWER_CTL));
 			OSprintf("%d, %d, %d\r\n", ACCELReadReg16(ADXL363_XDATA_L), ACCELReadReg16(ADXL363_YDATA_L), ACCELReadReg16(ADXL363_ZDATA_L));	// X = Left / right, Y = Up / Down, Z = Forward / Back
 		}
-		break;*/
+		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
 	}
 }
 

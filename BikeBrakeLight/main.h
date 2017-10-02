@@ -33,17 +33,28 @@ typedef enum {
 	EVENT_INIT,
 	EVENT_POSTINIT,
 	EVENT_TICK,
+	EVENT_SECOND,
+	EVENT_REQSLEEP,
 	EVENT_SLEEP,
 	EVENT_WAKE,
 	EVENT_BUTTON,
 	EVENT_BRAKE,
 } Event;
 
-//#define NULL (void *)0
-#define OSIssueEvent(event, eventArg) _OSIssueEvent(event, (U32)eventArg)
+#define MS_PERSEC (1000)
 
-void _OSIssueEvent(Event event, U32 eventArg);
-void OSEventHandler(Event event, U32 eventArg);
+// Switches to enable/disable various code blocks
+// Comment out to disable each switch
+#define SWITCH_UART	// If this is in, then only one interrupt from accelerometer
+#define SWITCH_LOG	// In EEPROM.  Quite slow, but useful for small (1K) logs
+
+#ifndef NULL
+#define NULL (void *)0
+#endif
+#define OSIssueEvent(event, eventArg) _OSIssueEvent(event, (U16)eventArg)
+
+void _OSIssueEvent(Event event, U16 eventArg);
+void OSEventHandler(Event event, U16 eventArg);
 
 #define min(a,b) ((a < b) ? a : b)
 #define max(a,b) ((a > b) ? a : b)
@@ -59,10 +70,6 @@ void OSEventHandler(Event event, U32 eventArg);
 // ADC PF4 Light sensor
 // OUT PF5 Light sensor enable
 // ADC PF6 Battery voltage level
-#define LED0 (1 << 5)	// on PORTB.  Bottom left
-#define LED1 (1 << 6)	// on PORTB.  Bottom right
-#define LED2 (1 << 7)	// on PORTB.  Top
-#define IND_LED (1 << 0) // on PORTF
 #define LGHTLVL_EN (1 << 5) // on PORTF
 #define BTN (PIND & 0x01)
 
@@ -70,8 +77,8 @@ void OSEventHandler(Event event, U32 eventArg);
 char* lastErr;
 
 // Public functions
+void OSSleep(void);
 U16 LDRget(void);
 U16 TMPget(void);
-
 
 #endif /* MAIN_H_ */

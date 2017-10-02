@@ -9,7 +9,7 @@
 #ifndef LOG_H_
 #define LOG_H_
 
-void LOGEventHandler(Event event, U32 eventArg);
+void LOGEventHandler(Event event, U16 eventArg);
 void LOGprintf(char* str, ...);
 void LOGputc(char item);
 

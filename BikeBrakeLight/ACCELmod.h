@@ -58,5 +58,4 @@ typedef enum _ADXL363_REG ADXL363_REG;
 void ACCELEventHandler(U8 eventId, U16 eventArg);
 
 
-
 #endif /* ACCELMOD_H_ */

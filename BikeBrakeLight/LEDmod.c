@@ -24,34 +24,40 @@ static LED_ROW* ledOverride;	// After override finishes, go back to start of bac
 static LED_ROW* ledRow;	// Points to a row of a table, either override or background, or NULL if no LED activity
 
 const LED_ROW LedOff[] = {
-	{{0x0000,0x0000,0x0000},1024,32768},	// Slow fade to black, then hold...
-	{{0,0,0},ILLEGAL_ROW,0}	// Terminator - go back to top of table for background, or restore background from override
+	{{0x0000,0x0000,0x0000},1024,1},	// Slow fade to black, then hold...
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
 const LED_ROW LedCirculate[] = {
-	{{0x3FFF,0x0000,0x0000},256,256},
-	{{0x0000,0x3FFF,0x0000},256,256},
-	{{0x0000,0x0000,0x3FFF},256,256},
-	{{0,0,0},ILLEGAL_ROW,0}	// Terminator - go back to top of table for background, or restore background from override
+	{{0x5FFF,0x0000,0x0000},256,256},
+	{{0x0000,0x5FFF,0x0000},256,256},
+	{{0x0000,0x0000,0x5FFF},256,256},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
 const LED_ROW LedPersistent[] = {
-	{{0x3FFF,0x0000,0x1FFF},64,128},
-	{{0x1FFF,0x3FFF,0x0000},64,128},
-	{{0x0000,0x1FFF,0x3FFF},64,128},
-	{{0,0,0},ILLEGAL_ROW,0}	// Terminator - go back to top of table for background, or restore background from override
+	{{0x5FFF,0x0FFF,0x2FFF},64,128},
+	{{0x2FFF,0x5FFF,0x0FFF},64,128},
+	{{0x0FFF,0x2FFF,0x5FFF},64,128},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
 const LED_ROW LedTopBottom[] = {
-	{{0x0000,0x0000,0x3FFF},128,512},
-	{{0x3FFF,0x3FFF,0x0000},128,512},
-	{{0,0,0},ILLEGAL_ROW,0}	// Terminator - go back to top of table for background, or restore background from override
+	{{0x0000,0x0000,0x5FFF},128,512},
+	{{0x5FFF,0x5FFF,0x0000},128,512},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
+};
+
+const LED_ROW LedTopFlash[] = {
+	{{0x5FFF,0x5FFF,0x5FFF},128,512},
+	{{0x5FFF,0x5FFF,0x0000},128,512},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
 const LED_ROW LedBrake[] = {
 	{{0xFFFF,0xFFFF,0xFFFF},128,1024},	// 1 second full bright
 	{{0x0000,0x0000,0x0000},512,0},	// Fade down
-	{{0,0,0},ILLEGAL_ROW,0}	// Terminator - restore background from this override
+	{{0,0,0},TABLE_END,0}	// Terminator - restore background from this override
 };
 
 const LED_ROW* ledEffects[] = {
@@ -59,6 +65,7 @@ const LED_ROW* ledEffects[] = {
 	LedCirculate,
 	LedPersistent,
 	LedTopBottom,
+	LedTopFlash,
 	NULL	// Terminator
 };
 
@@ -74,6 +81,9 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		TCCR1B = 0x09;	// Bits 0-2 select clock (001==No prescaler), bits 3-4 are WGM2,3 (0101 for WGM=Fast PWM, 8 bit)
 		break;
 	case EVENT_INIT:
+		TURNOFF_LED(0);
+		TURNOFF_LED(1);
+		TURNOFF_LED(2);
 		ledEffect = 0;
 		LEDBackground((LED_ROW*)NULL);
 		break;
@@ -81,7 +91,7 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		if (ledRow) {
 			switch (ledState) {
 			case LEDSTATE_PREPAREROW:
-				OSprintf("Start Fading...\r\n");
+				//OSprintf("Start Fading...\r\n");
 				ledState = LEDSTATE_FADING;
 				// Set up ledSteps for each LED, so we know how much to add for each ms.  Allow for fractional adding
 				ledTime = ledRow->fadeMs;
@@ -105,7 +115,7 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 					}
 					LEDpwm(ledLvls);
 					ledTime = ledRow->holdMs;
-					OSprintf("Start Holding...\r\n");
+					//OSprintf("Start Holding...\r\n");
 					ledState = LEDSTATE_HOLDING;
 				}
 				break;
@@ -114,11 +124,18 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 					ledTime -= eventArg;
 				} else {
 					ledRow++;	// Get next row
-					if (ILLEGAL_ROW == ledRow->fadeMs) {	// Check for end of table
-						ledRow = ledBackgroundTop;	// Go to top of current background table (maybe NULL)
+					if (TABLE_END == ledRow->fadeMs) {	// Check for end of table
+						if (LedOff == ledBackgroundTop) {	// Just finished fading down to black, so all LEDs are off
+							ledState = LEDSTATE_IDLE;	// Assume all LEDs are now off, because LED_BRAKE also fades down to off before resuming
+							//OSprintf("LEDs idle\r\n");
+						} else {
+							ledRow = ledBackgroundTop;	// Go to top of current background table (maybe NULL)
+						}
 					}
-					OSprintf("Prepare next row...\r\n");
-					ledState = LEDSTATE_PREPAREROW;
+					if (LEDSTATE_IDLE != ledState) {
+						//OSprintf("Prepare next LED row...\r\n");
+						ledState = LEDSTATE_PREPAREROW;
+					}
 				}
 				break;
 			}
@@ -126,6 +143,9 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		break;
 	case EVENT_BRAKE:
 		LEDOverride(LedBrake);
+		break;
+	case EVENT_REQSLEEP:
+		if (LEDSTATE_IDLE != ledState) *(bool*)eventArg = false;	// Disallow sleep
 		break;
 	case EVENT_BUTTON:
 		if (eventArg) {	// Button down
@@ -139,6 +159,8 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 			IND_LED_OFF;
 		}
 		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
 	}
 }
 
@@ -160,7 +182,22 @@ void LEDOverride(const LED_ROW* ledTable)
 
 void LEDpwm(U16* ledLevels)
 {
-	OCR1AL = ledLevels[0] >> 8;	// Put top 8 bits of each LED level into PWM hardware
-	OCR1BL = ledLevels[1] >> 8;
-	OCR1CL = ledLevels[2] >> 8;
+	if (ledLevels[0]) {
+		TURNON_LED(0);	// Enable LED if non-zero light level
+		OCR1AL = ledLevels[0] >> 8;	// Put top 8 bits of each LED level into PWM hardware
+	} else {
+		TURNOFF_LED(0);	// Must turn off LED when zero, since PWM=0 is still a glimmer
+	}
+	if (ledLevels[1]) {
+		TURNON_LED(1);	// Enable LED if non-zero light level
+		OCR1BL = ledLevels[1] >> 8;	// Put top 8 bits of each LED level into PWM hardware
+	} else {
+		TURNOFF_LED(1);	// Must turn off LED when zero, since PWM=0 is still a glimmer
+	}
+	if (ledLevels[2]) {
+		TURNON_LED(2);	// Enable LED if non-zero light level
+		OCR1CL = ledLevels[2] >> 8;	// Put top 8 bits of each LED level into PWM hardware
+	} else {
+		TURNOFF_LED(2);	// Must turn off LED when zero, since PWM=0 is still a glimmer
+	}
 }

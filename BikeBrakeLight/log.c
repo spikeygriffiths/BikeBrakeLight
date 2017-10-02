@@ -12,15 +12,15 @@ static U16 logIndex;
 // Local prototypes
 void EEPROMwrite(U16 addr, U8 data);
 
-void LOGEventHandler(Event event, U32 eventArg)
+void LOGEventHandler(Event event, U16 eventArg)
 {
 	switch (event) {
 	case EVENT_INIT:
-		for (logIndex = 0; logIndex < 0x3FF; logIndex++) {
-			EEPROMwrite(logIndex, 0xFF);	// Clear the old log
-		}
+		EEPROMwrite(0, 0xFF);	// Clear the old log, by writing EndOfLog byte (0xFF) to first byte 
 		logIndex = 0;	// Ready to start logging from start
 		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
 	}
 }
 
@@ -50,3 +50,4 @@ void EEPROMwrite(U16 addr, U8 data)
 	}
 	EECR |= (1<<EEPE);	// Start eeprom write by setting EEPE (Will auto-clear)
 }
+

@@ -8,6 +8,7 @@
 #include "UARTmod.h"
 #include "OSCLI.h"
 
+#ifdef SWITCH_UART
 //#define UART_READCHAR
 
 #ifdef UART_READCHAR
@@ -34,6 +35,12 @@ void UARTEventHandler(U8 eventId, U16 eventArg)
 		}
 		break;
 #endif	//def UART_READCHAR
+	case EVENT_WAKE:
+		PRR1 &= ~0x01;	// Re-enable USART by clearing bit in Power Reduction Register
+		UARTInit();	// Must re-enable UART after sleep
+		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
 	}
 }
 
@@ -103,3 +110,8 @@ bool UARTgets(char* buf)
 	return false;
 }
 #endif	//def UART_READCHAR
+void OSprintf(char* str, ...)
+{
+	// Just sink everything - hopefully the optimiser will notice this and remove the calls...
+}
+#endif //def SWITCH_UART
