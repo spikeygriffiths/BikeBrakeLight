@@ -61,11 +61,11 @@ const LED_ROW LedBrake[] = {
 };
 
 const LED_ROW* ledEffects[] = {
-	LedOff,
 	LedCirculate,
 	LedPersistent,
 	LedTopBottom,
 	LedTopFlash,
+	LedOff,
 	NULL	// Terminator
 };
 
@@ -85,7 +85,8 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		TURNOFF_LED(1);
 		TURNOFF_LED(2);
 		ledEffect = 0;
-		LEDBackground((LED_ROW*)NULL);
+		LEDBackground((LED_ROW*)ledEffects[ledEffect]);	// Select first LED pattern at start
+		//LEDBackground((LED_ROW*)NULL); // Turn LEDs off at start
 		break;
 	case EVENT_TICK:
 		if (ledRow) {
@@ -145,7 +146,7 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		LEDOverride(LedBrake);
 		break;
 	case EVENT_REQSLEEP:
-		if (LEDSTATE_IDLE != ledState) *(bool*)eventArg = false;	// Disallow sleep
+		if (LEDSTATE_IDLE != ledState) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
 		break;
 	case EVENT_BUTTON:
 		if (eventArg) {	// Button down

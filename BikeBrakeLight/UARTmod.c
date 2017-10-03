@@ -35,6 +35,9 @@ void UARTEventHandler(U8 eventId, U16 eventArg)
 		}
 		break;
 #endif	//def UART_READCHAR
+	case EVENT_SLEEP:
+		UCSR1B = 0x00;	// Disable UART
+		break;
 	case EVENT_WAKE:
 		PRR1 &= ~0x01;	// Re-enable USART by clearing bit in Power Reduction Register
 		UARTInit();	// Must re-enable UART after sleep
@@ -110,6 +113,7 @@ bool UARTgets(char* buf)
 	return false;
 }
 #endif	//def UART_READCHAR
+#else //def SWITCH_UART
 void OSprintf(char* str, ...)
 {
 	// Just sink everything - hopefully the optimiser will notice this and remove the calls...

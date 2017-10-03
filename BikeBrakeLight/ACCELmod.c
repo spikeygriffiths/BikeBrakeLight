@@ -34,7 +34,7 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 	switch (eventId) {
 	case EVENT_INIT:
 		// Initialise ATmega SPI
-		SPCR = (1<<MSTR)|(0<<SPR0);	// Master, MSB first, POL & PHA both 0, set clock rate fck/2
+		SPCR = (1<<SPE)|(1<<MSTR)|(0<<SPR0);	// SPI Enable, Master, MSB first, POL & PHA both 0, set clock rate fck/2
 		SPSR = (1<<SPI2X);	// Finish selecting fclk/2, being 512KHz at 1MHz sys clk
 		break;
 	case EVENT_POSTINIT:
@@ -69,6 +69,12 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 			//OSprintf("ADXL_Power_Ctl 0x%2x\r\n", ACCELReadReg8(ADXL363_POWER_CTL));
 			OSprintf("%d, %d, %d\r\n", ACCELReadReg16(ADXL363_XDATA_L), ACCELReadReg16(ADXL363_YDATA_L), ACCELReadReg16(ADXL363_ZDATA_L));	// X = Left / right, Y = Up / Down, Z = Forward / Back
 		}
+		break;
+	case EVENT_SLEEP:
+		SPCR &= ~(1<<SPE);	// Disable SPI when asleep
+		break;
+	case EVENT_WAKE:
+		SPCR |= (1<<SPE);	// Re-enable SPI, assuming still set to master and clock speed
 		break;
 	default:
 		break;	// Does nothing, but stops useless warnings from the compiler

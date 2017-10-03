@@ -65,9 +65,15 @@ void OSEventHandler(Event event, U16 eventArg)
 
 	switch (event) {
 	case EVENT_PREINIT:
+		PORTB = 0x10;	// Pull up PB5 (unused input)
 		DDRB = 0xE7;	// PB0-3 SPI (SS, MOSI and SCLK as outputs), PB5-7 main LEDs
-		DDRD = 0x04;	// PD0 btn, PD2,3 WAKE from accel
+		PORTC = 0xC0;	// Pull up PC6,7 (unused inputs)
+		DDRC = 0x00;	// Unused, only PC6,7 available
+		PORTD = 0xF2;	// Pull up PD1,4,5,6,7 (unused inputs)
+		DDRD = 0x00;	// PD0 btn, PD2,3 WAKE from accel
+		PORTE = 0x04;	// PE2 is unused, so pullup to reduce power
 		DDRE = 0x00;	// PE6 STAT from battery charger
+		PORTF = 0x82;	// Pull up PF1,7 as they're unused
 		DDRF = 0x21;	// PF0 Indicator LED, PF4 Light lvl, PF5 Light Enable, PF6 Battery Voltage
 		PORTB = 0x00;	// Turn off all main LEDs
 		PORTF = 0x00;	// Indicator LED off and LDR disable
@@ -77,7 +83,7 @@ void OSEventHandler(Event event, U16 eventArg)
 		EIMSK = 0x05;	// Enable interrupts from button (INT0) and accelerometer (INT2)
 		break;
 	case EVENT_POSTINIT:
-		wdt_enable(WDTO_2S);
+		wdt_enable(WDTO_500MS);
 		OSprintf("\r\nReset Source 0x%2x\r\n", MCUSR);
 		MCUSR = 0;	// Ready for next time
 		OSprintf("Spikey Bike Light for ATmega32U4 v0.2\r\n");
