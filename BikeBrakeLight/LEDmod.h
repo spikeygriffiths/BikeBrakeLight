@@ -33,9 +33,18 @@ struct _LED_ROW {
 };	// _LED_ROW;
 typedef struct _LED_ROW LED_ROW;
 
+struct _LED_PATTERN {
+	const LED_ROW* pattern;
+	U8 cycles;	// How long to keep doing this pattern before selecting next one.  0 means "idle"
+};	// _LED_ROW;
+typedef struct _LED_PATTERN LED_PATTERN;
+
+// LED tables arranged as a Series of Patterns of Rows
+
 // Public functions
 void LEDEventHandler(U8 eventId, U16 eventArg);
-void LEDBackground(LED_ROW* ledTable);
+void LEDStartSeries(void);	// A Series of Patterns.  Assumes ledSeriesIndex is set up
+void LEDStartPattern(void);	// A Pattern of Rows, with LED levels, a fade and a hold.  Assumes  ledPatternTable and ledPatternIndex set up
 void LEDOverride(const LED_ROW* ledTable);
 
 #endif /* LEDMOD_H_ */

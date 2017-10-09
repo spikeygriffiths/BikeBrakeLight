@@ -18,7 +18,10 @@ static U16 ledLvls[NUMLEDS];	// 16 bits for each LED for accuracy when fading.  
 static S16 ledStep[NUMLEDS];
 static S16 ledTime;
 static U8 ledState;
-static U8 ledEffect;
+static U8 ledSeriesIndex;	// Index into series of patterns
+static U8 ledPatternIndex;	// Index into current LED pattern
+static U8 ledPatternCycles;
+static LED_PATTERN* ledPatternTable;	// Current table of rows
 static LED_ROW* ledBackgroundTop;	// Points to a table
 static LED_ROW* ledOverride;	// After override finishes, go back to start of background
 static LED_ROW* ledRow;	// Points to a row of a table, either override or background, or NULL if no LED activity
@@ -42,30 +45,84 @@ const LED_ROW LedPersistent[] = {
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
+// --- Double Single Block
 const LED_ROW LedTopBottom[] = {
 	{{0x0000,0x0000,0x5FFF},128,512},
 	{{0x5FFF,0x5FFF,0x0000},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
+const LED_ROW LedLeftRight[] = {
+	{{0x0000,0x5FFF,0x0000},128,512},
+	{{0x5FFF,0x0000,0x5FFF},128,512},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
+};
+
+const LED_ROW LedRightLeft[] = {
+	{{0x5FFF,0x0000,0x0000},128,512},
+	{{0x0000,0x5FFF,0x5FFF},128,512},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
+};
+// --- End Double Single Block
+
+// --- Single Flash Block
 const LED_ROW LedTopFlash[] = {
 	{{0x5FFF,0x5FFF,0x5FFF},128,512},
 	{{0x5FFF,0x5FFF,0x0000},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
+const LED_ROW LedLeftFlash[] = {
+	{{0x5FFF,0x5FFF,0x5FFF},128,512},
+	{{0x5FFF,0x0000,0x5FFF},128,512},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
+};
+
+const LED_ROW LedRightFlash[] = {
+	{{0x5FFF,0x5FFF,0x5FFF},128,512},
+	{{0x0000,0x5FFF,0x5FFF},128,512},
+	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
+};
+// --- End Single Flash Block
+
 const LED_ROW LedBrake[] = {
-	{{0xFFFF,0xFFFF,0xFFFF},128,1024},	// 1 second full bright
-	{{0x0000,0x0000,0x0000},512,0},	// Fade down
+	{{0xFFFF,0xFFFF,0xFFFF},128,1536},	// Rapid ramp up to full bright, then 1.5 second hold
+	{{0x0000,0x0000,0x0000},1024,0},	// Slow Fade down
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from this override
 };
 
-const LED_ROW* ledEffects[] = {
-	LedCirculate,
-	LedPersistent,
-	LedTopBottom,
-	LedTopFlash,
-	LedOff,
+// LED patterns with timeouts to step on to next element
+
+const LED_PATTERN ledCircle[] = {
+	{LedCirculate,5},
+	{LedPersistent,10},
+	{NULL,0}	// Terminator
+};
+
+const LED_PATTERN ledSingleFlash[] = {
+	{LedTopBottom,2},
+	{LedLeftRight,2},
+	{LedRightLeft,2},
+	{NULL,0}	// Terminator
+};
+
+const LED_PATTERN ledDoubleSingle[] = {
+	{LedTopFlash,5},
+	{LedLeftFlash,5},
+	{LedRightFlash,5},
+	{NULL,0}	// Terminator
+};
+
+const LED_PATTERN ledsOff[] = {
+	{LedOff,0},	// 0 cycles used to indicate "IDLE"
+	{NULL,0}	// Terminator
+};
+
+const LED_PATTERN* ledSeries[] = {
+	ledCircle,
+	ledSingleFlash,
+	ledDoubleSingle,
+	ledsOff,
 	NULL	// Terminator
 };
 
@@ -84,9 +141,8 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		TURNOFF_LED(0);
 		TURNOFF_LED(1);
 		TURNOFF_LED(2);
-		ledEffect = 0;
-		LEDBackground((LED_ROW*)ledEffects[ledEffect]);	// Select first LED pattern at start
-		//LEDBackground((LED_ROW*)NULL); // Turn LEDs off at start
+		ledSeriesIndex = 0;	// Select first LED series at start
+		LEDStartSeries();
 		break;
 	case EVENT_TICK:
 		if (ledRow) {
@@ -126,12 +182,15 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 				} else {
 					ledRow++;	// Get next row
 					if (TABLE_END == ledRow->fadeMs) {	// Check for end of table
-						if (LedOff == ledBackgroundTop) {	// Just finished fading down to black, so all LEDs are off
+						if (0 == ledPatternCycles) {
 							ledState = LEDSTATE_IDLE;	// Assume all LEDs are now off, because LED_BRAKE also fades down to off before resuming
 							//OSprintf("LEDs idle\r\n");
-						} else {
-							ledRow = ledBackgroundTop;	// Go to top of current background table (maybe NULL)
+						} else if (0 == --ledPatternCycles) {
+							ledPatternIndex++;
+							if (NULL == ledPatternTable[ledPatternIndex].pattern) ledPatternIndex = 0;	// Restart patternIndex if we fall off the end of the table
+							LEDStartPattern();
 						}
+						ledRow = ledBackgroundTop;	// Go to top of current background table (maybe NULL)
 					}
 					if (LEDSTATE_IDLE != ledState) {
 						//OSprintf("Prepare next LED row...\r\n");
@@ -148,28 +207,33 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 	case EVENT_REQSLEEP:
 		if (LEDSTATE_IDLE != ledState) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
 		break;
-	case EVENT_BUTTON:
-		if (eventArg) {	// Button down
-			ledEffect++;
-			if (NULL == ledEffects[ledEffect]) ledEffect = 0;	// Wrap at end of table
-			LEDBackground((LED_ROW*)ledEffects[ledEffect]);	// Every time we press the button, select next pattern from list
-			//ambientLight = LDRget();
-			//OSprintf("LDR %d%%\r\n", ambientLight/10);
-			IND_LED_ON;
-		} else {
-			IND_LED_OFF;
-		}
+	case EVENT_NEXTLED:	// Select next LED series of patterns
+		ledSeriesIndex++;
+		LEDStartSeries();	// Every time we press the button, select next series of patterns from list
+		//ambientLight = LDRget();
+		//OSprintf("LDR %d%%\r\n", ambientLight/10);
 		break;
 	default:
 		break;	// Does nothing, but stops useless warnings from the compiler
 	}
 }
 
-void LEDBackground(LED_ROW* ledTable)
+void LEDStartSeries(void)	// A Series of Patterns.  Assumes ledSeriesIndex is set up
 {
-	ledBackgroundTop = ledTable;
+	if (NULL == ledSeries[ledSeriesIndex]) {
+		ledSeriesIndex = 0;	// Restart series
+	}
+	ledPatternTable = ledSeries[ledSeriesIndex];
+	ledPatternIndex = 0;	// Start first pattern in current series
+	LEDStartPattern();
+}
+
+void LEDStartPattern(void)	// A Pattern of Rows, with LED levels, a fade and a hold.  Assumes  ledPatternTable and ledPatternIndex set up
+{
+	ledBackgroundTop = ledPatternTable[ledPatternIndex].pattern;
+	ledPatternCycles = ledPatternTable[ledPatternIndex].cycles;
 	ledOverride = NULL;	// No override by default
-	ledRow = ledTable;	// Start at top of table
+	ledRow = ledBackgroundTop;	// Start at top of table
 	ledState = (NULL != ledRow) ? LEDSTATE_PREPAREROW : LEDSTATE_IDLE;
 }
 

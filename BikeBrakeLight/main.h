@@ -39,7 +39,12 @@ typedef enum {
 	EVENT_WAKE,
 	EVENT_BUTTON,
 	EVENT_BRAKE,
+	EVENT_NEXTLED, // Select next LED pattern, either from button tap (NEXTLED_BTN) or time (NEXTLED_TIME)
+	EVENT_MOTION,	// True if bike in motion, false if stationary
 } Event;
+
+typedef enum { SLEEPTYPE_LIGHT,	/* Allow accelerometer or button to wake us up*/ SLEEPTYPE_DEEP, /* Only button can wake from this */} SleepType;
+typedef enum { NEXTLED_BUTTON, NEXTLED_TIME } NextLed;
 
 #define MS_PERSEC (1000)
 
@@ -70,14 +75,16 @@ void OSEventHandler(Event event, U16 eventArg);
 // ADC PF4 Light sensor
 // OUT PF5 Light sensor enable
 // ADC PF6 Battery voltage level
-#define LGHTLVL_EN (1 << 5) // on PORTF
+#define LDR_VAL (1 << 4)	// On portF, or also as ADC4
+#define LDR_EN (1 << 5) // on PORTF
+#define BATT_VAL (1 << 6) // on PORTF
 #define BTN (PIND & 0x01)
 
 // Global Variables
 char* lastErr;
 
 // Public functions
-void OSSleep(void);
+void OSSleep(int sleepType);
 U16 LDRget(void);
 U16 TMPget(void);
 
