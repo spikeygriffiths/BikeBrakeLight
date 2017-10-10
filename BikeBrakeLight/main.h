@@ -32,21 +32,40 @@ typedef enum {
 	EVENT_PREINIT,
 	EVENT_INIT,
 	EVENT_POSTINIT,
-	EVENT_TICK,
-	EVENT_SECOND,
-	EVENT_REQSLEEP,
-	EVENT_SLEEP,
-	EVENT_WAKE,
-	EVENT_BUTTON,
-	EVENT_BRAKE,
-	EVENT_NEXTLED, // Select next LED pattern, either from button tap (NEXTLED_BTN) or time (NEXTLED_TIME)
+	EVENT_TICK,		// Arg is elapsed ms since last TICK.  (always 1 at the moment)  Used for LED animation
+	EVENT_SECOND,	// No arg.  Could be number of seconds since last SECOND, which makes sense when keeping track of time while sleeping
+	EVENT_REQSLEEP,	// Arg is pointer to bool, which is set before issuing event.  To deny sleep, clear the bool
+	EVENT_SLEEP,	// Arg is SleepType - see below
+	EVENT_WAKE,		// Arg is SleepType - see below
+	EVENT_BUTTON,	// Arg is true if button now down
+	EVENT_DOUBLE_CLICK,	// No arg
+	EVENT_BRAKE,	// No arg
+	EVENT_USB,		// Arg is true if just connected
+	EVENT_NEXTLED,	// Select next LED series
 	EVENT_MOTION,	// True if bike in motion, false if stationary
+	EVENT_LDR,		// Arg is light level as 10-bit value
+	EVENT_BATTERY,	// Arg is battery level (probably as a percentage)
 } Event;
 
 typedef enum { SLEEPTYPE_LIGHT,	/* Allow accelerometer or button to wake us up*/ SLEEPTYPE_DEEP, /* Only button can wake from this */} SleepType;
-typedef enum { NEXTLED_BUTTON, NEXTLED_TIME } NextLed;
+
+typedef enum {
+	BTNSTATE_IDLE,
+	BTNSTATE_FIRSTCLICK,
+	BTNSTATE_GAP,
+	BTNSTATE_SECONDCLICK,
+} BtnState;
+
+#define NOTANUMBER_U8 0xFF
+#define NOTANUMBER_U16 0xFFFF
+#define NOTANUMBER_U32 0xFFFFFFFF
+#define NOTANUMBER_S8 0x80
+#define NOTANUMBER_S16 0x8000
+#define NOTANUMBER_S32 0x80000000
 
 #define MS_PERSEC (1000)
+#define BTN_LONGMS (1000)	// Press and hold for at least a second
+#define BTN_CLICKMS (500)
 
 // Switches to enable/disable various code blocks
 // Comment out to disable each switch
@@ -85,7 +104,5 @@ char* lastErr;
 
 // Public functions
 void OSSleep(int sleepType);
-U16 LDRget(void);
-U16 TMPget(void);
 
 #endif /* MAIN_H_ */

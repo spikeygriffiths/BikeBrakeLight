@@ -13,7 +13,6 @@
 #include "UARTmod.h"	// For OSprintf
 #include "LEDmod.h"
 
-//static U16 ambientLight;	// Not sure this should be here - could have LDRmod which could sample LDR and advertise it?
 static U16 ledLvls[NUMLEDS];	// 16 bits for each LED for accuracy when fading.  Only top 8 bits actually go into PWM hardware
 static S16 ledStep[NUMLEDS];
 static S16 ledTime;
@@ -204,14 +203,19 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 	case EVENT_BRAKE:
 		LEDOverride(LedBrake);
 		break;
+	case EVENT_USB:
+		if (eventArg) {
+			// Start charging, and change LED behaviour to show battery charge state
+		} else {
+			// Show battery voltage via LEDs until button press or for 2 seconds
+		}
+		break;
 	case EVENT_REQSLEEP:
 		if (LEDSTATE_IDLE != ledState) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
 		break;
 	case EVENT_NEXTLED:	// Select next LED series of patterns
 		ledSeriesIndex++;
 		LEDStartSeries();	// Every time we press the button, select next series of patterns from list
-		//ambientLight = LDRget();
-		//OSprintf("LDR %d%%\r\n", ambientLight/10);
 		break;
 	default:
 		break;	// Does nothing, but stops useless warnings from the compiler

@@ -64,7 +64,7 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 		break;
 	case EVENT_BUTTON:
 		if (!eventArg) {	// Button release
-			//OSprintf("ADXL DEVID_AD register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID_AD));	
+			OSprintf("ADXL DEVID_AD register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID_AD));	
 			//OSprintf("ADXL DevId register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID));	
 			//OSprintf("ADXL_Power_Ctl 0x%2x\r\n", ACCELReadReg8(ADXL363_POWER_CTL));
 			OSprintf("%d, %d, %d\r\n", ACCELReadReg16(ADXL363_XDATA_L), ACCELReadReg16(ADXL363_YDATA_L), ACCELReadReg16(ADXL363_ZDATA_L));	// X = Left / right, Y = Up / Down, Z = Forward / Back
