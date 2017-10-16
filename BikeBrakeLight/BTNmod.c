@@ -46,8 +46,7 @@ void BTNEventHandler(Event event, U16 eventArg)
 				break;
 			case BTNSTATE_FIRSTHOLD:	// Time when button pressed and held
 				if (btnTimerMs > BTN_HOLDMS)	{	// Read timer as button is held down
-					OSIssueEvent(EVENT_LONG_CLICK, 0);
-					btnState = BTNSTATE_IDLE;
+					btnState = BTNSTATE_WAITHOLDRELEASE;	// Held down for long enough - now all we need it to see the release and we can issue "LONG_CLICK"
 				}
 				break;
 			case BTNSTATE_FIRSTRELEASE:	// Time when Button released after first press...
@@ -87,6 +86,10 @@ void BTNEventHandler(Event event, U16 eventArg)
 			break;
 		case BTNSTATE_FIRSTHOLD:
 			btnState = BTNSTATE_IDLE;	// Released during Hold timing, but before held long enough, so ignore
+			break;
+		case BTNSTATE_WAITHOLDRELEASE:
+			OSIssueEvent(EVENT_LONG_CLICK, 0);
+			btnState = BTNSTATE_IDLE;
 			break;
 		}
 		break;

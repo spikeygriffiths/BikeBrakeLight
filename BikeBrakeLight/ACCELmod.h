@@ -52,7 +52,7 @@ enum _ADXL363_REG {
 };
 
 #define G (1000)	// Assume +/- 2G range, ie that 1 bit is 1 milliG
-#define BRAKING_ACCELERATION (G/5)
+#define BRAKING_ACCELERATION (G/2)
 #define SLEEP_ACCELERATION (G/8)
 
 typedef enum _ADXL363_REG ADXL363_REG;

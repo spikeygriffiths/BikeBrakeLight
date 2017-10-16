@@ -18,6 +18,7 @@ typedef enum {
 	BTNSTATE_FIRSTRELEASE,
 	BTNSTATE_SECONDPRESS,
 	BTNSTATE_FIRSTHOLD,	// Held down for a long time
+	BTNSTATE_WAITHOLDRELEASE,	// Now just waiting for release so we can issue "LONG_CLICK"
 } BtnState;
 
 

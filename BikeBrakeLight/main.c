@@ -75,7 +75,7 @@ void OSEventHandler(Event event, U16 eventArg)
 		PORTC = 0xC0;	// Pull up PC6,7 (unused inputs)
 		DDRC = 0x00;	// Unused, only PC6,7 available
 		PORTD = 0xF2;	// Pull up PD1,4,5,6,7 (unused inputs)
-		DDRD = 0x00;	// PD0 btn, PD2,3 WAKE from accel
+		DDRD = 0x00;	// PD0 btn IRQ, PD2,3 WAKE IRQs from ADXL363 accelerometer
 		PORTE = 0x04;	// PE2 is unused, so pullup to reduce power
 		DDRE = 0x00;	// PE6 STAT from battery charger
 		PORTF = 0x82;	// Pull up PF1,7 as they're unused

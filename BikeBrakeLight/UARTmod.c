@@ -54,7 +54,7 @@ void UARTInit(void)
 #ifdef UART_READCHAR
 	UCSR1B = (1<<RXEN1)|(1<<TXEN1);  // Enable both uart TX & Rx
 #else	//ifndef UART_READCHAR
-	UCSR1B = (1<<TXEN1);  // Just enable uart TX (Leave Rx for ADXL Int2)
+	UCSR1B = (1<<TXEN1);  // Just enable uart TX (Leave Rx for ADXL363 Int2)
 #endif	//def UART_READCHAR
 	UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);  // set 8N1 frame format
 }

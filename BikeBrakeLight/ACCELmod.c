@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include "main.h"
 #include "osstr.h"
+#include "LEDmod.h"
 #include "UARTmod.h"	// For OSprintf
 #include "ACCELmod.h"
 
@@ -24,6 +25,7 @@ U8 SPItrx(U8 cData);
 
 ISR(INT2_vect)	// Accelerometer interrupt
 {
+	IND_LED_ON;	// Turn it off by pressing the button.  Just for debugging
 	accelInt = true;
 }
 
@@ -33,7 +35,7 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 	
 	switch (eventId) {
 	case EVENT_INIT:
-		accelInt = false;
+		accelInt = true;	// was false;, but interrupt only works after acknowledging first IRQ
 		// Initialise ATmega SPI
 		SPCR = (1<<MSTR)|(0<<SPR0);	// SPI Master, MSB first, POL & PHA both 0, set clock rate fck/2
 		SPSR = (1<<SPI2X);	// Finish selecting fclk/2, being 512KHz at 1MHz sys clk
@@ -50,9 +52,9 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 		ACCELWriteReg8(ADXL363_POWER_CTL, 0x0A);	// Set ADXL into Measurement and Wakeup state
 		break;
 	case EVENT_TICK:
-		accelInt = true;
 		if (accelInt) {
 			S16 /*x,y,*/z;
+			IND_LED_OFF;
 			accelInt = false;
 			accelState = ACCELReadReg8(ADXL363_STATUS) & 0x70;	// Read whether we're awake (and acknowledge it as well) as well as Active or Inactive
 			//OSprintf("Accel IRQ=0x%2x\r\n", accelState);
@@ -66,8 +68,9 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 		}
 		break;
 	case EVENT_SINGLE_CLICK:
+		//OSprintf("PortD = 0x%2x\r\n", PORTD);	
 		//OSprintf("ADXL AD = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID_AD));	
-		OSprintf("ADXL Thresh_Act = %d\r\n", ACCELReadReg16(ADXL363_THRESH_ACT_L));
+		//OSprintf("ADXL Thresh_Act = %d\r\n", ACCELReadReg16(ADXL363_THRESH_ACT_L));
 		//OSprintf("ADXL DevId register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID));	
 		//OSprintf("ADXL_Power_Ctl 0x%2x\r\n", ACCELReadReg8(ADXL363_POWER_CTL));
 		//OSprintf("%d, %d, %d\r\n", ACCELReadReg16(ADXL363_XDATA_L), ACCELReadReg16(ADXL363_YDATA_L), ACCELReadReg16(ADXL363_ZDATA_L));	// X = Left / right, Y = Up / Down, Z = Forward / Back
