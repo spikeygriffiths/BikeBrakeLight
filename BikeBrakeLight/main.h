@@ -19,6 +19,9 @@ typedef signed short S16;
 typedef signed long S32;
 typedef signed long long S64;
 
+#define OS_BANNER "Spikey Bike Light for ATmega32U4 v0.5"
+#define OS_NEWLINE "\r\n"
+
 typedef void PUTC(char);
 typedef int CMD(int, char**);
 
@@ -38,7 +41,9 @@ typedef enum {
 	EVENT_SLEEP,	// Arg is SleepType - see below
 	EVENT_WAKE,		// Arg is SleepType - see below
 	EVENT_BUTTON,	// Arg is true if button now down
+	EVENT_SINGLE_CLICK,	// No arg
 	EVENT_DOUBLE_CLICK,	// No arg
+	EVENT_LONG_CLICK,	// No arg
 	EVENT_BRAKE,	// No arg
 	EVENT_USB,		// Arg is true if just connected
 	EVENT_NEXTLED,	// Select next LED series
@@ -49,13 +54,6 @@ typedef enum {
 
 typedef enum { SLEEPTYPE_LIGHT,	/* Allow accelerometer or button to wake us up*/ SLEEPTYPE_DEEP, /* Only button can wake from this */} SleepType;
 
-typedef enum {
-	BTNSTATE_IDLE,
-	BTNSTATE_FIRSTCLICK,
-	BTNSTATE_GAP,
-	BTNSTATE_SECONDCLICK,
-} BtnState;
-
 #define NOTANUMBER_U8 0xFF
 #define NOTANUMBER_U16 0xFFFF
 #define NOTANUMBER_U32 0xFFFFFFFF
@@ -64,8 +62,6 @@ typedef enum {
 #define NOTANUMBER_S32 0x80000000
 
 #define MS_PERSEC (1000)
-#define BTN_LONGMS (1000)	// Press and hold for at least a second
-#define BTN_CLICKMS (500)
 
 // Switches to enable/disable various code blocks
 // Comment out to disable each switch

@@ -10,16 +10,17 @@
 #include "LEDmod.h"	// For IND_LED_xx
 #include "log.h"
 #include "UARTmod.h"
+#include "BTNmod.h"
 
-static bool btnInt = false;
+static bool btnInt;
 static bool btnDown;	// true when down
-static U16 btnDnTimerMs;	// Time of button being held down, up to 1 second
-static U16 btnUpTimerMs;	// Time of button being up, started when button released
+static U16 btnTimerMs;	// Time of button being kept in same state
 static BtnState btnState;
 
 ISR(INT0_vect)	// Button edge detected
 {
 	btnDown = (0 != BTN);	// Read button as true when down
+	//if (btnDown) { IND_LED_ON; } else { IND_LED_OFF; }	// For debugging
 	btnInt = true;
 }
 
@@ -27,47 +28,66 @@ void BTNEventHandler(Event event, U16 eventArg)
 {
 	switch (event) {
 	case EVENT_POSTINIT:
+		btnInt = false;
 		btnState = BTNSTATE_IDLE;
 		break;
 	case EVENT_TICK:
-		if (btnDown) {
-			btnDnTimerMs += eventArg;	// Time how long button stays down for
-			if (btnDnTimerMs > BTN_LONGMS)	{	// Read timer as button is held down
-				OSSleep(SLEEPTYPE_DEEP);	// Sleep, only looking for button to wake
-			}
-		} else {	// Button up
-			if (btnUpTimerMs < MS_PERSEC) {
-				btnUpTimerMs++;	// Time first second of up time, to see if double-clicking
-			} else btnState = BTNSTATE_IDLE;
-		}
-		break;
-	case EVENT_WAKE:
-		btnState = BTNSTATE_IDLE;
 		if (btnInt) {
 			btnInt = false;	// So that we don't continue to trigger
 			OSIssueEvent(EVENT_BUTTON, btnDown);	// btnDown value set directly from ISR
 		}
+		if (BTNSTATE_IDLE != btnState) {	// Only think about button if not idle
+			btnTimerMs += eventArg;	// Time how long button stays in same state
+			switch (btnState) {
+			case BTNSTATE_FIRSTPRESS:	// Time when button pressed initially
+				if (btnTimerMs > BTN_CLICKMS) {
+					btnState = BTNSTATE_FIRSTHOLD;	// No longer measuring Click time, because it's been held down too long, but might not count as long press either yet...
+				}
+				break;
+			case BTNSTATE_FIRSTHOLD:	// Time when button pressed and held
+				if (btnTimerMs > BTN_HOLDMS)	{	// Read timer as button is held down
+					OSIssueEvent(EVENT_LONG_CLICK, 0);
+					btnState = BTNSTATE_IDLE;
+				}
+				break;
+			case BTNSTATE_FIRSTRELEASE:	// Time when Button released after first press...
+				if (btnTimerMs > BTN_CLICKMS) {	// Use same length of time for release as for initial press
+					OSIssueEvent(EVENT_SINGLE_CLICK, 0);	// Not start of double-click, so must be single click
+					btnState = BTNSTATE_IDLE;
+				}
+				break;
+			case BTNSTATE_SECONDPRESS:	// Button pressed soon again after earlier tap
+				if (btnTimerMs > BTN_CLICKMS) {	// Use same length of time for release as for initial press
+					btnState = BTNSTATE_IDLE;	// If second press is too long, then ignore
+				}
+				break;
+			default:
+				break;	// Does nothing, but stops useless warnings from the compiler
+			}
+		}
 		break;
 	case EVENT_BUTTON:
-		if (eventArg) {
-			IND_LED_ON;
-			if ((btnUpTimerMs < BTN_CLICKMS) && (BTNSTATE_GAP == btnState))
-				btnState = BTNSTATE_SECONDCLICK;
-			else btnState = BTNSTATE_FIRSTCLICK;
-			btnDnTimerMs = 0;	// Start timer if going down
-		} else {
-			IND_LED_OFF;
-			if ((btnDnTimerMs < BTN_CLICKMS) && (BTNSTATE_SECONDCLICK == btnState)) {	// End of double click when button goes up 2nd time
-				OSIssueEvent(EVENT_DOUBLE_CLICK, 0);
-				btnState = BTNSTATE_IDLE;
-			} else {
-				btnState = BTNSTATE_IDLE;
+		btnTimerMs = 0;	// Start timer if just pressed or just released
+		if (eventArg) { IND_LED_ON; } else { IND_LED_OFF; }	// For debugging
+		switch (btnState) {
+		case BTNSTATE_IDLE:
+			btnState = (eventArg) ? BTNSTATE_FIRSTPRESS : BTNSTATE_IDLE;	// If pressed when Idle, advance to FirstPress
+			break;
+		case BTNSTATE_FIRSTPRESS:
+			btnState = (!eventArg) ? BTNSTATE_FIRSTRELEASE : BTNSTATE_IDLE;	// If released during FirstPress, advance to FirstRelease
+			break;
+		case BTNSTATE_FIRSTRELEASE:
+			btnState = (eventArg) ? BTNSTATE_SECONDPRESS : BTNSTATE_IDLE;	// If pressed during FirstRelease, advance to SecondPress
+			break;
+		case BTNSTATE_SECONDPRESS:
+			if (!eventArg) {
+				OSIssueEvent(EVENT_DOUBLE_CLICK, 0);	// If released during SecondPress, issue DoubleClick
 			}
-			if ((btnDnTimerMs < BTN_CLICKMS) && (BTNSTATE_FIRSTCLICK == btnState)) {
-				btnState = BTNSTATE_GAP;
-			} else btnState = BTNSTATE_IDLE;
-			btnUpTimerMs = 0;
-			OSIssueEvent(EVENT_NEXTLED, 0);	// Select next light pattern based on button press
+			btnState = BTNSTATE_IDLE;	// Idle regardless
+			break;
+		case BTNSTATE_FIRSTHOLD:
+			btnState = BTNSTATE_IDLE;	// Released during Hold timing, but before held long enough, so ignore
+			break;
 		}
 		break;
 	case EVENT_REQSLEEP:

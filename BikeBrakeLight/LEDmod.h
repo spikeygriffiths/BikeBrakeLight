@@ -46,5 +46,6 @@ void LEDEventHandler(U8 eventId, U16 eventArg);
 void LEDStartSeries(void);	// A Series of Patterns.  Assumes ledSeriesIndex is set up
 void LEDStartPattern(void);	// A Pattern of Rows, with LED levels, a fade and a hold.  Assumes  ledPatternTable and ledPatternIndex set up
 void LEDOverride(const LED_ROW* ledTable);
+void LEDDisable(void);
 
 #endif /* LEDMOD_H_ */

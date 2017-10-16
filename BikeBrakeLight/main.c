@@ -71,7 +71,7 @@ void OSEventHandler(Event event, U16 eventArg)
 	switch (event) {
 	case EVENT_PREINIT:
 		PORTB = 0x10;	// Pull up PB5 (unused input).  Was 0x1E to pull up MOSI, MISO and SLCK when they're not used for SPI, but then SPI stopped working...
-		DDRB = 0xE1;	// PB0-3 SPI (SS as output, MOSI, MISO and SCLK as inputs until SPI activated), PB5-7 main LEDs
+		DDRB = 0xE7;	// PB0-3 SPI (MOSI, SCLK and SS as outputs,  MISO as inputs to allow SPI to be activated), PB5-7 main LEDs
 		PORTC = 0xC0;	// Pull up PC6,7 (unused inputs)
 		DDRC = 0x00;	// Unused, only PC6,7 available
 		PORTD = 0xF2;	// Pull up PD1,4,5,6,7 (unused inputs)
@@ -93,7 +93,7 @@ void OSEventHandler(Event event, U16 eventArg)
 		wdt_enable(WDTO_500MS);
 		OSprintf("\r\nReset Source 0x%2x\r\n", MCUSR);
 		MCUSR = 0;	// Ready for next time
-		OSprintf("Spikey Bike Light for ATmega32U4 v0.3\r\n");
+		OSprintf("%s%s", OS_BANNER, OS_NEWLINE);
 		usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
 		break;
 	case EVENT_TICK:
@@ -102,6 +102,9 @@ void OSEventHandler(Event event, U16 eventArg)
 		sleepReq = true;	// Assume can sleep, unless any responder sets this to false
 		OSIssueEvent(EVENT_REQSLEEP, &sleepReq);	// Request that system be allowed to sleep
 		if (sleepReq) OSSleep(SLEEPTYPE_LIGHT);	// Allow either button or accelerometer to wake us from sleep
+		break;
+	case EVENT_LONG_CLICK:
+		OSSleep(SLEEPTYPE_DEEP);	// Sleep, only looking for button to wake
 		break;
 	case EVENT_SLEEP:
 		wdt_disable();	// Don't need a watchdog when we're asleep

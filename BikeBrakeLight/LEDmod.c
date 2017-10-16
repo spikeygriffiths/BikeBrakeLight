@@ -20,10 +20,10 @@ static U8 ledState;
 static U8 ledSeriesIndex;	// Index into series of patterns
 static U8 ledPatternIndex;	// Index into current LED pattern
 static U8 ledPatternCycles;
-static LED_PATTERN* ledPatternTable;	// Current table of rows
-static LED_ROW* ledBackgroundTop;	// Points to a table
-static LED_ROW* ledOverride;	// After override finishes, go back to start of background
-static LED_ROW* ledRow;	// Points to a row of a table, either override or background, or NULL if no LED activity
+static const LED_PATTERN* ledPatternTable;	// Current table of rows
+static const LED_ROW* ledBackgroundTop;	// Points to a table
+static const LED_ROW* ledOverride;	// After override finishes, go back to start of background
+static const LED_ROW* ledRow;	// Points to a row of a table, either override or background, or NULL if no LED activity
 
 const LED_ROW LedOff[] = {
 	{{0x0000,0x0000,0x0000},1024,1},	// Slow fade to black, then hold...
@@ -210,6 +210,9 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 			// Show battery voltage via LEDs until button press or for 2 seconds
 		}
 		break;
+	case EVENT_SINGLE_CLICK:
+		OSIssueEvent(EVENT_NEXTLED, 0);	// Select next light pattern based on button press
+		break;
 	case EVENT_REQSLEEP:
 		if (LEDSTATE_IDLE != ledState) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
 		break;
@@ -247,6 +250,13 @@ void LEDOverride(const LED_ROW* ledTable)
 	ledOverride = (LED_ROW*)ledTable;
 	ledRow = (LED_ROW*)ledTable;	// Start at top of table
 	ledState = LEDSTATE_PREPAREROW;
+}
+
+void LEDDisable(void)
+{
+	TURNOFF_LED(0);	// Disable all LEDs while measuring battery voltage or ambient light
+	TURNOFF_LED(1);
+	TURNOFF_LED(2);
 }
 
 void LEDpwm(U16* ledLevels)
