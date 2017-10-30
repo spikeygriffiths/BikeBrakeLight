@@ -11,12 +11,15 @@
 #define IND_LED (1 << 0) // on PORTF
 #define IND_LED_ON PORTF |= IND_LED
 #define IND_LED_OFF PORTF &= ~IND_LED
-#define LED(n) (1 << (5+n))	// on PORTB.  LED(0)=Bottom left, LED(1)=Bottom right, LED(2)=Top
+#define LED(n) (1 << (5+n))	// on PORTB.  LED(0)=Bottom left (8 o'clock), LED(1)=Bottom right (4 o'clock), LED(2)=Top (12 o'clock)
 #define TURNON_LED(led) DDRB |= LED(led)	// LEDs numbered 0,1,2
 #define TURNOFF_LED(led) DDRB &= ~LED(led)	// LEDs numbered 0,1,2.  Turn off by making the port an input
 
 #define TABLE_END (0x7FFF)	// To mark end of table when used for Fade
 #define NUMLEDS (3)	// Numbered 0,1,2
+
+#define DAY_THRESHOLD (20)	// Much above this is definitely day
+#define DARK_THRESHOLD (5)	// This or below is night.  In between it is Dusk
 
 enum {
 	LEDSTATE_IDLE,
@@ -43,8 +46,9 @@ typedef struct _LED_PATTERN LED_PATTERN;
 
 // Public functions
 void LEDEventHandler(U8 eventId, U16 eventArg);
-void LEDStartSeries(void);	// A Series of Patterns.  Assumes ledSeriesIndex is set up
-void LEDStartPattern(void);	// A Pattern of Rows, with LED levels, a fade and a hold.  Assumes  ledPatternTable and ledPatternIndex set up
+int LEDStartSeries(int series);	// A Series of Patterns
+int LEDStartPattern(int pattern);	// A Pattern of Rows, with LED levels, a fade and a hold.  Assumes ledPatternTable set up from LEDStartSeries()
+void LEDShowPercentage(int val);
 void LEDOverride(const LED_ROW* ledTable);
 void LEDDisable(void);
 

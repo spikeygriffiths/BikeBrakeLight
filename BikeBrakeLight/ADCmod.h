@@ -10,7 +10,6 @@
 #define ADCMOD_H_
 
 #define SAMPLEFREQS_LDR (30)	 // Background rate to sample ambient light
-#define SAMPLEFREQS_BATT (60)	 // Background rate to sample battery level
 
 void ADCEventHandler(Event event, U16 eventArg);
 

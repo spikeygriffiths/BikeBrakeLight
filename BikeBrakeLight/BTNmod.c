@@ -34,7 +34,7 @@ void BTNEventHandler(Event event, U16 eventArg)
 	case EVENT_TICK:
 		if (btnInt) {
 			btnInt = false;	// So that we don't continue to trigger
-			OSIssueEvent(EVENT_BUTTON, btnDown);	// btnDown value set directly from ISR
+			if (BTNSTATE_IGNORE != btnState) OSIssueEvent(EVENT_BUTTON, btnDown);	// btnDown value set directly from ISR
 		}
 		if (BTNSTATE_IDLE != btnState) {	// Only think about button if not idle
 			btnTimerMs += eventArg;	// Time how long button stays in same state
@@ -46,7 +46,8 @@ void BTNEventHandler(Event event, U16 eventArg)
 				break;
 			case BTNSTATE_FIRSTHOLD:	// Time when button pressed and held
 				if (btnTimerMs > BTN_HOLDMS)	{	// Read timer as button is held down
-					btnState = BTNSTATE_WAITHOLDRELEASE;	// Held down for long enough - now all we need it to see the release and we can issue "LONG_CLICK"
+					OSIssueEvent(EVENT_LONG_CLICK, 0);
+					btnState = BTNSTATE_IDLE;
 				}
 				break;
 			case BTNSTATE_FIRSTRELEASE:	// Time when Button released after first press...
@@ -58,6 +59,11 @@ void BTNEventHandler(Event event, U16 eventArg)
 			case BTNSTATE_SECONDPRESS:	// Button pressed soon again after earlier tap
 				if (btnTimerMs > BTN_CLICKMS) {	// Use same length of time for release as for initial press
 					btnState = BTNSTATE_IDLE;	// If second press is too long, then ignore
+				}
+				break;
+			case BTNSTATE_IGNORE:
+				if (btnTimerMs > BTN_IGNOREMS) {
+					btnState = BTNSTATE_IDLE;	// Once we've stopped ignoring, go back to Idle
 				}
 				break;
 			default:
@@ -87,11 +93,13 @@ void BTNEventHandler(Event event, U16 eventArg)
 		case BTNSTATE_FIRSTHOLD:
 			btnState = BTNSTATE_IDLE;	// Released during Hold timing, but before held long enough, so ignore
 			break;
-		case BTNSTATE_WAITHOLDRELEASE:
-			OSIssueEvent(EVENT_LONG_CLICK, 0);
-			btnState = BTNSTATE_IDLE;
+		default:
 			break;
 		}
+		break;
+	case EVENT_DOUBLE_CLICK:
+		btnState = BTNSTATE_IGNORE;	// Ignore clicks immediately after a double click, since that'll be nervous taps
+		btnTimerMs = 0;	// Start timer when ignoring
 		break;
 	case EVENT_REQSLEEP:
 		if (BTNSTATE_IDLE != btnState) *(bool*)eventArg = false;	// Disallow sleep while button in use

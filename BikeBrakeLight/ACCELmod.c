@@ -16,6 +16,7 @@
 #include "ACCELmod.h"
 
 static bool accelInt;	// Local variable
+static int ignoreAccelMs;
 
 void ACCELWriteReg8(ADXL363_REG reg, U8 val);
 U8 ACCELReadReg8(ADXL363_REG reg);
@@ -36,6 +37,7 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 	switch (eventId) {
 	case EVENT_INIT:
 		accelInt = true;	// was false;, but interrupt only works after acknowledging first IRQ
+		ignoreAccelMs = 1 * MS_PERSEC;
 		// Initialise ATmega SPI
 		SPCR = (1<<MSTR)|(0<<SPR0);	// SPI Master, MSB first, POL & PHA both 0, set clock rate fck/2
 		SPSR = (1<<SPI2X);	// Finish selecting fclk/2, being 512KHz at 1MHz sys clk
@@ -52,7 +54,9 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 		ACCELWriteReg8(ADXL363_POWER_CTL, 0x0A);	// Set ADXL into Measurement and Wakeup state
 		break;
 	case EVENT_TICK:
-		if (accelInt) {
+		if (ignoreAccelMs) {
+			ignoreAccelMs -= eventArg;
+		} else if (accelInt) {
 			S16 /*x,y,*/z;
 			IND_LED_OFF;
 			accelInt = false;
@@ -66,6 +70,9 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 				if (z < -BRAKING_ACCELERATION) OSIssueEvent(EVENT_BRAKE, 0);	// Less than deceleration (is this right?) to cause a BRAKE event
 			}
 		}
+		break;
+	case EVENT_BUTTON:
+		ignoreAccelMs = 10 * MS_PERSEC;	// Disable Accelerometer events while pressing buttons and for a short while afterwards
 		break;
 	case EVENT_SINGLE_CLICK:
 		//OSprintf("PortD = 0x%2x\r\n", PORTD);	

@@ -146,6 +146,12 @@
     <Compile Include="ADCmod.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="BATmod.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="BATmod.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="BTNmod.c">
       <SubType>compile</SubType>
     </Compile>

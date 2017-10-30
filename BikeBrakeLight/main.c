@@ -17,6 +17,7 @@
 #include "LEDmod.h"
 #include "BTNmod.h"
 #include "ADCmod.h"
+#include "BATmod.h"
 
 static bool usbInt = false;
 static bool usbState;
@@ -60,6 +61,7 @@ void _OSIssueEvent(Event eventId, U16 eventArg)
 	ACCELEventHandler(eventId, eventArg);
 	LEDEventHandler(eventId, eventArg);
 	ADCEventHandler(eventId, eventArg);
+	BATEventHandler(eventId, eventArg);
 	BTNEventHandler(eventId, eventArg);
 	// Other event handlers here...
 }
@@ -103,8 +105,11 @@ void OSEventHandler(Event event, U16 eventArg)
 		OSIssueEvent(EVENT_REQSLEEP, &sleepReq);	// Request that system be allowed to sleep
 		if (sleepReq) OSSleep(SLEEPTYPE_LIGHT);	// Allow either button or accelerometer to wake us from sleep
 		break;
+	case EVENT_DOUBLE_CLICK:
+		OSIssueEvent(EVENT_INFO, 0);	// FOr now, anyway.  Could use some other trigger
+		break;
 	case EVENT_LONG_CLICK:
-		OSSleep(SLEEPTYPE_DEEP);	// Sleep, only looking for button to wake
+		OSSleep(SLEEPTYPE_DEEP);	// Sleep, only looking for button press to wake
 		break;
 	case EVENT_SLEEP:
 		wdt_disable();	// Don't need a watchdog when we're asleep
@@ -131,7 +136,7 @@ void OSSleep(int sleepType)
 {
 	if (SLEEPTYPE_DEEP == sleepType) {	// So only allow button to wake us up
 		OSprintf("DeepSleep\r\n");
-		EICRA = 0x01;	// Wake on either edge from button (INT0), as long as EIMSK says so...
+		EICRA = 0x03;	// Wake on down edge from button (INT0), as long as EIMSK says so...
 		EIMSK = 0x01;	// Enable interrupts from button (INT0)
 	} else {	// Assume SLEEPTYPE_LIGHT, so allow button and accelerometer to wake us up
 		OSprintf("LightSleep\r\n");
@@ -143,5 +148,7 @@ void OSSleep(int sleepType)
     sleep_cpu();    // Cause AVR to enter sleep mode
     SMCR = 0x0;	// Clear Sleep Enable bit (----xxx0)
 	OSIssueEvent(EVENT_WAKE, sleepType);	// Tell system we've woken from sleep
+	EICRA = 0x11;	// Wake on either edge from button (INT0) and accelerometer (INT2), as long as EIMSK says so...
+	EIMSK = 0x05;	// Enable interrupts from button (INT0) and accelerometer (INT2)
 	//OSprintf("Wake!\r\n");	// No earlier than this - UART won't be operating until WAKE has finished
 }

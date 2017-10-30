@@ -37,6 +37,7 @@ typedef enum {
 	EVENT_POSTINIT,
 	EVENT_TICK,		// Arg is elapsed ms since last TICK.  (always 1 at the moment)  Used for LED animation
 	EVENT_SECOND,	// No arg.  Could be number of seconds since last SECOND, which makes sense when keeping track of time while sleeping
+	EVENT_INFO,		// No arg.  Each module can trap this and print something
 	EVENT_REQSLEEP,	// Arg is pointer to bool, which is set before issuing event.  To deny sleep, clear the bool
 	EVENT_SLEEP,	// Arg is SleepType - see below
 	EVENT_WAKE,		// Arg is SleepType - see below
@@ -48,9 +49,19 @@ typedef enum {
 	EVENT_USB,		// Arg is true if just connected
 	EVENT_NEXTLED,	// Select next LED series
 	EVENT_MOTION,	// True if bike in motion, false if stationary
-	EVENT_LDR,		// Arg is light level as 10-bit value
-	EVENT_BATTERY,	// Arg is battery level (probably as a percentage)
+	EVENT_LDR,		// Arg is light level as a percentage
+	EVENT_DAYLIGHT,	// Arg is DAYLIGHT_xxx
+	EVENT_BATTERY,	// Arg is battery level as a percentage
+	EVENT_CHARGING,	// No arg - issued when USB attached
+	EVENT_CHARGED,	// No arg - issued once STAT line goes low from battery charging circuit
 } Event;
+
+enum {
+	DAYTIME_UNKNOWN,
+	DAYTIME_NIGHT,
+	DAYTIME_DUSK,	// Also DAWN - basically the intermediate state between night and day
+	DAYTIME_DAY,
+};
 
 typedef enum { SLEEPTYPE_LIGHT,	/* Allow accelerometer or button to wake us up*/ SLEEPTYPE_DEEP, /* Only button can wake from this */} SleepType;
 
