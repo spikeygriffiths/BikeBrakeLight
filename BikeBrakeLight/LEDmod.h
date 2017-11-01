@@ -48,7 +48,7 @@ typedef struct _LED_PATTERN LED_PATTERN;
 void LEDEventHandler(U8 eventId, U16 eventArg);
 int LEDStartSeries(int series);	// A Series of Patterns
 int LEDStartPattern(int pattern);	// A Pattern of Rows, with LED levels, a fade and a hold.  Assumes ledPatternTable set up from LEDStartSeries()
-void LEDShowPercentage(int val);
+void LEDShowPercentage(U16 val);
 void LEDOverride(const LED_ROW* ledTable);
 void LEDDisable(void);
 

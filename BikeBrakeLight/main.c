@@ -22,12 +22,20 @@
 static bool usbInt = false;
 static bool usbState;
 static U16 elapsedS = 0;	// Keep track of time spent active (don't know why yet, though...)
+static U8 oldMCUSR;	// Reset source
+static char* resetStr;
+
+static const char BrownOut[] = "BrownOut";
+static const char WatchDog[] = "WatchDog";
+static const char ExtReset[] = "ExtReset";
+static const char PowerOn[] = "PowerOn";
+static const char Unknown[] = "Unknown";
 
 ISR(USB_GEN_vect)	// USB state change.  See C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\iom32u4.h
 {
 	USBINT = 0x00;	// Clear interrupt
-	usbState = (0 != (USBSTA & 0x01));	// New state (true if attached, false if detached)
-	usbInt = true;
+	//usbState = (0 != (USBSTA & 0x01));	// New state (true if attached, false if detached)
+	usbInt = true;	// Tell foreground
 }
 
 int main(void)
@@ -72,6 +80,8 @@ void OSEventHandler(Event event, U16 eventArg)
 
 	switch (event) {
 	case EVENT_PREINIT:
+		oldMCUSR = MCUSR;
+		MCUSR = 0;	// Ready for next time
 		PORTB = 0x10;	// Pull up PB5 (unused input).  Was 0x1E to pull up MOSI, MISO and SLCK when they're not used for SPI, but then SPI stopped working...
 		DDRB = 0xE7;	// PB0-3 SPI (MOSI, SCLK and SS as outputs,  MISO as inputs to allow SPI to be activated), PB5-7 main LEDs
 		PORTC = 0xC0;	// Pull up PC6,7 (unused inputs)
@@ -93,13 +103,27 @@ void OSEventHandler(Event event, U16 eventArg)
 		break;
 	case EVENT_POSTINIT:
 		wdt_enable(WDTO_500MS);
-		OSprintf("\r\nReset Source 0x%2x\r\n", MCUSR);
-		MCUSR = 0;	// Ready for next time
+		if (oldMCUSR & (1<<BORF)) {	// Brown Out
+			resetStr = (char*)BrownOut;
+		} else if (oldMCUSR & (1<<WDRF)) {
+			resetStr = (char*)WatchDog;
+		} else if (oldMCUSR & (1<<EXTRF)) {
+			resetStr = (char*)ExtReset;
+		} else if (oldMCUSR & (1<<PORF)) {
+			resetStr = (char*)PowerOn;
+		} else resetStr = (char*)Unknown;
+		OSprintf("\r\n\nReset:%s (0x%2x)\r\n", resetStr, oldMCUSR);
 		OSprintf("%s%s", OS_BANNER, OS_NEWLINE);
 		usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
 		break;
 	case EVENT_TICK:
 		wdt_reset();
+		if (usbInt) {
+			usbInt = false;	// Acknowledge software interrupt
+			usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
+			OSprintf("USB %s%s", (usbState)?"attached" : "detached", OS_NEWLINE);
+			OSIssueEvent(EVENT_USB, usbState);
+		}
 		// Try to sleep...
 		sleepReq = true;	// Assume can sleep, unless any responder sets this to false
 		OSIssueEvent(EVENT_REQSLEEP, &sleepReq);	// Request that system be allowed to sleep
@@ -119,13 +143,8 @@ void OSEventHandler(Event event, U16 eventArg)
 		break;
 	case EVENT_WAKE:
 		PRR0 = 0xA0;	// Re-enable Timer1, SPI and ADC.  Timer1 used by LEDs for PWM, SPI used by Accelerometer, ADC used by LDR & BattLvl
-		//PRR1 = 0x00;	// Re-enable USB, Timer3, Timer4 and USART
+		PRR1 = 0x00;	// Re-enable USB, Timer3, Timer4 and USART
 		wdt_enable(WDTO_500MS);
-		if (usbInt) {
-			usbInt = false;	// Acknowledge software interrupt
-			usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
-			OSIssueEvent(EVENT_USB, usbState);
-		}
 		break;
 	default:
 		break;	// Does nothing, but stops useless warnings from the compiler

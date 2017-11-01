@@ -27,6 +27,10 @@ static const LED_PATTERN* ledPatternTable;	// Current table of rows
 static const LED_ROW* ledBackgroundTop;	// Points to a table
 static const LED_ROW* ledOverride;	// After override finishes, go back to start of background
 static const LED_ROW* ledRow;	// Points to a row of a table, either override or background, or NULL if no LED activity
+// Cache flash LED_ROW table entry into RAM (I hate Harvard architecture!)
+static U16 ledTargets[NUMLEDS];
+static U16 ledFadeMs;
+static U16 ledHoldMs;
 
 #define O 0x0000	// Off
 #define D 0x01FF	// Dim
@@ -35,7 +39,7 @@ static const LED_ROW* ledRow;	// Points to a row of a table, either override or 
 #define H 0			// Hold
 
 // --- LED levels for percentage
-const LED_ROW LedLevel0[] = {
+const LED_ROW LedLevel0[] PROGMEM = {
 	// 8hr,   4hr,   12hr (NB anti-clockwise)
 	{{O,O,D},R,H},	// Intro animation
 	{{O,D,F},R,H},
@@ -54,7 +58,7 @@ const LED_ROW LedLevel0[] = {
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from override
 };
 
-const LED_ROW LedLevel17[] = {
+const LED_ROW LedLevel17[] PROGMEM = {
 	// 8hr,   4hr,   12hr (NB anti-clockwise)
 	{{O,O,D},R,H},	// Intro animation
 	{{O,D,F},R,H},
@@ -74,7 +78,7 @@ const LED_ROW LedLevel17[] = {
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from override
 };
 
-const LED_ROW LedLevel33[] = {
+const LED_ROW LedLevel33[] PROGMEM = {
 	// 8hr,   4hr,   12hr (NB anti-clockwise)
 	{{O,O,D},R,H},	// Intro animation
 	{{O,D,F},R,H},
@@ -95,7 +99,7 @@ const LED_ROW LedLevel33[] = {
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from override
 };
 
-const LED_ROW LedLevel50[] = {
+const LED_ROW LedLevel50[] PROGMEM = {
 	// 8hr,   4hr,   12hr (NB anti-clockwise)
 	{{O,O,D},R,H},	// Intro animation
 	{{O,D,F},R,H},
@@ -117,7 +121,7 @@ const LED_ROW LedLevel50[] = {
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from override
 };
 
-const LED_ROW LedLevel67[] = {
+const LED_ROW LedLevel67[] PROGMEM = {
 	// 8hr,   4hr,   12hr (NB anti-clockwise)
 	{{O,O,D},R,H},	// Intro animation
 	{{O,D,F},R,H},
@@ -140,7 +144,7 @@ const LED_ROW LedLevel67[] = {
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from override
 };
 
-const LED_ROW LedLevel84[] = {
+const LED_ROW LedLevel84[] PROGMEM = {
 	// 8hr,   4hr,   12hr (NB anti-clockwise)
 	{{O,O,D},R,H},	// Intro animation
 	{{O,D,F},R,H},
@@ -164,7 +168,7 @@ const LED_ROW LedLevel84[] = {
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from override
 };
 
-const LED_ROW LedLevel100[] = {
+const LED_ROW LedLevel100[] PROGMEM = {
 	// 8hr,   4hr,   12hr (NB anti-clockwise)
 	{{O,O,D},R,H},	// Intro animation
 	{{O,D,F},R,H},
@@ -191,33 +195,33 @@ const LED_ROW LedLevel100[] = {
 
 
 // LEDs off when idle (eg during daylight)
-const LED_ROW LedOff[] = {
+const LED_ROW LedOff[] PROGMEM = {
 	{{0x0000,0x0000,0x0000},1024,1},	// Slow fade to black, then hold...
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
 // Leds on steady (eg at night time)
-const LED_ROW LedOn[] = {
+const LED_ROW LedOn[] PROGMEM = {
 	{{0x5FFF,0x5FFF,0x5FFF},1024,1},	// Fade up to On, then hold...
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
 // --- Single Flash LED while charging
-const LED_ROW LedFlashTop[] = {
+const LED_ROW LedFlashTop[] PROGMEM = {
 	{{0x0000,0x0000,0x5FFF},128,512},
 	{{0x0000,0x0000,0x0000},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
 // --- LED circles
-const LED_ROW LedCirculate[] = {
+const LED_ROW LedCirculate[] PROGMEM = {
 	{{0x5FFF,0x0000,0x0000},256,256},
 	{{0x0000,0x5FFF,0x0000},256,256},
 	{{0x0000,0x0000,0x5FFF},256,256},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
-const LED_ROW LedPersistent[] = {
+const LED_ROW LedPersistent[] PROGMEM = {
 	{{0x5FFF,0x0FFF,0x2FFF},64,128},
 	{{0x2FFF,0x5FFF,0x0FFF},64,128},
 	{{0x0FFF,0x2FFF,0x5FFF},64,128},
@@ -225,19 +229,19 @@ const LED_ROW LedPersistent[] = {
 };
 
 // --- Double Single Block
-const LED_ROW LedTopBottom[] = {
+const LED_ROW LedTopBottom[] PROGMEM = {
 	{{0x0000,0x0000,0x5FFF},128,512},
 	{{0x5FFF,0x5FFF,0x0000},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
-const LED_ROW LedLeftRight[] = {
+const LED_ROW LedLeftRight[] PROGMEM = {
 	{{0x0000,0x5FFF,0x0000},128,512},
 	{{0x5FFF,0x0000,0x5FFF},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
-const LED_ROW LedRightLeft[] = {
+const LED_ROW LedRightLeft[] PROGMEM = {
 	{{0x5FFF,0x0000,0x0000},128,512},
 	{{0x0000,0x5FFF,0x5FFF},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
@@ -245,26 +249,26 @@ const LED_ROW LedRightLeft[] = {
 // --- End Double Single Block
 
 // --- Single Flash Block
-const LED_ROW LedTopFlash[] = {
+const LED_ROW LedTopFlash[] PROGMEM = {
 	{{0x5FFF,0x5FFF,0x5FFF},128,512},
 	{{0x5FFF,0x5FFF,0x0000},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
-const LED_ROW LedLeftFlash[] = {
+const LED_ROW LedLeftFlash[] PROGMEM = {
 	{{0x5FFF,0x5FFF,0x5FFF},128,512},
 	{{0x5FFF,0x0000,0x5FFF},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 
-const LED_ROW LedRightFlash[] = {
+const LED_ROW LedRightFlash[] PROGMEM = {
 	{{0x5FFF,0x5FFF,0x5FFF},128,512},
 	{{0x0000,0x5FFF,0x5FFF},128,512},
 	{{0,0,0},TABLE_END,0}	// Terminator - go back to top of table for background, or restore background from override
 };
 // --- End Single Flash Block
 
-const LED_ROW LedBrake[] = {
+const LED_ROW LedBrake[] PROGMEM = {
 	{{0xFFFF,0xFFFF,0xFFFF},128,1536},	// Rapid ramp up to full bright, then 1.5 second hold
 	{{0x8000,0x8000,0x8000},512,0},	// Slow Fade down
 	{{0x0000,0x0000,0x0000},1024,0},	// Slow Fade down
@@ -318,7 +322,7 @@ enum {
 	LEDSERIES_FLASHTOP,	// Beyond table end - can be selected, but not as part of a sequence of series
 };
 
-const LED_PATTERN* ledSeries[] = {
+const LED_PATTERN* ledSeries[] = {	// NB Order of the following must match the enum LEDSERIES_xxx above!
 	ledPatternOn,
 	ledPatternCircles,
 	ledPatternOff,
@@ -354,13 +358,19 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 			switch (ledState) {
 			case LEDSTATE_PREPAREROW:
 				//OSprintf("Start Fading...\r\n");
+				ledFadeMs = pgm_read_word(&ledRow->fadeMs);	// Cache flash table entry into RAM (I hate Harvard architecture!)
+				ledHoldMs = pgm_read_word(&ledRow->holdMs);
+				for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+					ledTargets[ledIndex] = pgm_read_word(&ledRow->targets[ledIndex]);
+				}
+				//OSprintf("Row: %4x %4x %4x, Fade:%d, Hold:%d\r\n", ledTargets[0], ledTargets[1], ledTargets[2], ledFadeMs, ledHoldMs);
 				ledState = LEDSTATE_FADING;
 				// Set up ledSteps for each LED, so we know how much to add for each ms.  Allow for fractional adding
-				ledTime = ledRow->fadeMs;
+				ledTime = ledFadeMs;
 				for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
-					S16 ledDiff = ledRow->targets[ledIndex] - ledLvls[ledIndex];
+					S16 ledDiff = ledTargets[ledIndex] - ledLvls[ledIndex];
 					ledStep[ledIndex] = ledDiff / ledTime;	// Minimum change in PWM brightness is 1 units / 256 ms, or full scale over a minute
-					//if (0 == ledIndex) OSprintf("Curr: %4x, Trgt: %4x, Diff: %4x, Step: %d\r\n", ledLvls[0], ledRow->targets[0], ledDiff, ledStep[0]);
+					//if (0 == ledIndex) OSprintf("Curr: %4x, Trgt: %4x, Diff: %4x, Step: %d\r\n", ledLvls[0], ledTargets[0], ledDiff, ledStep[0]);
 				}
 				break;
 			case LEDSTATE_FADING:
@@ -373,10 +383,10 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 				} else {
 					// Force LEDs to target values directly, to cope with accumulating errors
 					for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
-						ledLvls[ledIndex] = ledRow->targets[ledIndex];
+						ledLvls[ledIndex] = ledTargets[ledIndex];
 					}
 					LEDpwm(ledLvls);
-					ledTime = ledRow->holdMs;
+					ledTime = ledHoldMs;
 					//OSprintf("Start Holding...\r\n");
 					ledState = LEDSTATE_HOLDING;
 				}
@@ -386,10 +396,10 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 					ledTime -= eventArg;
 				} else {
 					ledRow++;	// Get next row
-					if (TABLE_END == ledRow->fadeMs) {	// Check for end of table
+					if (TABLE_END == pgm_read_word(&ledRow->fadeMs)) {	// Check for end of table in flash
 						if (0 == ledPatternCycles) {
 							ledState = LEDSTATE_IDLE;	// Assume all LEDs are now off, because LED_BRAKE also fades down to off before resuming
-							//OSprintf("LEDs idle\r\n");
+							OSprintf("LEDs idle\r\n");
 						} else if (0 == --ledPatternCycles) {
 							ledPatternIndex = LEDStartPattern(ledPatternIndex+1);
 						}
@@ -408,9 +418,11 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		LEDOverride(LedBrake);
 		break;
 	case EVENT_CHARGING:
+		OSprintf("Charging\r\n");
 		LEDStartSeries(LEDSERIES_FLASHTOP); // Show flashing top LED
 		break;
 	case EVENT_CHARGED:
+		OSprintf("Charged\r\n");
 		LEDStartSeries(LEDSERIES_OFF);	// All off and back to Idle
 		break;
 	case EVENT_SINGLE_CLICK:
@@ -507,9 +519,9 @@ int LEDStartPattern(int pattern)	// A Pattern of Rows, with LED levels, a fade a
 	return pattern;
 }
 
-void LEDShowPercentage(int val)
+void LEDShowPercentage(U16 val)
 {
-	if (val > 92) {
+	if (val > 92) {	// Anything over 100% is treated as 100%
 		LEDOverride(LedLevel100);
 	} else if ((val <= 92) && (val > 76)) {	// 1/12th either side
 		LEDOverride(LedLevel84);	// 5/6

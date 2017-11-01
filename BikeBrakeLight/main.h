@@ -9,6 +9,7 @@
 #define MAIN_H_
 #include <stdbool.h>
 #include <stddef.h>
+#include <avr/pgmspace.h>	// Needed to keep const tables & string, etc. in flash until needed
 
 typedef unsigned char U8;
 typedef unsigned short U16;
@@ -19,7 +20,7 @@ typedef signed short S16;
 typedef signed long S32;
 typedef signed long long S64;
 
-#define OS_BANNER "Spikey Bike Light for ATmega32U4 v0.5"
+#define OS_BANNER "Spikey Bike Light for ATmega32U4 v0.6"
 #define OS_NEWLINE "\r\n"
 
 typedef void PUTC(char);

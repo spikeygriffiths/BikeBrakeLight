@@ -54,10 +54,11 @@ void BATEventHandler(Event event, U16 eventArg)
 			LEDShowPercentage(battPercentage);		// And then display battery voltage via main LEDs
 		}
 		break;
-	/*case EVENT_DOUBLE_CLICK:
-		battTimerMs = 1;	// Schedule battery read very soon
-		LEDShowPercentage(battPercentage);		// And then display battery voltage via main LEDs
-		break;*/
+	case EVENT_DOUBLE_CLICK:
+		if (NOTANUMBER_U16 != battPercentage) {
+			LEDShowPercentage(battPercentage);		// Display battery voltage via main LEDs
+		}
+		break;
 	case EVENT_REQSLEEP:
 		if (NOTANUMBER_U16 == battPercentage) *(bool*)eventArg = false;	// Disallow sleep until we've got a battery reading
 		break;
