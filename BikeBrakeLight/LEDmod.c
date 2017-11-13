@@ -3,7 +3,7 @@
  *
  * Created: 19/09/2017 09:03:37
  *  Author: Spikey
- */ 
+ */
 #include <avr/io.h>
 //#include <stdio.h>
 //#include <stdarg.h>
@@ -13,16 +13,17 @@
 #include "UARTmod.h"	// For OSprintf
 #include "LEDmod.h"
 
+// Private variables
 static U16 ledLvls[NUMLEDS];	// 16 bits for each LED for accuracy when fading.  Only top 8 bits actually go into PWM hardware
 static S16 ledStep[NUMLEDS];
 static S16 ledTime;
 static U8 ledState;
+static U8 ledPlayingSeries;	// Series being played now
 static U8 nightSeriesIndex;	// Index into series of patterns
 static U8 duskSeriesIndex;
 static U8 daySeriesIndex;
 static U8 ledPatternIndex;	// Index into current LED pattern
 static U8 ledPatternCycles;
-static U8 daylight;
 static const LED_PATTERN* ledPatternTable;	// Current table of rows
 static const LED_ROW* ledBackgroundTop;	// Points to a table
 static const LED_ROW* ledOverride;	// After override finishes, go back to start of background
@@ -52,7 +53,7 @@ const LED_ROW LedLevel0[] PROGMEM = {
 	{{D,F,O},R,H},
 	{{F,O,O},R,H},
 	{{D,O,O},R,H},
-	{{O,O,O},R,H},	
+	{{O,O,O},R,H},
 	{{O,O,O},R,H},	// 0%
 	{{O,O,O},0,4096},	// Hold 0%
 	{{0,0,0},TABLE_END,0}	// Terminator - restore background from override
@@ -71,7 +72,7 @@ const LED_ROW LedLevel17[] PROGMEM = {
 	{{D,F,O},R,H},
 	{{F,O,O},R,H},
 	{{D,O,O},R,H},
-	{{O,O,O},R,H},	
+	{{O,O,O},R,H},
 	{{O,O,O},R,H},	// 0%
 	{{O,O,D},R,H},	// 17%
 	{{O,O,D},0,4096},	// Hold 17%
@@ -91,7 +92,7 @@ const LED_ROW LedLevel33[] PROGMEM = {
 	{{D,F,O},R,H},
 	{{F,O,O},R,H},
 	{{D,O,O},R,H},
-	{{O,O,O},R,H},	
+	{{O,O,O},R,H},
 	{{O,O,O},R,H},	// 0%
 	{{O,O,D},R,H},	// 17%
 	{{O,O,F},R,H},	// 33%
@@ -112,7 +113,7 @@ const LED_ROW LedLevel50[] PROGMEM = {
 	{{D,F,O},R,H},
 	{{F,O,O},R,H},
 	{{D,O,O},R,H},
-	{{O,O,O},R,H},	
+	{{O,O,O},R,H},
 	{{O,O,O},R,H},	// 0%
 	{{O,O,D},R,H},	// 17%
 	{{O,O,F},R,H},	// 33%
@@ -134,7 +135,7 @@ const LED_ROW LedLevel67[] PROGMEM = {
 	{{D,F,O},R,H},
 	{{F,O,O},R,H},
 	{{D,O,O},R,H},
-	{{O,O,O},R,H},	
+	{{O,O,O},R,H},
 	{{O,O,O},R,H},	// 0%
 	{{O,O,D},R,H},	// 17%
 	{{O,O,F},R,H},	// 33%
@@ -157,7 +158,7 @@ const LED_ROW LedLevel84[] PROGMEM = {
 	{{D,F,O},R,H},
 	{{F,O,O},R,H},
 	{{D,O,O},R,H},
-	{{O,O,O},R,H},	
+	{{O,O,O},R,H},
 	{{O,O,O},R,H},	// 0%
 	{{O,O,D},R,H},	// 17%
 	{{O,O,F},R,H},	// 33%
@@ -181,7 +182,7 @@ const LED_ROW LedLevel100[] PROGMEM = {
 	{{D,F,O},R,H},
 	{{F,O,O},R,H},
 	{{D,O,O},R,H},
-	{{O,O,O},R,H},	
+	{{O,O,O},R,H},
 	{{O,O,O},R,H},	// 0%
 	{{O,O,D},R,H},	// 17%
 	{{O,O,F},R,H},	// 33%
@@ -313,21 +314,21 @@ const LED_PATTERN ledPatternFlashTop[] = {
 };
 
 enum {
+	LEDSERIES_OFF,
 	LEDSERIES_ON,
 	LEDSERIES_CIRCLE,
-	LEDSERIES_OFF,
-	LEDSERIES_SingleFlash,
-	LEDSERIES_DoubleSingle,
+	//LEDSERIES_SingleFlash,
+	//LEDSERIES_DoubleSingle,
 	LEDSERIES_NULL,	// Terminator of sequence of series - Do not select!
 	LEDSERIES_FLASHTOP,	// Beyond table end - can be selected, but not as part of a sequence of series
 };
 
 const LED_PATTERN* ledSeries[] = {	// NB Order of the following must match the enum LEDSERIES_xxx above!
+	ledPatternOff,
 	ledPatternOn,
 	ledPatternCircles,
-	ledPatternOff,
-	ledPatternSingleFlash,
-	ledPatternDoubleSingle,
+	//ledPatternSingleFlash,
+	//ledPatternDoubleSingle,
 	NULL,	// Terminator
 	ledPatternFlashTop,	// Beyond table end - can be selected, but not as part of a sequence of series
 };
@@ -348,7 +349,7 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		TURNOFF_LED(1);
 		TURNOFF_LED(2);
 		nightSeriesIndex = LEDSERIES_ON;	// Steady On
-		duskSeriesIndex = LEDSERIES_SingleFlash;	// For single flash
+		duskSeriesIndex = LEDSERIES_CIRCLE;	// For single flash
 		daySeriesIndex = LEDSERIES_OFF;	// For LEDS off.  Should recover these values from EEPROM to cope with power outages
 		daylight = DAYTIME_UNKNOWN;	// Wait for first LDR reading to set this properly
 		ledRow = 0;	// No animation until we know the light level
@@ -419,57 +420,26 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 		break;
 	case EVENT_CHARGING:
 		OSprintf("Charging\r\n");
-		LEDStartSeries(LEDSERIES_FLASHTOP); // Show flashing top LED
+		//LEDStartSeries(LEDSERIES_FLASHTOP); // Show flashing top LED
+		// Animate current charged level instead, unless in motion
 		break;
 	case EVENT_CHARGED:
 		OSprintf("Charged\r\n");
-		LEDStartSeries(LEDSERIES_OFF);	// All off and back to Idle
+		//LEDStartSeries(LEDSERIES_OFF);	// All off and back to Idle
+		// Static display showing 100% charged, unless in motion
 		break;
 	case EVENT_SINGLE_CLICK:
 		OSIssueEvent(EVENT_NEXTLED, 0);	// Select next light pattern based on button press
 		break;
 	case EVENT_REQSLEEP:
-		if (LEDSTATE_IDLE != ledState) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
+		if ((LEDSTATE_IDLE != ledState) || (ledPlayingSeries != LEDSERIES_OFF)) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
 		break;
 	case EVENT_SLEEP:
 		LEDDisable();
 		break;
-	case EVENT_LDR:
-		switch (daylight) {
-		case DAYTIME_NIGHT:
-			if (eventArg > DAY_THRESHOLD + 5) {	// Add some margin for hysteresis
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
-			} else if (eventArg > DARK_THRESHOLD + 5) {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);
-			} // else hasn't changed enough, so leave as NIGHT
-			break;
-		case DAYTIME_DUSK:
-			if (eventArg < DARK_THRESHOLD) {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
-			} else if (eventArg > DAY_THRESHOLD + 5) {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
-			} // else hasn't changed enough, so leave as DUSK
-			break;
-		case DAYTIME_DAY:
-			if (eventArg < DARK_THRESHOLD) {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
-			} else if (eventArg < DAY_THRESHOLD) {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);
-			} // else hasn't changed enough, so leave as DAY
-			break;
-		default:	// In case we didn't have a previous idea of light level
-			if (eventArg < DARK_THRESHOLD) {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
-			} else if (eventArg > DAY_THRESHOLD + 5) {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
-			} else {
-				OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);
-			}
-			break;
-		}
-		break;
 	case EVENT_DAYLIGHT:
 		daylight = eventArg;
+		OSprintf("New daylight=%d\r\n", daylight);
 		switch (daylight) {
 		case DAYTIME_NIGHT:
 			LEDStartSeries(nightSeriesIndex);	// Nighttime, so turn on back light
@@ -505,6 +475,7 @@ int LEDStartSeries(int series)	// A Series of Patterns
 	if (NULL == ledSeries[series]) series = 0;	// Restart series
 	ledPatternTable = ledSeries[series];
 	ledPatternIndex = LEDStartPattern(0);	// Start first pattern in series
+	ledPlayingSeries = series;	// Keep a track of which series we're playing now
 	return series;
 }
 

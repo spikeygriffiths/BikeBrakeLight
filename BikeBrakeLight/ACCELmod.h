@@ -52,10 +52,19 @@ enum _ADXL363_REG {
 };
 
 #define G (1000)	// Assume +/- 2G range, ie that 1 bit is 1 milliG
-#define BRAKING_ACCELERATION (G/2)
-#define SLEEP_ACCELERATION (G/8)
+#define BRAKING_ACCELERATION (G/5)
+#define FORWARD_MOTION (G/8)
+#define ACTIVITY_TIMEOUT_S (30)
 
 typedef enum _ADXL363_REG ADXL363_REG;
+
+typedef enum {
+	ACCELSTATE_IDLE,
+	ACCELSTATE_INIT,
+	ACCELSTATE_JUSTFIRED,
+	ACCELSTATE_MONITOR,
+	ACCELSTATE_IGNORING,
+} ACCELSTATE;
 
 #define SPIDisable() SPCR &= ~(1<<SPE)	// Disable SPI when asleep
 #define SPIEnable() SPCR |= (1<<SPE)	// Re-enable SPI, assuming still set to master and clock speed

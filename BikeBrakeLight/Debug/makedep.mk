@@ -4,6 +4,12 @@
 
 ACCELmod.c
 
+ADCmod.c
+
+BATmod.c
+
+BTNmod.c
+
 LEDmod.c
 
 OSCLI.c

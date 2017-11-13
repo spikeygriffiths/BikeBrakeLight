@@ -1,0 +1,3773 @@
+
+BikeBrakeLight.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000114  00800100  00001b52  00001be6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00001b52  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000046  00800214  00800214  00001cfa  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00001cfa  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00001d2c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000210  00000000  00000000  00001d6c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000036af  00000000  00000000  00001f7c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000015d2  00000000  00000000  0000562b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00001a55  00000000  00000000  00006bfd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000528  00000000  00000000  00008654  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000116e  00000000  00000000  00008b7c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000020a5  00000000  00000000  00009cea  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000001a0  00000000  00000000  0000bd8f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+       0:	0c 94 62 03 	jmp	0x6c4	; 0x6c4 <__ctors_end>
+       4:	0c 94 bf 06 	jmp	0xd7e	; 0xd7e <__vector_1>
+       8:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+       c:	0c 94 81 03 	jmp	0x702	; 0x702 <__vector_3>
+      10:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      14:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      18:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      1c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      20:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      24:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      28:	0c 94 07 0a 	jmp	0x140e	; 0x140e <__vector_10>
+      2c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      30:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      34:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      38:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      3c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      40:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      44:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      48:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      4c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      50:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      54:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      58:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      5c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      60:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      64:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      68:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      6c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      70:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      74:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      78:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      7c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      80:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      84:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      88:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      8c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      90:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      94:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      98:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      9c:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      a0:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      a4:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      a8:	0c 94 7f 03 	jmp	0x6fe	; 0x6fe <__bad_interrupt>
+      ac:	32 06       	cpc	r3, r18
+      ae:	be 06       	cpc	r11, r30
+      b0:	44 06       	cpc	r4, r20
+      b2:	66 06       	cpc	r6, r22
+      b4:	a8 06       	cpc	r10, r24
+      b6:	a0 06       	cpc	r10, r16
+      b8:	be 06       	cpc	r11, r30
+      ba:	be 06       	cpc	r11, r30
+      bc:	be 06       	cpc	r11, r30
+      be:	be 06       	cpc	r11, r30
+      c0:	95 06       	cpc	r9, r21
+      c2:	be 06       	cpc	r11, r30
+      c4:	be 06       	cpc	r11, r30
+      c6:	80 06       	cpc	r8, r16
+      c8:	7b 08       	sbc	r7, r11
+      ca:	82 08       	sbc	r8, r2
+      cc:	e5 09       	sbc	r30, r5
+      ce:	94 08       	sbc	r9, r4
+      d0:	e5 09       	sbc	r30, r5
+      d2:	e5 09       	sbc	r30, r5
+      d4:	8c 09       	sbc	r24, r12
+      d6:	97 09       	sbc	r25, r7
+      d8:	e5 09       	sbc	r30, r5
+      da:	e5 09       	sbc	r30, r5
+      dc:	86 09       	sbc	r24, r6
+      de:	e5 09       	sbc	r30, r5
+      e0:	e5 09       	sbc	r30, r5
+      e2:	6f 09       	sbc	r22, r15
+      e4:	e5 09       	sbc	r30, r5
+      e6:	c3 09       	sbc	r28, r3
+      e8:	e5 09       	sbc	r30, r5
+      ea:	e5 09       	sbc	r30, r5
+      ec:	9a 09       	sbc	r25, r10
+      ee:	e5 09       	sbc	r30, r5
+      f0:	74 09       	sbc	r23, r4
+      f2:	7d 09       	sbc	r23, r13
+      f4:	5c 0a       	sbc	r5, r28
+      f6:	77 0a       	sbc	r7, r23
+      f8:	7f 0a       	sbc	r7, r31
+      fa:	e1 0a       	sbc	r14, r17
+      fc:	61 0b       	sbc	r22, r17
+      fe:	61 0b       	sbc	r22, r17
+     100:	61 0b       	sbc	r22, r17
+     102:	3f 0b       	sbc	r19, r31
+     104:	52 0b       	sbc	r21, r18
+     106:	61 0b       	sbc	r22, r17
+     108:	61 0b       	sbc	r22, r17
+     10a:	21 0b       	sbc	r18, r17
+     10c:	27 0b       	sbc	r18, r23
+     10e:	61 0b       	sbc	r22, r17
+     110:	2c 0b       	sbc	r18, r28
+     112:	61 0b       	sbc	r22, r17
+     114:	61 0b       	sbc	r22, r17
+     116:	61 0b       	sbc	r22, r17
+     118:	37 0b       	sbc	r19, r23
+
+0000011a <LedBrake>:
+     11a:	ff ff ff ff ff ff 80 00 00 06 00 80 00 80 00 80     ................
+     12a:	00 02 00 00 00 00 00 00 00 00 00 04 00 00 00 00     ................
+     13a:	00 00 00 00 ff 7f 00 00                             ........
+
+00000142 <LedPersistent>:
+     142:	ff 5f ff 0f ff 2f 40 00 80 00 ff 2f ff 5f ff 0f     ._.../@..../._..
+     152:	40 00 80 00 ff 0f ff 2f ff 5f 40 00 80 00 00 00     @....../._@.....
+     162:	00 00 00 00 ff 7f 00 00                             ........
+
+0000016a <LedCirculate>:
+     16a:	ff 5f 00 00 00 00 00 01 00 01 00 00 ff 5f 00 00     ._..........._..
+     17a:	00 01 00 01 00 00 00 00 ff 5f 00 01 00 01 00 00     ........._......
+     18a:	00 00 00 00 ff 7f 00 00                             ........
+
+00000192 <LedFlashTop>:
+     192:	00 00 00 00 ff 5f 80 00 00 02 00 00 00 00 00 00     ....._..........
+     1a2:	80 00 00 02 00 00 00 00 00 00 ff 7f 00 00           ..............
+
+000001b0 <LedOn>:
+     1b0:	ff 5f ff 5f ff 5f 00 04 01 00 00 00 00 00 00 00     ._._._..........
+     1c0:	ff 7f 00 00                                         ....
+
+000001c4 <LedOff>:
+     1c4:	00 00 00 00 00 00 00 04 01 00 00 00 00 00 00 00     ................
+     1d4:	ff 7f 00 00                                         ....
+
+000001d8 <LedLevel100>:
+     1d8:	00 00 00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f     ................
+     1e8:	00 01 00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f     ................
+     1f8:	00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01     ................
+     208:	00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00     ................
+     218:	ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     228:	ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00 00 00     ................
+     238:	00 01 00 00 ff 01 00 00 00 00 00 01 00 00 00 00     ................
+     248:	00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 01     ................
+     258:	00 00 00 00 00 00 ff 01 00 01 00 00 00 00 00 00     ................
+     268:	ff 0f 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     278:	00 00 ff 0f ff 0f 00 01 00 00 ff 01 ff 0f ff 0f     ................
+     288:	00 01 00 00 ff 0f ff 0f ff 0f 00 01 00 00 ff 0f     ................
+     298:	ff 0f ff 0f 00 10 00 00 00 00 00 00 00 00 ff 7f     ................
+	...
+
+000002aa <LedLevel84>:
+     2aa:	00 00 00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f     ................
+     2ba:	00 01 00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f     ................
+     2ca:	00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01     ................
+     2da:	00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00     ................
+     2ea:	ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     2fa:	ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00 00 00     ................
+     30a:	00 01 00 00 ff 01 00 00 00 00 00 01 00 00 00 00     ................
+     31a:	00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 01     ................
+     32a:	00 00 00 00 00 00 ff 01 00 01 00 00 00 00 00 00     ................
+     33a:	ff 0f 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     34a:	00 00 ff 0f ff 0f 00 01 00 00 ff 01 ff 0f ff 0f     ................
+     35a:	00 01 00 00 ff 01 ff 0f ff 0f 00 00 00 10 00 00     ................
+     36a:	00 00 00 00 ff 7f 00 00                             ........
+
+00000372 <LedLevel67>:
+     372:	00 00 00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f     ................
+     382:	00 01 00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f     ................
+     392:	00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01     ................
+     3a2:	00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00     ................
+     3b2:	ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     3c2:	ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00 00 00     ................
+     3d2:	00 01 00 00 ff 01 00 00 00 00 00 01 00 00 00 00     ................
+     3e2:	00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 01     ................
+     3f2:	00 00 00 00 00 00 ff 01 00 01 00 00 00 00 00 00     ................
+     402:	ff 0f 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     412:	00 00 ff 0f ff 0f 00 01 00 00 00 00 ff 0f ff 0f     ................
+     422:	00 00 00 10 00 00 00 00 00 00 ff 7f 00 00           ..............
+
+00000430 <LedLevel50>:
+     430:	00 00 00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f     ................
+     440:	00 01 00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f     ................
+     450:	00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01     ................
+     460:	00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00     ................
+     470:	ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     480:	ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00 00 00     ................
+     490:	00 01 00 00 ff 01 00 00 00 00 00 01 00 00 00 00     ................
+     4a0:	00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 01     ................
+     4b0:	00 00 00 00 00 00 ff 01 00 01 00 00 00 00 00 00     ................
+     4c0:	ff 0f 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     4d0:	00 00 ff 01 ff 0f 00 00 00 10 00 00 00 00 00 00     ................
+     4e0:	ff 7f 00 00                                         ....
+
+000004e4 <LedLevel33>:
+     4e4:	00 00 00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f     ................
+     4f4:	00 01 00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f     ................
+     504:	00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01     ................
+     514:	00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00     ................
+     524:	ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     534:	ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00 00 00     ................
+     544:	00 01 00 00 ff 01 00 00 00 00 00 01 00 00 00 00     ................
+     554:	00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 01     ................
+     564:	00 00 00 00 00 00 ff 01 00 01 00 00 00 00 00 00     ................
+     574:	ff 0f 00 01 00 00 00 00 00 00 ff 0f 00 00 00 10     ................
+     584:	00 00 00 00 00 00 ff 7f 00 00                       ..........
+
+0000058e <LedLevel17>:
+     58e:	00 00 00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f     ................
+     59e:	00 01 00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f     ................
+     5ae:	00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01     ................
+     5be:	00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00     ................
+     5ce:	ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     5de:	ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00 00 00     ................
+     5ee:	00 01 00 00 ff 01 00 00 00 00 00 01 00 00 00 00     ................
+     5fe:	00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 01     ................
+     60e:	00 00 00 00 00 00 ff 01 00 01 00 00 00 00 00 00     ................
+     61e:	ff 01 00 00 00 10 00 00 00 00 00 00 ff 7f 00 00     ................
+
+0000062e <LedLevel0>:
+     62e:	00 00 00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f     ................
+     63e:	00 01 00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f     ................
+     64e:	00 00 ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01     ................
+     65e:	00 00 ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00     ................
+     66e:	ff 01 00 01 00 00 00 00 ff 01 ff 0f 00 01 00 00     ................
+     67e:	ff 01 ff 0f 00 00 00 01 00 00 ff 0f 00 00 00 00     ................
+     68e:	00 01 00 00 ff 01 00 00 00 00 00 01 00 00 00 00     ................
+     69e:	00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 01     ................
+	...
+     6b6:	00 00 00 10 00 00 00 00 00 00 ff 7f 00 00           ..............
+
+000006c4 <__ctors_end>:
+     6c4:	11 24       	eor	r1, r1
+     6c6:	1f be       	out	0x3f, r1	; 63
+     6c8:	cf ef       	ldi	r28, 0xFF	; 255
+     6ca:	da e0       	ldi	r29, 0x0A	; 10
+     6cc:	de bf       	out	0x3e, r29	; 62
+     6ce:	cd bf       	out	0x3d, r28	; 61
+
+000006d0 <__do_copy_data>:
+     6d0:	12 e0       	ldi	r17, 0x02	; 2
+     6d2:	a0 e0       	ldi	r26, 0x00	; 0
+     6d4:	b1 e0       	ldi	r27, 0x01	; 1
+     6d6:	e2 e5       	ldi	r30, 0x52	; 82
+     6d8:	fb e1       	ldi	r31, 0x1B	; 27
+     6da:	02 c0       	rjmp	.+4      	; 0x6e0 <__do_copy_data+0x10>
+     6dc:	05 90       	lpm	r0, Z+
+     6de:	0d 92       	st	X+, r0
+     6e0:	a4 31       	cpi	r26, 0x14	; 20
+     6e2:	b1 07       	cpc	r27, r17
+     6e4:	d9 f7       	brne	.-10     	; 0x6dc <__do_copy_data+0xc>
+
+000006e6 <__do_clear_bss>:
+     6e6:	22 e0       	ldi	r18, 0x02	; 2
+     6e8:	a4 e1       	ldi	r26, 0x14	; 20
+     6ea:	b2 e0       	ldi	r27, 0x02	; 2
+     6ec:	01 c0       	rjmp	.+2      	; 0x6f0 <.do_clear_bss_start>
+
+000006ee <.do_clear_bss_loop>:
+     6ee:	1d 92       	st	X+, r1
+
+000006f0 <.do_clear_bss_start>:
+     6f0:	aa 35       	cpi	r26, 0x5A	; 90
+     6f2:	b2 07       	cpc	r27, r18
+     6f4:	e1 f7       	brne	.-8      	; 0x6ee <.do_clear_bss_loop>
+     6f6:	0e 94 8c 0b 	call	0x1718	; 0x1718 <main>
+     6fa:	0c 94 a7 0d 	jmp	0x1b4e	; 0x1b4e <_exit>
+
+000006fe <__bad_interrupt>:
+     6fe:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000702 <__vector_3>:
+S16 ACCELReadReg16(ADXL363_REG reg);
+int ACCELGetAxis(ADXL363_REG reg);	// Use ADXL363_XDATA_L for X, ADXL363_YDATA_L for Y and ADXL363_ZDATA_L for Z
+U8 SPItrx(U8 cData);
+
+ISR(INT2_vect)	// Accelerometer interrupt
+{
+     702:	1f 92       	push	r1
+     704:	0f 92       	push	r0
+     706:	0f b6       	in	r0, 0x3f	; 63
+     708:	0f 92       	push	r0
+     70a:	11 24       	eor	r1, r1
+     70c:	8f 93       	push	r24
+	IND_LED_ON;	// Turn it off by pressing the button.  Just for debugging
+     70e:	88 9a       	sbi	0x11, 0	; 17
+	accelInt = true;
+     710:	81 e0       	ldi	r24, 0x01	; 1
+     712:	80 93 19 02 	sts	0x0219, r24	; 0x800219 <accelInt>
+}
+     716:	8f 91       	pop	r24
+     718:	0f 90       	pop	r0
+     71a:	0f be       	out	0x3f, r0	; 63
+     71c:	0f 90       	pop	r0
+     71e:	1f 90       	pop	r1
+     720:	18 95       	reti
+
+00000722 <SPItrx>:
+	return val;
+}
+
+U8 SPItrx(U8 cData)
+{
+	SPDR = cData;	// Start transmission
+     722:	8e bd       	out	0x2e, r24	; 46
+	while(!(SPSR & (1<<SPIF))) ;	// Wait for transmission complete
+     724:	0d b4       	in	r0, 0x2d	; 45
+     726:	07 fe       	sbrs	r0, 7
+     728:	fd cf       	rjmp	.-6      	; 0x724 <SPItrx+0x2>
+	return SPDR;	// Return Data Register
+     72a:	8e b5       	in	r24, 0x2e	; 46
+}
+     72c:	08 95       	ret
+
+0000072e <ACCELWriteReg8>:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+
+void ACCELWriteReg8(ADXL363_REG reg, U8 val)
+{
+     72e:	cf 93       	push	r28
+     730:	df 93       	push	r29
+     732:	d8 2f       	mov	r29, r24
+     734:	c6 2f       	mov	r28, r22
+	PORTB &= ~0x01;	// Slave Select low to select ADXL363
+     736:	28 98       	cbi	0x05, 0	; 5
+	SPIEnable();
+     738:	8c b5       	in	r24, 0x2c	; 44
+     73a:	80 64       	ori	r24, 0x40	; 64
+     73c:	8c bd       	out	0x2c, r24	; 44
+	SPItrx(0x0A);	// Write register command
+     73e:	8a e0       	ldi	r24, 0x0A	; 10
+     740:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPItrx(reg);	// Select register
+     744:	8d 2f       	mov	r24, r29
+     746:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPItrx(val);	// Send value
+     74a:	8c 2f       	mov	r24, r28
+     74c:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPIDisable();
+     750:	8c b5       	in	r24, 0x2c	; 44
+     752:	8f 7b       	andi	r24, 0xBF	; 191
+     754:	8c bd       	out	0x2c, r24	; 44
+	PORTB |= 0x01;	// Deselect SS by driving it high at end of transaction
+     756:	28 9a       	sbi	0x05, 0	; 5
+}
+     758:	df 91       	pop	r29
+     75a:	cf 91       	pop	r28
+     75c:	08 95       	ret
+
+0000075e <ACCELReadReg8>:
+
+U8 ACCELReadReg8(ADXL363_REG reg)
+{
+     75e:	cf 93       	push	r28
+     760:	c8 2f       	mov	r28, r24
+	U8 val;
+	PORTB &= ~0x01;	// Slave Select low to select ADXL363
+     762:	28 98       	cbi	0x05, 0	; 5
+	SPIEnable();
+     764:	8c b5       	in	r24, 0x2c	; 44
+     766:	80 64       	ori	r24, 0x40	; 64
+     768:	8c bd       	out	0x2c, r24	; 44
+	SPItrx(0x0B);	// Read register command
+     76a:	8b e0       	ldi	r24, 0x0B	; 11
+     76c:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPItrx(reg);		// Select register
+     770:	8c 2f       	mov	r24, r28
+     772:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	val = SPItrx(0xFF);	// Send dummy byte to get answer
+     776:	8f ef       	ldi	r24, 0xFF	; 255
+     778:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPIDisable();
+     77c:	9c b5       	in	r25, 0x2c	; 44
+     77e:	9f 7b       	andi	r25, 0xBF	; 191
+     780:	9c bd       	out	0x2c, r25	; 44
+	PORTB |= 0x01;	// Deselect SS by driving it high at end of transaction
+     782:	28 9a       	sbi	0x05, 0	; 5
+	return val;
+}
+     784:	cf 91       	pop	r28
+     786:	08 95       	ret
+
+00000788 <ACCELWriteReg16>:
+
+void ACCELWriteReg16(ADXL363_REG reg, U16 val)
+{
+     788:	1f 93       	push	r17
+     78a:	cf 93       	push	r28
+     78c:	df 93       	push	r29
+     78e:	18 2f       	mov	r17, r24
+     790:	d6 2f       	mov	r29, r22
+     792:	c7 2f       	mov	r28, r23
+	PORTB &= ~0x01;	// Slave Select low to select ADXL363
+     794:	28 98       	cbi	0x05, 0	; 5
+	SPIEnable();
+     796:	8c b5       	in	r24, 0x2c	; 44
+     798:	80 64       	ori	r24, 0x40	; 64
+     79a:	8c bd       	out	0x2c, r24	; 44
+	SPItrx(0x0A);	// Write register command
+     79c:	8a e0       	ldi	r24, 0x0A	; 10
+     79e:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPItrx(reg);		// Select register
+     7a2:	81 2f       	mov	r24, r17
+     7a4:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPItrx(val & 0xFF);	// Send lo byte
+     7a8:	8d 2f       	mov	r24, r29
+     7aa:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPItrx(val >> 8);	// Send hi byte
+     7ae:	8c 2f       	mov	r24, r28
+     7b0:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPIDisable();
+     7b4:	8c b5       	in	r24, 0x2c	; 44
+     7b6:	8f 7b       	andi	r24, 0xBF	; 191
+     7b8:	8c bd       	out	0x2c, r24	; 44
+	PORTB |= 0x01;	// Deselect SS by driving it high at end of transaction
+     7ba:	28 9a       	sbi	0x05, 0	; 5
+}
+     7bc:	df 91       	pop	r29
+     7be:	cf 91       	pop	r28
+     7c0:	1f 91       	pop	r17
+     7c2:	08 95       	ret
+
+000007c4 <ACCELReadReg16>:
+
+S16 ACCELReadReg16(ADXL363_REG reg)
+{
+     7c4:	cf 93       	push	r28
+     7c6:	df 93       	push	r29
+     7c8:	c8 2f       	mov	r28, r24
+	U16 val;
+	PORTB &= ~0x01;	// Slave Select low to select ADXL363
+     7ca:	28 98       	cbi	0x05, 0	; 5
+	SPIEnable();
+     7cc:	8c b5       	in	r24, 0x2c	; 44
+     7ce:	80 64       	ori	r24, 0x40	; 64
+     7d0:	8c bd       	out	0x2c, r24	; 44
+	SPItrx(0x0B);	// Read register command
+     7d2:	8b e0       	ldi	r24, 0x0B	; 11
+     7d4:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPItrx(reg);		// Select register
+     7d8:	8c 2f       	mov	r24, r28
+     7da:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	val = SPItrx(0xFF);	// Send dummy byte to get lo byte
+     7de:	8f ef       	ldi	r24, 0xFF	; 255
+     7e0:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+     7e4:	c8 2f       	mov	r28, r24
+     7e6:	d0 e0       	ldi	r29, 0x00	; 0
+	val |= ((U16)SPItrx(0xFF) << 8);	// Send dummy byte to get hi byte
+     7e8:	8f ef       	ldi	r24, 0xFF	; 255
+     7ea:	0e 94 91 03 	call	0x722	; 0x722 <SPItrx>
+	SPIDisable();
+     7ee:	9c b5       	in	r25, 0x2c	; 44
+     7f0:	9f 7b       	andi	r25, 0xBF	; 191
+     7f2:	9c bd       	out	0x2c, r25	; 44
+	PORTB |= 0x01;	// Deselect SS by driving it high at end of transaction
+     7f4:	28 9a       	sbi	0x05, 0	; 5
+	return val;
+}
+     7f6:	9e 01       	movw	r18, r28
+     7f8:	38 2b       	or	r19, r24
+     7fa:	c9 01       	movw	r24, r18
+     7fc:	df 91       	pop	r29
+     7fe:	cf 91       	pop	r28
+     800:	08 95       	ret
+
+00000802 <ACCELEventHandler>:
+	IND_LED_ON;	// Turn it off by pressing the button.  Just for debugging
+	accelInt = true;
+}
+
+void ACCELEventHandler(U8 eventId, U16 eventArg)
+{
+     802:	cf 93       	push	r28
+     804:	df 93       	push	r29
+     806:	eb 01       	movw	r28, r22
+	S16 /*x,y,*/z;
+	
+	switch (eventId) {
+     808:	83 30       	cpi	r24, 0x03	; 3
+     80a:	09 f4       	brne	.+2      	; 0x80e <ACCELEventHandler+0xc>
+     80c:	43 c0       	rjmp	.+134    	; 0x894 <ACCELEventHandler+0x92>
+     80e:	28 f4       	brcc	.+10     	; 0x81a <ACCELEventHandler+0x18>
+     810:	81 30       	cpi	r24, 0x01	; 1
+     812:	69 f0       	breq	.+26     	; 0x82e <ACCELEventHandler+0x2c>
+     814:	82 30       	cpi	r24, 0x02	; 2
+     816:	d1 f0       	breq	.+52     	; 0x84c <ACCELEventHandler+0x4a>
+     818:	da c0       	rjmp	.+436    	; 0x9ce <ACCELEventHandler+0x1cc>
+     81a:	88 30       	cpi	r24, 0x08	; 8
+     81c:	09 f4       	brne	.+2      	; 0x820 <ACCELEventHandler+0x1e>
+     81e:	d1 c0       	rjmp	.+418    	; 0x9c2 <ACCELEventHandler+0x1c0>
+     820:	89 30       	cpi	r24, 0x09	; 9
+     822:	09 f4       	brne	.+2      	; 0x826 <ACCELEventHandler+0x24>
+     824:	be c0       	rjmp	.+380    	; 0x9a2 <ACCELEventHandler+0x1a0>
+     826:	86 30       	cpi	r24, 0x06	; 6
+     828:	09 f0       	breq	.+2      	; 0x82c <ACCELEventHandler+0x2a>
+     82a:	d1 c0       	rjmp	.+418    	; 0x9ce <ACCELEventHandler+0x1cc>
+     82c:	c4 c0       	rjmp	.+392    	; 0x9b6 <ACCELEventHandler+0x1b4>
+	case EVENT_INIT:
+		accelInt = false;
+     82e:	10 92 19 02 	sts	0x0219, r1	; 0x800219 <accelInt>
+		accelState = ACCELSTATE_INIT;	// Interrupt only works after acknowledging first IRQ
+     832:	81 e0       	ldi	r24, 0x01	; 1
+     834:	80 93 18 02 	sts	0x0218, r24	; 0x800218 <accelState>
+		accelTimeoutMs = 100;	// Complete initialisation shortly after startup
+     838:	24 e6       	ldi	r18, 0x64	; 100
+     83a:	30 e0       	ldi	r19, 0x00	; 0
+     83c:	30 93 17 02 	sts	0x0217, r19	; 0x800217 <accelTimeoutMs+0x1>
+     840:	20 93 16 02 	sts	0x0216, r18	; 0x800216 <accelTimeoutMs>
+		// Initialise ATmega SPI
+		SPCR = (1<<MSTR)|(0<<SPR0);	// SPI Master, MSB first, POL & PHA both 0, set clock rate fck/2
+     844:	90 e1       	ldi	r25, 0x10	; 16
+     846:	9c bd       	out	0x2c, r25	; 44
+		SPSR = (1<<SPI2X);	// Finish selecting fclk/2, being 512KHz at 1MHz sys clk
+     848:	8d bd       	out	0x2d, r24	; 45
+		break;
+     84a:	c1 c0       	rjmp	.+386    	; 0x9ce <ACCELEventHandler+0x1cc>
+	case EVENT_POSTINIT:
+		// Configure ADXL363 for generating wake or brake interrupts
+		ACCELWriteReg16(ADXL363_THRESH_ACT_L, BRAKING_ACCELERATION);
+     84c:	68 ec       	ldi	r22, 0xC8	; 200
+     84e:	70 e0       	ldi	r23, 0x00	; 0
+     850:	80 e2       	ldi	r24, 0x20	; 32
+     852:	0e 94 c4 03 	call	0x788	; 0x788 <ACCELWriteReg16>
+		ACCELWriteReg8(ADXL363_TIME_ACT, 10);	// Use 100Hz sampling rate, so require threshold to be exceeded for 0.1 seconds before interrupting
+     856:	6a e0       	ldi	r22, 0x0A	; 10
+     858:	82 e2       	ldi	r24, 0x22	; 34
+     85a:	0e 94 97 03 	call	0x72e	; 0x72e <ACCELWriteReg8>
+		ACCELWriteReg16(ADXL363_THRESH_INACT_L, FORWARD_MOTION);
+     85e:	6d e7       	ldi	r22, 0x7D	; 125
+     860:	70 e0       	ldi	r23, 0x00	; 0
+     862:	83 e2       	ldi	r24, 0x23	; 35
+     864:	0e 94 c4 03 	call	0x788	; 0x788 <ACCELWriteReg16>
+		ACCELWriteReg16(ADXL363_TIME_INACT_L, 10);	// Use 100Hz sampling rate, so require threshold to be exceeded for 0.1 seconds before interrupting
+     868:	6a e0       	ldi	r22, 0x0A	; 10
+     86a:	70 e0       	ldi	r23, 0x00	; 0
+     86c:	85 e2       	ldi	r24, 0x25	; 37
+     86e:	0e 94 c4 03 	call	0x788	; 0x788 <ACCELWriteReg16>
+		ACCELWriteReg8(ADXL363_ACT_INACT_CTL, 0x03);	// Turn on activity (but not inactivity) and make them relative (to ignore gravity).  Enable default mode
+     872:	63 e0       	ldi	r22, 0x03	; 3
+     874:	87 e2       	ldi	r24, 0x27	; 39
+     876:	0e 94 97 03 	call	0x72e	; 0x72e <ACCELWriteReg8>
+		ACCELWriteReg8(ADXL363_INTMAP2, 0x10);	// Map Activity (but not Inactivity) state to INT2
+     87a:	60 e1       	ldi	r22, 0x10	; 16
+     87c:	8b e2       	ldi	r24, 0x2B	; 43
+     87e:	0e 94 97 03 	call	0x72e	; 0x72e <ACCELWriteReg8>
+		ACCELWriteReg8(ADXL363_FILTER_CTL, 0x03);	// Set ADXL at 100Hz sampling rate
+     882:	63 e0       	ldi	r22, 0x03	; 3
+     884:	8c e2       	ldi	r24, 0x2C	; 44
+     886:	0e 94 97 03 	call	0x72e	; 0x72e <ACCELWriteReg8>
+		ACCELWriteReg8(ADXL363_POWER_CTL, 0x0A);	// Set ADXL into Measurement and Wakeup state
+     88a:	6a e0       	ldi	r22, 0x0A	; 10
+     88c:	8d e2       	ldi	r24, 0x2D	; 45
+     88e:	0e 94 97 03 	call	0x72e	; 0x72e <ACCELWriteReg8>
+		break;
+     892:	9d c0       	rjmp	.+314    	; 0x9ce <ACCELEventHandler+0x1cc>
+	case EVENT_TICK:
+		if (accelInt) {
+     894:	80 91 19 02 	lds	r24, 0x0219	; 0x800219 <accelInt>
+     898:	88 23       	and	r24, r24
+     89a:	69 f0       	breq	.+26     	; 0x8b6 <ACCELEventHandler+0xb4>
+			/*U8 accelStatus = */ACCELReadReg8(ADXL363_STATUS)/* & 0x70*/;	// Read whether we're awake (and acknowledge it as well) as well as Active or Inactive
+     89c:	8b e0       	ldi	r24, 0x0B	; 11
+     89e:	0e 94 af 03 	call	0x75e	; 0x75e <ACCELReadReg8>
+			accelInt = false;
+     8a2:	10 92 19 02 	sts	0x0219, r1	; 0x800219 <accelInt>
+			accelState = ACCELSTATE_MONITOR;
+     8a6:	83 e0       	ldi	r24, 0x03	; 3
+     8a8:	80 93 18 02 	sts	0x0218, r24	; 0x800218 <accelState>
+			accelTimeoutMs = eventArg;	// So that it'll immediately monitor the accelerometer
+     8ac:	d0 93 17 02 	sts	0x0217, r29	; 0x800217 <accelTimeoutMs+0x1>
+     8b0:	c0 93 16 02 	sts	0x0216, r28	; 0x800216 <accelTimeoutMs>
+     8b4:	28 c0       	rjmp	.+80     	; 0x906 <ACCELEventHandler+0x104>
+		}
+		if (accelTimeoutMs > eventArg) {
+     8b6:	80 91 16 02 	lds	r24, 0x0216	; 0x800216 <accelTimeoutMs>
+     8ba:	90 91 17 02 	lds	r25, 0x0217	; 0x800217 <accelTimeoutMs+0x1>
+     8be:	68 17       	cp	r22, r24
+     8c0:	79 07       	cpc	r23, r25
+     8c2:	38 f4       	brcc	.+14     	; 0x8d2 <ACCELEventHandler+0xd0>
+			accelTimeoutMs -= eventArg;
+     8c4:	86 1b       	sub	r24, r22
+     8c6:	97 0b       	sbc	r25, r23
+     8c8:	90 93 17 02 	sts	0x0217, r25	; 0x800217 <accelTimeoutMs+0x1>
+     8cc:	80 93 16 02 	sts	0x0216, r24	; 0x800216 <accelTimeoutMs>
+     8d0:	7e c0       	rjmp	.+252    	; 0x9ce <ACCELEventHandler+0x1cc>
+		} else {
+			switch (accelState) {
+     8d2:	80 91 18 02 	lds	r24, 0x0218	; 0x800218 <accelState>
+     8d6:	82 30       	cpi	r24, 0x02	; 2
+     8d8:	a9 f0       	breq	.+42     	; 0x904 <ACCELEventHandler+0x102>
+     8da:	30 f4       	brcc	.+12     	; 0x8e8 <ACCELEventHandler+0xe6>
+     8dc:	88 23       	and	r24, r24
+     8de:	09 f4       	brne	.+2      	; 0x8e2 <ACCELEventHandler+0xe0>
+     8e0:	5b c0       	rjmp	.+182    	; 0x998 <ACCELEventHandler+0x196>
+     8e2:	81 30       	cpi	r24, 0x01	; 1
+     8e4:	31 f0       	breq	.+12     	; 0x8f2 <ACCELEventHandler+0xf0>
+     8e6:	73 c0       	rjmp	.+230    	; 0x9ce <ACCELEventHandler+0x1cc>
+     8e8:	83 30       	cpi	r24, 0x03	; 3
+     8ea:	69 f0       	breq	.+26     	; 0x906 <ACCELEventHandler+0x104>
+     8ec:	84 30       	cpi	r24, 0x04	; 4
+     8ee:	39 f0       	breq	.+14     	; 0x8fe <ACCELEventHandler+0xfc>
+     8f0:	6e c0       	rjmp	.+220    	; 0x9ce <ACCELEventHandler+0x1cc>
+			case ACCELSTATE_INIT:
+				ACCELReadReg8(ADXL363_STATUS);	// Read and acknowledge interrupt to complete initialisation
+     8f2:	8b e0       	ldi	r24, 0x0B	; 11
+     8f4:	0e 94 af 03 	call	0x75e	; 0x75e <ACCELReadReg8>
+				accelState =  ACCELSTATE_IDLE;
+     8f8:	10 92 18 02 	sts	0x0218, r1	; 0x800218 <accelState>
+				break;
+     8fc:	68 c0       	rjmp	.+208    	; 0x9ce <ACCELEventHandler+0x1cc>
+			case ACCELSTATE_IGNORING:
+				accelState = ACCELSTATE_IDLE;	// Finished ignoring accelerometer
+     8fe:	10 92 18 02 	sts	0x0218, r1	; 0x800218 <accelState>
+				break;
+     902:	65 c0       	rjmp	.+202    	; 0x9ce <ACCELEventHandler+0x1cc>
+			case ACCELSTATE_JUSTFIRED:
+				IND_LED_OFF;
+     904:	88 98       	cbi	0x11, 0	; 17
+	return SPDR;	// Return Data Register
+}
+
+int ACCELGetAxis(ADXL363_REG reg)	// Use ADXL363_XDATA_L for X, ADXL363_YDATA_L for Y and ADXL363_ZDATA_L for Z
+{
+	return ACCELReadReg16(reg);	// X = Left / right, Y = Up / Down, Z = Forward / Back
+     906:	82 e1       	ldi	r24, 0x12	; 18
+     908:	0e 94 e2 03 	call	0x7c4	; 0x7c4 <ACCELReadReg16>
+     90c:	ec 01       	movw	r28, r24
+				IND_LED_OFF;
+				// Fall through to MONITOR...
+			case ACCELSTATE_MONITOR:	//  Monitor accelerometer every 100ms when active.  If Z-axis goes too low for motion for too long (60s?) then issue EVENT_MOTION with False (to indicate stationary).  Otherwise, issue EVENT_MOTION with True (to indicate moving)
+				z = ACCELGetAxis(ADXL363_ZDATA_L);
+				//OSprintf("z = %d\r\n", z);	// X = Left / right, Y = Up / Down, Z = Forward / Back
+				if (z < -BRAKING_ACCELERATION) {
+     90e:	c8 33       	cpi	r28, 0x38	; 56
+     910:	8f ef       	ldi	r24, 0xFF	; 255
+     912:	d8 07       	cpc	r29, r24
+     914:	4c f4       	brge	.+18     	; 0x928 <ACCELEventHandler+0x126>
+					OSIssueEvent(EVENT_BRAKE, 0);	// Less than deceleration (is this right?) to cause a BRAKE event
+     916:	60 e0       	ldi	r22, 0x00	; 0
+     918:	70 e0       	ldi	r23, 0x00	; 0
+     91a:	8d e0       	ldi	r24, 0x0D	; 13
+     91c:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+					accelState = ACCELSTATE_JUSTFIRED;	// Turn IND_LED off next time
+     920:	82 e0       	ldi	r24, 0x02	; 2
+     922:	80 93 18 02 	sts	0x0218, r24	; 0x800218 <accelState>
+     926:	03 c0       	rjmp	.+6      	; 0x92e <ACCELEventHandler+0x12c>
+				} else accelState = ACCELSTATE_MONITOR;	// Continue monitoring
+     928:	83 e0       	ldi	r24, 0x03	; 3
+     92a:	80 93 18 02 	sts	0x0218, r24	; 0x800218 <accelState>
+				if (abs(z) > FORWARD_MOTION) {
+     92e:	ce 01       	movw	r24, r28
+     930:	dd 23       	and	r29, r29
+     932:	24 f4       	brge	.+8      	; 0x93c <ACCELEventHandler+0x13a>
+     934:	88 27       	eor	r24, r24
+     936:	99 27       	eor	r25, r25
+     938:	8c 1b       	sub	r24, r28
+     93a:	9d 0b       	sbc	r25, r29
+     93c:	8e 37       	cpi	r24, 0x7E	; 126
+     93e:	91 05       	cpc	r25, r1
+     940:	94 f0       	brlt	.+36     	; 0x966 <ACCELEventHandler+0x164>
+					if (0 == activityCount) OSIssueEvent(EVENT_MOTION, true);	// If we were stationary previously
+     942:	80 91 14 02 	lds	r24, 0x0214	; 0x800214 <__data_end>
+     946:	90 91 15 02 	lds	r25, 0x0215	; 0x800215 <__data_end+0x1>
+     94a:	89 2b       	or	r24, r25
+     94c:	29 f4       	brne	.+10     	; 0x958 <ACCELEventHandler+0x156>
+     94e:	61 e0       	ldi	r22, 0x01	; 1
+     950:	70 e0       	ldi	r23, 0x00	; 0
+     952:	80 e1       	ldi	r24, 0x10	; 16
+     954:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+					activityCount = ACTIVITY_TIMEOUT_S * 10;	// We monitor accelerometer 10 times a second, hence the *10
+     958:	8c e2       	ldi	r24, 0x2C	; 44
+     95a:	91 e0       	ldi	r25, 0x01	; 1
+     95c:	90 93 15 02 	sts	0x0215, r25	; 0x800215 <__data_end+0x1>
+     960:	80 93 14 02 	sts	0x0214, r24	; 0x800214 <__data_end>
+     964:	12 c0       	rjmp	.+36     	; 0x98a <ACCELEventHandler+0x188>
+				} else {
+					if (activityCount) {	// Count down activity timeout if not moving
+     966:	80 91 14 02 	lds	r24, 0x0214	; 0x800214 <__data_end>
+     96a:	90 91 15 02 	lds	r25, 0x0215	; 0x800215 <__data_end+0x1>
+     96e:	00 97       	sbiw	r24, 0x00	; 0
+     970:	61 f0       	breq	.+24     	; 0x98a <ACCELEventHandler+0x188>
+						if (0 == --activityCount) {
+     972:	01 97       	sbiw	r24, 0x01	; 1
+     974:	90 93 15 02 	sts	0x0215, r25	; 0x800215 <__data_end+0x1>
+     978:	80 93 14 02 	sts	0x0214, r24	; 0x800214 <__data_end>
+     97c:	89 2b       	or	r24, r25
+     97e:	29 f4       	brne	.+10     	; 0x98a <ACCELEventHandler+0x188>
+							OSIssueEvent(EVENT_MOTION, false);	// Finally timed out waiting for movement, so admit that we're stationary
+     980:	60 e0       	ldi	r22, 0x00	; 0
+     982:	70 e0       	ldi	r23, 0x00	; 0
+     984:	80 e1       	ldi	r24, 0x10	; 16
+     986:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+						}
+					}
+				}
+				accelTimeoutMs = 100;	// Check motion again in 100ms
+     98a:	84 e6       	ldi	r24, 0x64	; 100
+     98c:	90 e0       	ldi	r25, 0x00	; 0
+     98e:	90 93 17 02 	sts	0x0217, r25	; 0x800217 <accelTimeoutMs+0x1>
+     992:	80 93 16 02 	sts	0x0216, r24	; 0x800216 <accelTimeoutMs>
+				break;
+     996:	1b c0       	rjmp	.+54     	; 0x9ce <ACCELEventHandler+0x1cc>
+			case ACCELSTATE_IDLE:
+				accelTimeoutMs = 0;
+     998:	10 92 17 02 	sts	0x0217, r1	; 0x800217 <accelTimeoutMs+0x1>
+     99c:	10 92 16 02 	sts	0x0216, r1	; 0x800216 <accelTimeoutMs>
+				break;
+     9a0:	16 c0       	rjmp	.+44     	; 0x9ce <ACCELEventHandler+0x1cc>
+			} // end switch()
+		}
+		break;
+	case EVENT_BUTTON:
+		accelState = ACCELSTATE_IGNORING;
+     9a2:	84 e0       	ldi	r24, 0x04	; 4
+     9a4:	80 93 18 02 	sts	0x0218, r24	; 0x800218 <accelState>
+		accelTimeoutMs = 2 * MS_PERSEC;	// Disable Accelerometer events while pressing button and for a short while afterwards
+     9a8:	80 ed       	ldi	r24, 0xD0	; 208
+     9aa:	97 e0       	ldi	r25, 0x07	; 7
+     9ac:	90 93 17 02 	sts	0x0217, r25	; 0x800217 <accelTimeoutMs+0x1>
+     9b0:	80 93 16 02 	sts	0x0216, r24	; 0x800216 <accelTimeoutMs>
+		break;
+     9b4:	0c c0       	rjmp	.+24     	; 0x9ce <ACCELEventHandler+0x1cc>
+		//OSprintf("ADXL DevId register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID));	
+		//OSprintf("ADXL_Power_Ctl 0x%2x\r\n", ACCELReadReg8(ADXL363_POWER_CTL));
+		//OSprintf("%d, %d, %d\r\n", ACCELReadReg16(ADXL363_XDATA_L), ACCELReadReg16(ADXL363_YDATA_L), ACCELReadReg16(ADXL363_ZDATA_L));	// X = Left / right, Y = Up / Down, Z = Forward / Back
+		break;
+	case EVENT_REQSLEEP:
+		if (ACCELSTATE_IDLE != accelState) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
+     9b6:	80 91 18 02 	lds	r24, 0x0218	; 0x800218 <accelState>
+     9ba:	88 23       	and	r24, r24
+     9bc:	41 f0       	breq	.+16     	; 0x9ce <ACCELEventHandler+0x1cc>
+     9be:	18 82       	st	Y, r1
+     9c0:	06 c0       	rjmp	.+12     	; 0x9ce <ACCELEventHandler+0x1cc>
+		break;
+	case EVENT_WAKE:
+		accelState =  ACCELSTATE_IDLE;	// Ready to handle interrupt
+     9c2:	10 92 18 02 	sts	0x0218, r1	; 0x800218 <accelState>
+		accelTimeoutMs = 0;
+     9c6:	10 92 17 02 	sts	0x0217, r1	; 0x800217 <accelTimeoutMs+0x1>
+     9ca:	10 92 16 02 	sts	0x0216, r1	; 0x800216 <accelTimeoutMs>
+		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+     9ce:	df 91       	pop	r29
+     9d0:	cf 91       	pop	r28
+     9d2:	08 95       	ret
+
+000009d4 <BATTget>:
+
+U16 BATTget(void)	// Returns percentage of battery, where 100% is fully-charged
+{
+	U16 battVal = 0;
+
+	LEDDisable();	// Stop LEDs while measuring battery
+     9d4:	0e 94 46 08 	call	0x108c	; 0x108c <LEDDisable>
+	DIDR0 |= BATT_VAL;	// Disable Digital input for ADC6
+     9d8:	ee e7       	ldi	r30, 0x7E	; 126
+     9da:	f0 e0       	ldi	r31, 0x00	; 0
+     9dc:	80 81       	ld	r24, Z
+     9de:	80 64       	ori	r24, 0x40	; 64
+     9e0:	80 83       	st	Z, r24
+	ADMUX = 0x06;	// Select ADC for port ADC6, right-justified result (ADLAR=0)
+     9e2:	86 e0       	ldi	r24, 0x06	; 6
+     9e4:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7e007c>
+	ADCSRA = 0xC7;	// Enable ADC, using 128 as prescaler
+     9e8:	87 ec       	ldi	r24, 0xC7	; 199
+     9ea:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7e007a>
+	while (ADCSRA & 0x40) ;	// Wait for conversion to finish
+     9ee:	ea e7       	ldi	r30, 0x7A	; 122
+     9f0:	f0 e0       	ldi	r31, 0x00	; 0
+     9f2:	80 81       	ld	r24, Z
+     9f4:	86 fd       	sbrc	r24, 6
+     9f6:	fd cf       	rjmp	.-6      	; 0x9f2 <BATTget+0x1e>
+	ADCSRA = 0xC7;	// Enable ADC, using 128 as prescalers
+     9f8:	87 ec       	ldi	r24, 0xC7	; 199
+     9fa:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7e007a>
+	while (ADCSRA & 0x40) ;	// Wait for conversion to finish a second time to get a real reading
+     9fe:	ea e7       	ldi	r30, 0x7A	; 122
+     a00:	f0 e0       	ldi	r31, 0x00	; 0
+     a02:	80 81       	ld	r24, Z
+     a04:	86 fd       	sbrc	r24, 6
+     a06:	fd cf       	rjmp	.-6      	; 0xa02 <BATTget+0x2e>
+	battVal = ADCL | (ADCH << 8);	// Sample 10-bit value
+     a08:	20 91 78 00 	lds	r18, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7e0078>
+     a0c:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
+	ADCSRA = 0x00;	// Shut down ADC to save power
+     a10:	10 92 7a 00 	sts	0x007A, r1	; 0x80007a <__TEXT_REGION_LENGTH__+0x7e007a>
+	DIDR0 &= ~BATT_VAL;	// Re-enable Digital input for ADC6
+     a14:	ee e7       	ldi	r30, 0x7E	; 126
+     a16:	f0 e0       	ldi	r31, 0x00	; 0
+     a18:	80 81       	ld	r24, Z
+     a1a:	8f 7b       	andi	r24, 0xBF	; 191
+     a1c:	80 83       	st	Z, r24
+	return (battVal / 10);	// Convert to percentage, where 100% is full, but 50% is half-nominal voltage.  Might need to adjust this, so that 0% is "About to die"
+     a1e:	30 e0       	ldi	r19, 0x00	; 0
+     a20:	39 2b       	or	r19, r25
+     a22:	ad ec       	ldi	r26, 0xCD	; 205
+     a24:	bc ec       	ldi	r27, 0xCC	; 204
+     a26:	0e 94 98 0d 	call	0x1b30	; 0x1b30 <__umulhisi3>
+}
+     a2a:	96 95       	lsr	r25
+     a2c:	87 95       	ror	r24
+     a2e:	96 95       	lsr	r25
+     a30:	87 95       	ror	r24
+     a32:	96 95       	lsr	r25
+     a34:	87 95       	ror	r24
+     a36:	08 95       	ret
+
+00000a38 <LDRget>:
+
+U16 LDRget(void)	// Returns light level as a percentage, where 100% is bright light
+{
+	U16 lightLvl = 0;
+	
+	LEDDisable();	// Stop LEDs while measuring ambient light
+     a38:	0e 94 46 08 	call	0x108c	; 0x108c <LEDDisable>
+	DIDR0 |= LDR_VAL;	// Disable Digital input for ADC4
+     a3c:	ee e7       	ldi	r30, 0x7E	; 126
+     a3e:	f0 e0       	ldi	r31, 0x00	; 0
+     a40:	80 81       	ld	r24, Z
+     a42:	80 61       	ori	r24, 0x10	; 16
+     a44:	80 83       	st	Z, r24
+	//DDRF &= ~LDR_EN;	// Enable LDR by making EN an input
+	PORTF |= LDR_EN;	// Enable LDR by setting enable line high
+     a46:	8d 9a       	sbi	0x11, 5	; 17
+	ADMUX = 0x04;	// Select ADC for port ADC4, right-justified result (ADLAR=0)
+     a48:	84 e0       	ldi	r24, 0x04	; 4
+     a4a:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7e007c>
+	ADCSRA = 0xC7;	// Enable ADC, using 128 as prescaler
+     a4e:	87 ec       	ldi	r24, 0xC7	; 199
+     a50:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7e007a>
+	while (ADCSRA & 0x40) ;	// Wait for conversion to finish
+     a54:	ea e7       	ldi	r30, 0x7A	; 122
+     a56:	f0 e0       	ldi	r31, 0x00	; 0
+     a58:	80 81       	ld	r24, Z
+     a5a:	86 fd       	sbrc	r24, 6
+     a5c:	fd cf       	rjmp	.-6      	; 0xa58 <LDRget+0x20>
+	ADCSRA = 0xC7;	// Enable ADC, using 128 as prescalers
+     a5e:	87 ec       	ldi	r24, 0xC7	; 199
+     a60:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7e007a>
+	while (ADCSRA & 0x40) ;	// Wait for conversion to finish a second time to get a real reading
+     a64:	ea e7       	ldi	r30, 0x7A	; 122
+     a66:	f0 e0       	ldi	r31, 0x00	; 0
+     a68:	80 81       	ld	r24, Z
+     a6a:	86 fd       	sbrc	r24, 6
+     a6c:	fd cf       	rjmp	.-6      	; 0xa68 <LDRget+0x30>
+	lightLvl = ADCL | (ADCH << 8);	// Sample 10-bit value
+     a6e:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7e0078>
+     a72:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
+     a76:	90 e0       	ldi	r25, 0x00	; 0
+     a78:	92 2b       	or	r25, r18
+	ADCSRA = 0x00;	// Shut down ADC to save power
+     a7a:	10 92 7a 00 	sts	0x007A, r1	; 0x80007a <__TEXT_REGION_LENGTH__+0x7e007a>
+	DDRF |= LDR_EN;	// Make LDR_EN an output
+     a7e:	85 9a       	sbi	0x10, 5	; 16
+	PORTF &= ~LDR_EN;	// Disable LDR to save power
+     a80:	8d 98       	cbi	0x11, 5	; 17
+	DIDR0 &= ~LDR_VAL;	// Re-enable Digital input for ADC4
+     a82:	ee e7       	ldi	r30, 0x7E	; 126
+     a84:	f0 e0       	ldi	r31, 0x00	; 0
+     a86:	20 81       	ld	r18, Z
+     a88:	2f 7e       	andi	r18, 0xEF	; 239
+     a8a:	20 83       	st	Z, r18
+	lightLvl = 1024-lightLvl;	// Flip it round, since it's wired to give large readings when dark and low ones when bright
+	ldrTimerMs = SAMPLEFREQS_LDR * MS_PERSEC;	// Schedule next background read
+     a8c:	20 e3       	ldi	r18, 0x30	; 48
+     a8e:	35 e7       	ldi	r19, 0x75	; 117
+     a90:	30 93 1b 02 	sts	0x021B, r19	; 0x80021b <ldrTimerMs+0x1>
+     a94:	20 93 1a 02 	sts	0x021A, r18	; 0x80021a <ldrTimerMs>
+	return (lightLvl / 10);	// Convert to percentage
+     a98:	20 e0       	ldi	r18, 0x00	; 0
+     a9a:	34 e0       	ldi	r19, 0x04	; 4
+     a9c:	28 1b       	sub	r18, r24
+     a9e:	39 0b       	sbc	r19, r25
+     aa0:	ad ec       	ldi	r26, 0xCD	; 205
+     aa2:	bc ec       	ldi	r27, 0xCC	; 204
+     aa4:	0e 94 98 0d 	call	0x1b30	; 0x1b30 <__umulhisi3>
+}
+     aa8:	96 95       	lsr	r25
+     aaa:	87 95       	ror	r24
+     aac:	96 95       	lsr	r25
+     aae:	87 95       	ror	r24
+     ab0:	96 95       	lsr	r25
+     ab2:	87 95       	ror	r24
+     ab4:	08 95       	ret
+
+00000ab6 <ADCEventHandler>:
+static U16 ldrVal;	// In 10 bits, so pretty much percentage with 1 decimal place
+static S16 temperature;	// In 10 bits, but not sure how to convert the value into Celsius, so not much use...
+static U16 ldrTimerMs;	// Time until next light level sample
+
+void ADCEventHandler(Event event, U16 eventArg)
+{
+     ab6:	cf 93       	push	r28
+     ab8:	df 93       	push	r29
+     aba:	eb 01       	movw	r28, r22
+	switch (event) {
+     abc:	85 30       	cpi	r24, 0x05	; 5
+     abe:	09 f4       	brne	.+2      	; 0xac2 <ADCEventHandler+0xc>
+     ac0:	ac c0       	rjmp	.+344    	; 0xc1a <__stack+0x11b>
+     ac2:	28 f4       	brcc	.+10     	; 0xace <ADCEventHandler+0x18>
+     ac4:	81 30       	cpi	r24, 0x01	; 1
+     ac6:	61 f0       	breq	.+24     	; 0xae0 <ADCEventHandler+0x2a>
+     ac8:	83 30       	cpi	r24, 0x03	; 3
+     aca:	b9 f0       	breq	.+46     	; 0xafa <ADCEventHandler+0x44>
+     acc:	bc c0       	rjmp	.+376    	; 0xc46 <__stack+0x147>
+     ace:	88 30       	cpi	r24, 0x08	; 8
+     ad0:	09 f4       	brne	.+2      	; 0xad4 <ADCEventHandler+0x1e>
+     ad2:	9c c0       	rjmp	.+312    	; 0xc0c <__stack+0x10d>
+     ad4:	81 31       	cpi	r24, 0x11	; 17
+     ad6:	69 f1       	breq	.+90     	; 0xb32 <__stack+0x33>
+     ad8:	86 30       	cpi	r24, 0x06	; 6
+     ada:	09 f0       	breq	.+2      	; 0xade <ADCEventHandler+0x28>
+     adc:	b4 c0       	rjmp	.+360    	; 0xc46 <__stack+0x147>
+     ade:	8e c0       	rjmp	.+284    	; 0xbfc <__stack+0xfd>
+	case EVENT_INIT:
+		ldrVal = NOTANUMBER_U16;
+     ae0:	8f ef       	ldi	r24, 0xFF	; 255
+     ae2:	9f ef       	ldi	r25, 0xFF	; 255
+     ae4:	90 93 1d 02 	sts	0x021D, r25	; 0x80021d <ldrVal+0x1>
+     ae8:	80 93 1c 02 	sts	0x021C, r24	; 0x80021c <ldrVal>
+		temperature = NOTANUMBER_S16;	// In 10 bits, but not sure how to convert the value into Celsius, so not much use...
+		ldrTimerMs = 1;	// Get ambient light immediately
+     aec:	81 e0       	ldi	r24, 0x01	; 1
+     aee:	90 e0       	ldi	r25, 0x00	; 0
+     af0:	90 93 1b 02 	sts	0x021B, r25	; 0x80021b <ldrTimerMs+0x1>
+     af4:	80 93 1a 02 	sts	0x021A, r24	; 0x80021a <ldrTimerMs>
+		break;
+     af8:	a6 c0       	rjmp	.+332    	; 0xc46 <__stack+0x147>
+	case EVENT_TICK:
+		if (ldrTimerMs) {
+     afa:	80 91 1a 02 	lds	r24, 0x021A	; 0x80021a <ldrTimerMs>
+     afe:	90 91 1b 02 	lds	r25, 0x021B	; 0x80021b <ldrTimerMs+0x1>
+     b02:	00 97       	sbiw	r24, 0x00	; 0
+     b04:	09 f4       	brne	.+2      	; 0xb08 <__stack+0x9>
+     b06:	9f c0       	rjmp	.+318    	; 0xc46 <__stack+0x147>
+			if (ldrTimerMs > eventArg) {
+     b08:	68 17       	cp	r22, r24
+     b0a:	79 07       	cpc	r23, r25
+     b0c:	38 f4       	brcc	.+14     	; 0xb1c <__stack+0x1d>
+				ldrTimerMs -= eventArg;
+     b0e:	86 1b       	sub	r24, r22
+     b10:	97 0b       	sbc	r25, r23
+     b12:	90 93 1b 02 	sts	0x021B, r25	; 0x80021b <ldrTimerMs+0x1>
+     b16:	80 93 1a 02 	sts	0x021A, r24	; 0x80021a <ldrTimerMs>
+     b1a:	95 c0       	rjmp	.+298    	; 0xc46 <__stack+0x147>
+			} else {
+				ldrVal = LDRget();
+     b1c:	0e 94 1c 05 	call	0xa38	; 0xa38 <LDRget>
+     b20:	90 93 1d 02 	sts	0x021D, r25	; 0x80021d <ldrVal+0x1>
+     b24:	80 93 1c 02 	sts	0x021C, r24	; 0x80021c <ldrVal>
+				OSIssueEvent(EVENT_LDR, ldrVal);
+     b28:	bc 01       	movw	r22, r24
+     b2a:	81 e1       	ldi	r24, 0x11	; 17
+     b2c:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     b30:	8a c0       	rjmp	.+276    	; 0xc46 <__stack+0x147>
+			}
+		}
+		break;
+	case EVENT_LDR:
+	switch (daylight) {
+     b32:	80 91 55 02 	lds	r24, 0x0255	; 0x800255 <daylight>
+     b36:	82 30       	cpi	r24, 0x02	; 2
+     b38:	b9 f0       	breq	.+46     	; 0xb68 <__stack+0x69>
+     b3a:	83 30       	cpi	r24, 0x03	; 3
+     b3c:	41 f1       	breq	.+80     	; 0xb8e <__stack+0x8f>
+     b3e:	81 30       	cpi	r24, 0x01	; 1
+     b40:	c9 f5       	brne	.+114    	; 0xbb4 <__stack+0xb5>
+	case DAYTIME_NIGHT:
+		if (eventArg > DAY_THRESHOLD + 5) {	// Add some margin for hysteresis
+     b42:	6a 31       	cpi	r22, 0x1A	; 26
+     b44:	71 05       	cpc	r23, r1
+     b46:	30 f0       	brcs	.+12     	; 0xb54 <__stack+0x55>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
+     b48:	63 e0       	ldi	r22, 0x03	; 3
+     b4a:	70 e0       	ldi	r23, 0x00	; 0
+     b4c:	82 e1       	ldi	r24, 0x12	; 18
+     b4e:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     b52:	47 c0       	rjmp	.+142    	; 0xbe2 <__stack+0xe3>
+		} else if (eventArg > DARK_THRESHOLD + 5) {
+     b54:	6b 30       	cpi	r22, 0x0B	; 11
+     b56:	71 05       	cpc	r23, r1
+     b58:	08 f4       	brcc	.+2      	; 0xb5c <__stack+0x5d>
+     b5a:	75 c0       	rjmp	.+234    	; 0xc46 <__stack+0x147>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);
+     b5c:	62 e0       	ldi	r22, 0x02	; 2
+     b5e:	70 e0       	ldi	r23, 0x00	; 0
+     b60:	82 e1       	ldi	r24, 0x12	; 18
+     b62:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     b66:	3d c0       	rjmp	.+122    	; 0xbe2 <__stack+0xe3>
+		} else return;	// else hasn't changed enough, so leave as NIGHT
+		break;
+	case DAYTIME_DUSK:
+		if (eventArg < DARK_THRESHOLD) {
+     b68:	65 30       	cpi	r22, 0x05	; 5
+     b6a:	71 05       	cpc	r23, r1
+     b6c:	30 f4       	brcc	.+12     	; 0xb7a <__stack+0x7b>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
+     b6e:	61 e0       	ldi	r22, 0x01	; 1
+     b70:	70 e0       	ldi	r23, 0x00	; 0
+     b72:	82 e1       	ldi	r24, 0x12	; 18
+     b74:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     b78:	34 c0       	rjmp	.+104    	; 0xbe2 <__stack+0xe3>
+		} else if (eventArg > DAY_THRESHOLD + 5) {
+     b7a:	6a 31       	cpi	r22, 0x1A	; 26
+     b7c:	71 05       	cpc	r23, r1
+     b7e:	08 f4       	brcc	.+2      	; 0xb82 <__stack+0x83>
+     b80:	62 c0       	rjmp	.+196    	; 0xc46 <__stack+0x147>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
+     b82:	63 e0       	ldi	r22, 0x03	; 3
+     b84:	70 e0       	ldi	r23, 0x00	; 0
+     b86:	82 e1       	ldi	r24, 0x12	; 18
+     b88:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     b8c:	2a c0       	rjmp	.+84     	; 0xbe2 <__stack+0xe3>
+		} else return;	// else hasn't changed enough, so leave as DUSK
+		break;
+	case DAYTIME_DAY:
+		if (eventArg < DARK_THRESHOLD) {
+     b8e:	65 30       	cpi	r22, 0x05	; 5
+     b90:	71 05       	cpc	r23, r1
+     b92:	30 f4       	brcc	.+12     	; 0xba0 <__stack+0xa1>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
+     b94:	61 e0       	ldi	r22, 0x01	; 1
+     b96:	70 e0       	ldi	r23, 0x00	; 0
+     b98:	82 e1       	ldi	r24, 0x12	; 18
+     b9a:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     b9e:	21 c0       	rjmp	.+66     	; 0xbe2 <__stack+0xe3>
+		} else if (eventArg < DAY_THRESHOLD) {
+     ba0:	64 31       	cpi	r22, 0x14	; 20
+     ba2:	71 05       	cpc	r23, r1
+     ba4:	08 f0       	brcs	.+2      	; 0xba8 <__stack+0xa9>
+     ba6:	4f c0       	rjmp	.+158    	; 0xc46 <__stack+0x147>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);
+     ba8:	62 e0       	ldi	r22, 0x02	; 2
+     baa:	70 e0       	ldi	r23, 0x00	; 0
+     bac:	82 e1       	ldi	r24, 0x12	; 18
+     bae:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     bb2:	17 c0       	rjmp	.+46     	; 0xbe2 <__stack+0xe3>
+		} else return;	// else hasn't changed enough, so leave as DAY
+		break;
+	default:	// In case we didn't have a previous idea of light level
+		if (eventArg < DARK_THRESHOLD) {
+     bb4:	65 30       	cpi	r22, 0x05	; 5
+     bb6:	71 05       	cpc	r23, r1
+     bb8:	30 f4       	brcc	.+12     	; 0xbc6 <__stack+0xc7>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
+     bba:	61 e0       	ldi	r22, 0x01	; 1
+     bbc:	70 e0       	ldi	r23, 0x00	; 0
+     bbe:	82 e1       	ldi	r24, 0x12	; 18
+     bc0:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     bc4:	0e c0       	rjmp	.+28     	; 0xbe2 <__stack+0xe3>
+		} else if (eventArg > DAY_THRESHOLD) {
+     bc6:	65 31       	cpi	r22, 0x15	; 21
+     bc8:	71 05       	cpc	r23, r1
+     bca:	30 f0       	brcs	.+12     	; 0xbd8 <__stack+0xd9>
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
+     bcc:	63 e0       	ldi	r22, 0x03	; 3
+     bce:	70 e0       	ldi	r23, 0x00	; 0
+     bd0:	82 e1       	ldi	r24, 0x12	; 18
+     bd2:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     bd6:	05 c0       	rjmp	.+10     	; 0xbe2 <__stack+0xe3>
+		} else {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);	// Neither fully night or day
+     bd8:	62 e0       	ldi	r22, 0x02	; 2
+     bda:	70 e0       	ldi	r23, 0x00	; 0
+     bdc:	82 e1       	ldi	r24, 0x12	; 18
+     bde:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+		}
+		break;
+	}
+	OSprintf("LDR %d\r\n", eventArg);	// If we get here then we have issued a new daylight event
+     be2:	df 93       	push	r29
+     be4:	cf 93       	push	r28
+     be6:	8a e0       	ldi	r24, 0x0A	; 10
+     be8:	91 e0       	ldi	r25, 0x01	; 1
+     bea:	9f 93       	push	r25
+     bec:	8f 93       	push	r24
+     bee:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+	break;
+     bf2:	0f 90       	pop	r0
+     bf4:	0f 90       	pop	r0
+     bf6:	0f 90       	pop	r0
+     bf8:	0f 90       	pop	r0
+     bfa:	25 c0       	rjmp	.+74     	; 0xc46 <__stack+0x147>
+	case EVENT_REQSLEEP:
+		if (NOTANUMBER_U16 == ldrVal) *(bool*)eventArg = false;	// Disallow sleep until we've got a light level
+     bfc:	80 91 1c 02 	lds	r24, 0x021C	; 0x80021c <ldrVal>
+     c00:	90 91 1d 02 	lds	r25, 0x021D	; 0x80021d <ldrVal+0x1>
+     c04:	01 96       	adiw	r24, 0x01	; 1
+     c06:	f9 f4       	brne	.+62     	; 0xc46 <__stack+0x147>
+     c08:	18 82       	st	Y, r1
+     c0a:	1d c0       	rjmp	.+58     	; 0xc46 <__stack+0x147>
+		break;
+	case EVENT_WAKE:
+		ldrTimerMs = 1;	// Schedule light level whenever we wake up from sleep
+     c0c:	81 e0       	ldi	r24, 0x01	; 1
+     c0e:	90 e0       	ldi	r25, 0x00	; 0
+     c10:	90 93 1b 02 	sts	0x021B, r25	; 0x80021b <ldrTimerMs+0x1>
+     c14:	80 93 1a 02 	sts	0x021A, r24	; 0x80021a <ldrTimerMs>
+		break;
+     c18:	16 c0       	rjmp	.+44     	; 0xc46 <__stack+0x147>
+	case EVENT_INFO:
+		OSprintf("LDR %d%%%s", ldrVal, OS_NEWLINE);
+     c1a:	86 eb       	ldi	r24, 0xB6	; 182
+     c1c:	91 e0       	ldi	r25, 0x01	; 1
+     c1e:	9f 93       	push	r25
+     c20:	8f 93       	push	r24
+     c22:	80 91 1d 02 	lds	r24, 0x021D	; 0x80021d <ldrVal+0x1>
+     c26:	8f 93       	push	r24
+     c28:	80 91 1c 02 	lds	r24, 0x021C	; 0x80021c <ldrVal>
+     c2c:	8f 93       	push	r24
+     c2e:	83 e1       	ldi	r24, 0x13	; 19
+     c30:	91 e0       	ldi	r25, 0x01	; 1
+     c32:	9f 93       	push	r25
+     c34:	8f 93       	push	r24
+     c36:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		break;
+     c3a:	0f 90       	pop	r0
+     c3c:	0f 90       	pop	r0
+     c3e:	0f 90       	pop	r0
+     c40:	0f 90       	pop	r0
+     c42:	0f 90       	pop	r0
+     c44:	0f 90       	pop	r0
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+     c46:	df 91       	pop	r29
+     c48:	cf 91       	pop	r28
+     c4a:	08 95       	ret
+
+00000c4c <BATEventHandler>:
+static bool usbAttached;
+static bool battCharging;
+
+void BATEventHandler(Event event, U16 eventArg)
+{
+	switch (event) {
+     c4c:	90 e0       	ldi	r25, 0x00	; 0
+     c4e:	fc 01       	movw	r30, r24
+     c50:	31 97       	sbiw	r30, 0x01	; 1
+     c52:	ee 30       	cpi	r30, 0x0E	; 14
+     c54:	f1 05       	cpc	r31, r1
+     c56:	08 f0       	brcs	.+2      	; 0xc5a <BATEventHandler+0xe>
+     c58:	91 c0       	rjmp	.+290    	; 0xd7c <BATEventHandler+0x130>
+     c5a:	db 01       	movw	r26, r22
+     c5c:	ea 5a       	subi	r30, 0xAA	; 170
+     c5e:	ff 4f       	sbci	r31, 0xFF	; 255
+     c60:	0c 94 92 0d 	jmp	0x1b24	; 0x1b24 <__tablejump2__>
+	case EVENT_INIT:
+		battPercentage = NOTANUMBER_U16;
+     c64:	8f ef       	ldi	r24, 0xFF	; 255
+     c66:	9f ef       	ldi	r25, 0xFF	; 255
+     c68:	90 93 21 02 	sts	0x0221, r25	; 0x800221 <battPercentage+0x1>
+     c6c:	80 93 20 02 	sts	0x0220, r24	; 0x800220 <battPercentage>
+		battTimerMs = 1 * MS_PERSEC;
+     c70:	88 ee       	ldi	r24, 0xE8	; 232
+     c72:	93 e0       	ldi	r25, 0x03	; 3
+     c74:	90 93 23 02 	sts	0x0223, r25	; 0x800223 <battTimerMs+0x1>
+     c78:	80 93 22 02 	sts	0x0222, r24	; 0x800222 <battTimerMs>
+		usbAttached = true;	// Assume if we're starting from power-up, USB must be attached(?)
+     c7c:	81 e0       	ldi	r24, 0x01	; 1
+     c7e:	80 93 1f 02 	sts	0x021F, r24	; 0x80021f <usbAttached>
+		battCharging = true;	// Further assume that battery ought to be charging if we're starting, presumably with USB attached(?)
+     c82:	80 93 1e 02 	sts	0x021E, r24	; 0x80021e <battCharging>
+		break;
+     c86:	08 95       	ret
+	case EVENT_TICK:
+		if (battTimerMs) {
+     c88:	80 91 22 02 	lds	r24, 0x0222	; 0x800222 <battTimerMs>
+     c8c:	90 91 23 02 	lds	r25, 0x0223	; 0x800223 <battTimerMs+0x1>
+     c90:	00 97       	sbiw	r24, 0x00	; 0
+     c92:	09 f4       	brne	.+2      	; 0xc96 <BATEventHandler+0x4a>
+     c94:	73 c0       	rjmp	.+230    	; 0xd7c <BATEventHandler+0x130>
+			if (battTimerMs > eventArg) {
+     c96:	68 17       	cp	r22, r24
+     c98:	79 07       	cpc	r23, r25
+     c9a:	38 f4       	brcc	.+14     	; 0xcaa <BATEventHandler+0x5e>
+				battTimerMs -= eventArg;
+     c9c:	86 1b       	sub	r24, r22
+     c9e:	97 0b       	sbc	r25, r23
+     ca0:	90 93 23 02 	sts	0x0223, r25	; 0x800223 <battTimerMs+0x1>
+     ca4:	80 93 22 02 	sts	0x0222, r24	; 0x800222 <battTimerMs>
+     ca8:	08 95       	ret
+			} else {
+				battPercentage = BATTget();
+     caa:	0e 94 ea 04 	call	0x9d4	; 0x9d4 <BATTget>
+     cae:	90 93 21 02 	sts	0x0221, r25	; 0x800221 <battPercentage+0x1>
+     cb2:	80 93 20 02 	sts	0x0220, r24	; 0x800220 <battPercentage>
+				OSIssueEvent(EVENT_BATTERY, battPercentage);
+     cb6:	bc 01       	movw	r22, r24
+     cb8:	83 e1       	ldi	r24, 0x13	; 19
+     cba:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+				battTimerMs = (U16)SAMPLEFREQS_BATT * (U16)MS_PERSEC;
+     cbe:	80 e6       	ldi	r24, 0x60	; 96
+     cc0:	9a ee       	ldi	r25, 0xEA	; 234
+     cc2:	90 93 23 02 	sts	0x0223, r25	; 0x800223 <battTimerMs+0x1>
+     cc6:	80 93 22 02 	sts	0x0222, r24	; 0x800222 <battTimerMs>
+     cca:	08 95       	ret
+			}
+		}
+		break;
+	case EVENT_SECOND:
+		if (usbAttached && battCharging) {
+     ccc:	80 91 1f 02 	lds	r24, 0x021F	; 0x80021f <usbAttached>
+     cd0:	88 23       	and	r24, r24
+     cd2:	09 f4       	brne	.+2      	; 0xcd6 <BATEventHandler+0x8a>
+     cd4:	53 c0       	rjmp	.+166    	; 0xd7c <BATEventHandler+0x130>
+     cd6:	80 91 1e 02 	lds	r24, 0x021E	; 0x80021e <battCharging>
+     cda:	88 23       	and	r24, r24
+     cdc:	09 f4       	brne	.+2      	; 0xce0 <BATEventHandler+0x94>
+     cde:	4e c0       	rjmp	.+156    	; 0xd7c <BATEventHandler+0x130>
+			battCharging = (0 != (PORTE & 0x40));
+     ce0:	8e b1       	in	r24, 0x0e	; 14
+     ce2:	91 e0       	ldi	r25, 0x01	; 1
+     ce4:	28 2f       	mov	r18, r24
+     ce6:	20 74       	andi	r18, 0x40	; 64
+     ce8:	86 ff       	sbrs	r24, 6
+     cea:	90 e0       	ldi	r25, 0x00	; 0
+     cec:	90 93 1e 02 	sts	0x021E, r25	; 0x80021e <battCharging>
+			if (!battCharging) {
+     cf0:	21 11       	cpse	r18, r1
+     cf2:	44 c0       	rjmp	.+136    	; 0xd7c <BATEventHandler+0x130>
+				OSIssueEvent(EVENT_CHARGED, 0);	// We've just stopped charging
+     cf4:	60 e0       	ldi	r22, 0x00	; 0
+     cf6:	70 e0       	ldi	r23, 0x00	; 0
+     cf8:	85 e1       	ldi	r24, 0x15	; 21
+     cfa:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     cfe:	08 95       	ret
+			}
+		}
+		break;
+	case EVENT_USB:
+		usbAttached = eventArg;
+     d00:	81 e0       	ldi	r24, 0x01	; 1
+     d02:	10 97       	sbiw	r26, 0x00	; 0
+     d04:	09 f4       	brne	.+2      	; 0xd08 <BATEventHandler+0xbc>
+     d06:	80 e0       	ldi	r24, 0x00	; 0
+     d08:	80 93 1f 02 	sts	0x021F, r24	; 0x80021f <usbAttached>
+		if (eventArg) {
+     d0c:	ab 2b       	or	r26, r27
+     d0e:	31 f0       	breq	.+12     	; 0xd1c <BATEventHandler+0xd0>
+			OSIssueEvent(EVENT_CHARGING, 0);	// Assume must be charging when USB attached
+     d10:	60 e0       	ldi	r22, 0x00	; 0
+     d12:	70 e0       	ldi	r23, 0x00	; 0
+     d14:	84 e1       	ldi	r24, 0x14	; 20
+     d16:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+     d1a:	08 95       	ret
+		} else {
+			LEDShowPercentage(battPercentage);		// And then display battery voltage via main LEDs
+     d1c:	80 91 20 02 	lds	r24, 0x0220	; 0x800220 <battPercentage>
+     d20:	90 91 21 02 	lds	r25, 0x0221	; 0x800221 <battPercentage+0x1>
+     d24:	0e 94 05 08 	call	0x100a	; 0x100a <LEDShowPercentage>
+     d28:	08 95       	ret
+		}
+		break;
+	case EVENT_DOUBLE_CLICK:
+		if (NOTANUMBER_U16 != battPercentage) {
+     d2a:	80 91 20 02 	lds	r24, 0x0220	; 0x800220 <battPercentage>
+     d2e:	90 91 21 02 	lds	r25, 0x0221	; 0x800221 <battPercentage+0x1>
+     d32:	8f 3f       	cpi	r24, 0xFF	; 255
+     d34:	2f ef       	ldi	r18, 0xFF	; 255
+     d36:	92 07       	cpc	r25, r18
+     d38:	09 f1       	breq	.+66     	; 0xd7c <BATEventHandler+0x130>
+			LEDShowPercentage(battPercentage);		// Display battery voltage via main LEDs
+     d3a:	0e 94 05 08 	call	0x100a	; 0x100a <LEDShowPercentage>
+     d3e:	08 95       	ret
+		}
+		break;
+	case EVENT_REQSLEEP:
+		if (NOTANUMBER_U16 == battPercentage) *(bool*)eventArg = false;	// Disallow sleep until we've got a battery reading
+     d40:	80 91 20 02 	lds	r24, 0x0220	; 0x800220 <battPercentage>
+     d44:	90 91 21 02 	lds	r25, 0x0221	; 0x800221 <battPercentage+0x1>
+     d48:	01 96       	adiw	r24, 0x01	; 1
+     d4a:	c1 f4       	brne	.+48     	; 0xd7c <BATEventHandler+0x130>
+     d4c:	1c 92       	st	X, r1
+     d4e:	08 95       	ret
+		break;
+	case EVENT_INFO:
+		OSprintf("Batt %d%%%s", battPercentage, OS_NEWLINE);
+     d50:	86 eb       	ldi	r24, 0xB6	; 182
+     d52:	91 e0       	ldi	r25, 0x01	; 1
+     d54:	9f 93       	push	r25
+     d56:	8f 93       	push	r24
+     d58:	80 91 21 02 	lds	r24, 0x0221	; 0x800221 <battPercentage+0x1>
+     d5c:	8f 93       	push	r24
+     d5e:	80 91 20 02 	lds	r24, 0x0220	; 0x800220 <battPercentage>
+     d62:	8f 93       	push	r24
+     d64:	8e e1       	ldi	r24, 0x1E	; 30
+     d66:	91 e0       	ldi	r25, 0x01	; 1
+     d68:	9f 93       	push	r25
+     d6a:	8f 93       	push	r24
+     d6c:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		break;
+     d70:	0f 90       	pop	r0
+     d72:	0f 90       	pop	r0
+     d74:	0f 90       	pop	r0
+     d76:	0f 90       	pop	r0
+     d78:	0f 90       	pop	r0
+     d7a:	0f 90       	pop	r0
+     d7c:	08 95       	ret
+
+00000d7e <__vector_1>:
+static bool btnDown;	// true when down
+static U16 btnTimerMs;	// Time of button being kept in same state
+static BtnState btnState;
+
+ISR(INT0_vect)	// Button edge detected
+{
+     d7e:	1f 92       	push	r1
+     d80:	0f 92       	push	r0
+     d82:	0f b6       	in	r0, 0x3f	; 63
+     d84:	0f 92       	push	r0
+     d86:	11 24       	eor	r1, r1
+     d88:	8f 93       	push	r24
+	btnDown = (0 != BTN);	// Read button as true when down
+     d8a:	89 b1       	in	r24, 0x09	; 9
+     d8c:	81 70       	andi	r24, 0x01	; 1
+     d8e:	80 93 27 02 	sts	0x0227, r24	; 0x800227 <btnDown>
+	//if (btnDown) { IND_LED_ON; } else { IND_LED_OFF; }	// For debugging
+	btnInt = true;
+     d92:	81 e0       	ldi	r24, 0x01	; 1
+     d94:	80 93 28 02 	sts	0x0228, r24	; 0x800228 <btnInt>
+}
+     d98:	8f 91       	pop	r24
+     d9a:	0f 90       	pop	r0
+     d9c:	0f be       	out	0x3f, r0	; 63
+     d9e:	0f 90       	pop	r0
+     da0:	1f 90       	pop	r1
+     da2:	18 95       	reti
+
+00000da4 <BTNEventHandler>:
+
+void BTNEventHandler(Event event, U16 eventArg)
+{
+     da4:	cf 93       	push	r28
+     da6:	df 93       	push	r29
+	switch (event) {
+     da8:	86 30       	cpi	r24, 0x06	; 6
+     daa:	09 f4       	brne	.+2      	; 0xdae <BTNEventHandler+0xa>
+     dac:	c0 c0       	rjmp	.+384    	; 0xf2e <BTNEventHandler+0x18a>
+     dae:	eb 01       	movw	r28, r22
+     db0:	87 30       	cpi	r24, 0x07	; 7
+     db2:	28 f4       	brcc	.+10     	; 0xdbe <BTNEventHandler+0x1a>
+     db4:	82 30       	cpi	r24, 0x02	; 2
+     db6:	51 f0       	breq	.+20     	; 0xdcc <BTNEventHandler+0x28>
+     db8:	83 30       	cpi	r24, 0x03	; 3
+     dba:	69 f0       	breq	.+26     	; 0xdd6 <BTNEventHandler+0x32>
+     dbc:	ca c0       	rjmp	.+404    	; 0xf52 <BTNEventHandler+0x1ae>
+     dbe:	89 30       	cpi	r24, 0x09	; 9
+     dc0:	09 f4       	brne	.+2      	; 0xdc4 <BTNEventHandler+0x20>
+     dc2:	65 c0       	rjmp	.+202    	; 0xe8e <BTNEventHandler+0xea>
+     dc4:	8b 30       	cpi	r24, 0x0B	; 11
+     dc6:	09 f4       	brne	.+2      	; 0xdca <BTNEventHandler+0x26>
+     dc8:	aa c0       	rjmp	.+340    	; 0xf1e <BTNEventHandler+0x17a>
+     dca:	c3 c0       	rjmp	.+390    	; 0xf52 <BTNEventHandler+0x1ae>
+	case EVENT_POSTINIT:
+		btnInt = false;
+     dcc:	10 92 28 02 	sts	0x0228, r1	; 0x800228 <btnInt>
+		btnState = BTNSTATE_IDLE;
+     dd0:	10 92 24 02 	sts	0x0224, r1	; 0x800224 <btnState>
+		break;
+     dd4:	be c0       	rjmp	.+380    	; 0xf52 <BTNEventHandler+0x1ae>
+	case EVENT_TICK:
+		if (btnInt) {
+     dd6:	80 91 28 02 	lds	r24, 0x0228	; 0x800228 <btnInt>
+     dda:	88 23       	and	r24, r24
+     ddc:	69 f0       	breq	.+26     	; 0xdf8 <BTNEventHandler+0x54>
+			btnInt = false;	// So that we don't continue to trigger
+     dde:	10 92 28 02 	sts	0x0228, r1	; 0x800228 <btnInt>
+			if (BTNSTATE_IGNORE != btnState) OSIssueEvent(EVENT_BUTTON, btnDown);	// btnDown value set directly from ISR
+     de2:	80 91 24 02 	lds	r24, 0x0224	; 0x800224 <btnState>
+     de6:	85 30       	cpi	r24, 0x05	; 5
+     de8:	09 f4       	brne	.+2      	; 0xdec <BTNEventHandler+0x48>
+     dea:	a8 c0       	rjmp	.+336    	; 0xf3c <BTNEventHandler+0x198>
+     dec:	60 91 27 02 	lds	r22, 0x0227	; 0x800227 <btnDown>
+     df0:	70 e0       	ldi	r23, 0x00	; 0
+     df2:	89 e0       	ldi	r24, 0x09	; 9
+     df4:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+		}
+		if (BTNSTATE_IDLE != btnState) {	// Only think about button if not idle
+     df8:	80 91 24 02 	lds	r24, 0x0224	; 0x800224 <btnState>
+     dfc:	88 23       	and	r24, r24
+     dfe:	09 f4       	brne	.+2      	; 0xe02 <BTNEventHandler+0x5e>
+     e00:	a8 c0       	rjmp	.+336    	; 0xf52 <BTNEventHandler+0x1ae>
+			btnTimerMs += eventArg;	// Time how long button stays in same state
+     e02:	60 91 25 02 	lds	r22, 0x0225	; 0x800225 <btnTimerMs>
+     e06:	70 91 26 02 	lds	r23, 0x0226	; 0x800226 <btnTimerMs+0x1>
+     e0a:	6c 0f       	add	r22, r28
+     e0c:	7d 1f       	adc	r23, r29
+     e0e:	70 93 26 02 	sts	0x0226, r23	; 0x800226 <btnTimerMs+0x1>
+     e12:	60 93 25 02 	sts	0x0225, r22	; 0x800225 <btnTimerMs>
+			switch (btnState) {
+     e16:	83 30       	cpi	r24, 0x03	; 3
+     e18:	61 f1       	breq	.+88     	; 0xe72 <BTNEventHandler+0xce>
+     e1a:	28 f4       	brcc	.+10     	; 0xe26 <BTNEventHandler+0x82>
+     e1c:	81 30       	cpi	r24, 0x01	; 1
+     e1e:	49 f0       	breq	.+18     	; 0xe32 <BTNEventHandler+0x8e>
+     e20:	82 30       	cpi	r24, 0x02	; 2
+     e22:	d9 f0       	breq	.+54     	; 0xe5a <BTNEventHandler+0xb6>
+     e24:	96 c0       	rjmp	.+300    	; 0xf52 <BTNEventHandler+0x1ae>
+     e26:	84 30       	cpi	r24, 0x04	; 4
+     e28:	61 f0       	breq	.+24     	; 0xe42 <BTNEventHandler+0x9e>
+     e2a:	85 30       	cpi	r24, 0x05	; 5
+     e2c:	09 f0       	breq	.+2      	; 0xe30 <BTNEventHandler+0x8c>
+     e2e:	91 c0       	rjmp	.+290    	; 0xf52 <BTNEventHandler+0x1ae>
+     e30:	27 c0       	rjmp	.+78     	; 0xe80 <BTNEventHandler+0xdc>
+			case BTNSTATE_FIRSTPRESS:	// Time when button pressed initially
+				if (btnTimerMs > BTN_CLICKMS) {
+     e32:	65 3f       	cpi	r22, 0xF5	; 245
+     e34:	71 40       	sbci	r23, 0x01	; 1
+     e36:	08 f4       	brcc	.+2      	; 0xe3a <BTNEventHandler+0x96>
+     e38:	8c c0       	rjmp	.+280    	; 0xf52 <BTNEventHandler+0x1ae>
+					btnState = BTNSTATE_FIRSTHOLD;	// No longer measuring Click time, because it's been held down too long, but might not count as long press either yet...
+     e3a:	84 e0       	ldi	r24, 0x04	; 4
+     e3c:	80 93 24 02 	sts	0x0224, r24	; 0x800224 <btnState>
+     e40:	88 c0       	rjmp	.+272    	; 0xf52 <BTNEventHandler+0x1ae>
+				}
+				break;
+			case BTNSTATE_FIRSTHOLD:	// Time when button pressed and held
+				if (btnTimerMs > BTN_HOLDMS)	{	// Read timer as button is held down
+     e42:	69 3e       	cpi	r22, 0xE9	; 233
+     e44:	73 40       	sbci	r23, 0x03	; 3
+     e46:	08 f4       	brcc	.+2      	; 0xe4a <BTNEventHandler+0xa6>
+     e48:	84 c0       	rjmp	.+264    	; 0xf52 <BTNEventHandler+0x1ae>
+					OSIssueEvent(EVENT_LONG_CLICK, 0);
+     e4a:	60 e0       	ldi	r22, 0x00	; 0
+     e4c:	70 e0       	ldi	r23, 0x00	; 0
+     e4e:	8c e0       	ldi	r24, 0x0C	; 12
+     e50:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+					btnState = BTNSTATE_IDLE;
+     e54:	10 92 24 02 	sts	0x0224, r1	; 0x800224 <btnState>
+     e58:	7c c0       	rjmp	.+248    	; 0xf52 <BTNEventHandler+0x1ae>
+				}
+				break;
+			case BTNSTATE_FIRSTRELEASE:	// Time when Button released after first press...
+				if (btnTimerMs > BTN_CLICKMS) {	// Use same length of time for release as for initial press
+     e5a:	65 3f       	cpi	r22, 0xF5	; 245
+     e5c:	71 40       	sbci	r23, 0x01	; 1
+     e5e:	08 f4       	brcc	.+2      	; 0xe62 <BTNEventHandler+0xbe>
+     e60:	78 c0       	rjmp	.+240    	; 0xf52 <BTNEventHandler+0x1ae>
+					OSIssueEvent(EVENT_SINGLE_CLICK, 0);	// Not start of double-click, so must be single click
+     e62:	60 e0       	ldi	r22, 0x00	; 0
+     e64:	70 e0       	ldi	r23, 0x00	; 0
+     e66:	8a e0       	ldi	r24, 0x0A	; 10
+     e68:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+					btnState = BTNSTATE_IDLE;
+     e6c:	10 92 24 02 	sts	0x0224, r1	; 0x800224 <btnState>
+     e70:	70 c0       	rjmp	.+224    	; 0xf52 <BTNEventHandler+0x1ae>
+				}
+				break;
+			case BTNSTATE_SECONDPRESS:	// Button pressed soon again after earlier tap
+				if (btnTimerMs > BTN_CLICKMS) {	// Use same length of time for release as for initial press
+     e72:	65 3f       	cpi	r22, 0xF5	; 245
+     e74:	71 40       	sbci	r23, 0x01	; 1
+     e76:	08 f4       	brcc	.+2      	; 0xe7a <BTNEventHandler+0xd6>
+     e78:	6c c0       	rjmp	.+216    	; 0xf52 <BTNEventHandler+0x1ae>
+					btnState = BTNSTATE_IDLE;	// If second press is too long, then ignore
+     e7a:	10 92 24 02 	sts	0x0224, r1	; 0x800224 <btnState>
+     e7e:	69 c0       	rjmp	.+210    	; 0xf52 <BTNEventHandler+0x1ae>
+				}
+				break;
+			case BTNSTATE_IGNORE:
+				if (btnTimerMs > BTN_IGNOREMS) {
+     e80:	69 3e       	cpi	r22, 0xE9	; 233
+     e82:	73 40       	sbci	r23, 0x03	; 3
+     e84:	08 f4       	brcc	.+2      	; 0xe88 <BTNEventHandler+0xe4>
+     e86:	65 c0       	rjmp	.+202    	; 0xf52 <BTNEventHandler+0x1ae>
+					btnState = BTNSTATE_IDLE;	// Once we've stopped ignoring, go back to Idle
+     e88:	10 92 24 02 	sts	0x0224, r1	; 0x800224 <btnState>
+     e8c:	62 c0       	rjmp	.+196    	; 0xf52 <BTNEventHandler+0x1ae>
+				break;	// Does nothing, but stops useless warnings from the compiler
+			}
+		}
+		break;
+	case EVENT_BUTTON:
+		btnTimerMs = 0;	// Start timer if just pressed or just released
+     e8e:	10 92 26 02 	sts	0x0226, r1	; 0x800226 <btnTimerMs+0x1>
+     e92:	10 92 25 02 	sts	0x0225, r1	; 0x800225 <btnTimerMs>
+		if (eventArg) { IND_LED_ON; } else { IND_LED_OFF; }	// For debugging
+     e96:	20 97       	sbiw	r28, 0x00	; 0
+     e98:	81 f0       	breq	.+32     	; 0xeba <BTNEventHandler+0x116>
+     e9a:	88 9a       	sbi	0x11, 0	; 17
+		switch (btnState) {
+     e9c:	80 91 24 02 	lds	r24, 0x0224	; 0x800224 <btnState>
+     ea0:	82 30       	cpi	r24, 0x02	; 2
+     ea2:	41 f1       	breq	.+80     	; 0xef4 <BTNEventHandler+0x150>
+     ea4:	28 f4       	brcc	.+10     	; 0xeb0 <BTNEventHandler+0x10c>
+     ea6:	88 23       	and	r24, r24
+     ea8:	c1 f0       	breq	.+48     	; 0xeda <BTNEventHandler+0x136>
+     eaa:	81 30       	cpi	r24, 0x01	; 1
+     eac:	e9 f0       	breq	.+58     	; 0xee8 <BTNEventHandler+0x144>
+     eae:	51 c0       	rjmp	.+162    	; 0xf52 <BTNEventHandler+0x1ae>
+     eb0:	83 30       	cpi	r24, 0x03	; 3
+     eb2:	41 f1       	breq	.+80     	; 0xf04 <BTNEventHandler+0x160>
+     eb4:	84 30       	cpi	r24, 0x04	; 4
+     eb6:	81 f1       	breq	.+96     	; 0xf18 <BTNEventHandler+0x174>
+     eb8:	4c c0       	rjmp	.+152    	; 0xf52 <BTNEventHandler+0x1ae>
+			}
+		}
+		break;
+	case EVENT_BUTTON:
+		btnTimerMs = 0;	// Start timer if just pressed or just released
+		if (eventArg) { IND_LED_ON; } else { IND_LED_OFF; }	// For debugging
+     eba:	88 98       	cbi	0x11, 0	; 17
+		switch (btnState) {
+     ebc:	80 91 24 02 	lds	r24, 0x0224	; 0x800224 <btnState>
+     ec0:	82 30       	cpi	r24, 0x02	; 2
+     ec2:	c1 f0       	breq	.+48     	; 0xef4 <BTNEventHandler+0x150>
+     ec4:	28 f4       	brcc	.+10     	; 0xed0 <BTNEventHandler+0x12c>
+     ec6:	88 23       	and	r24, r24
+     ec8:	41 f0       	breq	.+16     	; 0xeda <BTNEventHandler+0x136>
+     eca:	81 30       	cpi	r24, 0x01	; 1
+     ecc:	79 f0       	breq	.+30     	; 0xeec <BTNEventHandler+0x148>
+     ece:	41 c0       	rjmp	.+130    	; 0xf52 <BTNEventHandler+0x1ae>
+     ed0:	83 30       	cpi	r24, 0x03	; 3
+     ed2:	c1 f0       	breq	.+48     	; 0xf04 <BTNEventHandler+0x160>
+     ed4:	84 30       	cpi	r24, 0x04	; 4
+     ed6:	01 f1       	breq	.+64     	; 0xf18 <BTNEventHandler+0x174>
+     ed8:	3c c0       	rjmp	.+120    	; 0xf52 <BTNEventHandler+0x1ae>
+		case BTNSTATE_IDLE:
+			btnState = (eventArg) ? BTNSTATE_FIRSTPRESS : BTNSTATE_IDLE;	// If pressed when Idle, advance to FirstPress
+     eda:	81 e0       	ldi	r24, 0x01	; 1
+     edc:	cd 2b       	or	r28, r29
+     ede:	09 f4       	brne	.+2      	; 0xee2 <BTNEventHandler+0x13e>
+     ee0:	80 e0       	ldi	r24, 0x00	; 0
+     ee2:	80 93 24 02 	sts	0x0224, r24	; 0x800224 <btnState>
+			break;
+     ee6:	35 c0       	rjmp	.+106    	; 0xf52 <BTNEventHandler+0x1ae>
+		case BTNSTATE_FIRSTPRESS:
+			btnState = (!eventArg) ? BTNSTATE_FIRSTRELEASE : BTNSTATE_IDLE;	// If released during FirstPress, advance to FirstRelease
+     ee8:	80 e0       	ldi	r24, 0x00	; 0
+     eea:	01 c0       	rjmp	.+2      	; 0xeee <BTNEventHandler+0x14a>
+     eec:	82 e0       	ldi	r24, 0x02	; 2
+     eee:	80 93 24 02 	sts	0x0224, r24	; 0x800224 <btnState>
+			break;
+     ef2:	2f c0       	rjmp	.+94     	; 0xf52 <BTNEventHandler+0x1ae>
+		case BTNSTATE_FIRSTRELEASE:
+			btnState = (eventArg) ? BTNSTATE_SECONDPRESS : BTNSTATE_IDLE;	// If pressed during FirstRelease, advance to SecondPress
+     ef4:	cd 2b       	or	r28, r29
+     ef6:	11 f4       	brne	.+4      	; 0xefc <BTNEventHandler+0x158>
+     ef8:	80 e0       	ldi	r24, 0x00	; 0
+     efa:	01 c0       	rjmp	.+2      	; 0xefe <BTNEventHandler+0x15a>
+     efc:	83 e0       	ldi	r24, 0x03	; 3
+     efe:	80 93 24 02 	sts	0x0224, r24	; 0x800224 <btnState>
+			break;
+     f02:	27 c0       	rjmp	.+78     	; 0xf52 <BTNEventHandler+0x1ae>
+		case BTNSTATE_SECONDPRESS:
+			if (!eventArg) {
+     f04:	cd 2b       	or	r28, r29
+     f06:	29 f4       	brne	.+10     	; 0xf12 <BTNEventHandler+0x16e>
+				OSIssueEvent(EVENT_DOUBLE_CLICK, 0);	// If released during SecondPress, issue DoubleClick
+     f08:	60 e0       	ldi	r22, 0x00	; 0
+     f0a:	70 e0       	ldi	r23, 0x00	; 0
+     f0c:	8b e0       	ldi	r24, 0x0B	; 11
+     f0e:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+			}
+			btnState = BTNSTATE_IDLE;	// Idle regardless
+     f12:	10 92 24 02 	sts	0x0224, r1	; 0x800224 <btnState>
+			break;
+     f16:	1d c0       	rjmp	.+58     	; 0xf52 <BTNEventHandler+0x1ae>
+		case BTNSTATE_FIRSTHOLD:
+			btnState = BTNSTATE_IDLE;	// Released during Hold timing, but before held long enough, so ignore
+     f18:	10 92 24 02 	sts	0x0224, r1	; 0x800224 <btnState>
+			break;
+     f1c:	1a c0       	rjmp	.+52     	; 0xf52 <BTNEventHandler+0x1ae>
+		default:
+			break;
+		}
+		break;
+	case EVENT_DOUBLE_CLICK:
+		btnState = BTNSTATE_IGNORE;	// Ignore clicks immediately after a double click, since that'll be nervous taps
+     f1e:	85 e0       	ldi	r24, 0x05	; 5
+     f20:	80 93 24 02 	sts	0x0224, r24	; 0x800224 <btnState>
+		btnTimerMs = 0;	// Start timer when ignoring
+     f24:	10 92 26 02 	sts	0x0226, r1	; 0x800226 <btnTimerMs+0x1>
+     f28:	10 92 25 02 	sts	0x0225, r1	; 0x800225 <btnTimerMs>
+		break;
+     f2c:	12 c0       	rjmp	.+36     	; 0xf52 <BTNEventHandler+0x1ae>
+	case EVENT_REQSLEEP:
+		if (BTNSTATE_IDLE != btnState) *(bool*)eventArg = false;	// Disallow sleep while button in use
+     f2e:	80 91 24 02 	lds	r24, 0x0224	; 0x800224 <btnState>
+     f32:	88 23       	and	r24, r24
+     f34:	71 f0       	breq	.+28     	; 0xf52 <BTNEventHandler+0x1ae>
+     f36:	fb 01       	movw	r30, r22
+     f38:	10 82       	st	Z, r1
+		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+     f3a:	0b c0       	rjmp	.+22     	; 0xf52 <BTNEventHandler+0x1ae>
+		if (btnInt) {
+			btnInt = false;	// So that we don't continue to trigger
+			if (BTNSTATE_IGNORE != btnState) OSIssueEvent(EVENT_BUTTON, btnDown);	// btnDown value set directly from ISR
+		}
+		if (BTNSTATE_IDLE != btnState) {	// Only think about button if not idle
+			btnTimerMs += eventArg;	// Time how long button stays in same state
+     f3c:	60 91 25 02 	lds	r22, 0x0225	; 0x800225 <btnTimerMs>
+     f40:	70 91 26 02 	lds	r23, 0x0226	; 0x800226 <btnTimerMs+0x1>
+     f44:	6c 0f       	add	r22, r28
+     f46:	7d 1f       	adc	r23, r29
+     f48:	70 93 26 02 	sts	0x0226, r23	; 0x800226 <btnTimerMs+0x1>
+     f4c:	60 93 25 02 	sts	0x0225, r22	; 0x800225 <btnTimerMs>
+     f50:	97 cf       	rjmp	.-210    	; 0xe80 <BTNEventHandler+0xdc>
+		if (BTNSTATE_IDLE != btnState) *(bool*)eventArg = false;	// Disallow sleep while button in use
+		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+     f52:	df 91       	pop	r29
+     f54:	cf 91       	pop	r28
+     f56:	08 95       	ret
+
+00000f58 <LEDStartPattern>:
+	return series;
+}
+
+int LEDStartPattern(int pattern)	// A Pattern of Rows, with LED levels, a fade and a hold.  Assumes ledPatternTable set up from LEDStartSeries()
+{
+	if (NULL == ledPatternTable[pattern].pattern) pattern = 0;	// Restart patternIndex if we fall off the end of the table
+     f58:	20 91 35 02 	lds	r18, 0x0235	; 0x800235 <ledPatternTable>
+     f5c:	30 91 36 02 	lds	r19, 0x0236	; 0x800236 <ledPatternTable+0x1>
+     f60:	dc 01       	movw	r26, r24
+     f62:	aa 0f       	add	r26, r26
+     f64:	bb 1f       	adc	r27, r27
+     f66:	a8 0f       	add	r26, r24
+     f68:	b9 1f       	adc	r27, r25
+     f6a:	a2 0f       	add	r26, r18
+     f6c:	b3 1f       	adc	r27, r19
+     f6e:	4d 91       	ld	r20, X+
+     f70:	5c 91       	ld	r21, X
+     f72:	45 2b       	or	r20, r21
+     f74:	11 f4       	brne	.+4      	; 0xf7a <LEDStartPattern+0x22>
+     f76:	80 e0       	ldi	r24, 0x00	; 0
+     f78:	90 e0       	ldi	r25, 0x00	; 0
+	ledBackgroundTop = ledPatternTable[pattern].pattern;
+     f7a:	fc 01       	movw	r30, r24
+     f7c:	ee 0f       	add	r30, r30
+     f7e:	ff 1f       	adc	r31, r31
+     f80:	e8 0f       	add	r30, r24
+     f82:	f9 1f       	adc	r31, r25
+     f84:	e2 0f       	add	r30, r18
+     f86:	f3 1f       	adc	r31, r19
+     f88:	20 81       	ld	r18, Z
+     f8a:	31 81       	ldd	r19, Z+1	; 0x01
+     f8c:	30 93 34 02 	sts	0x0234, r19	; 0x800234 <ledBackgroundTop+0x1>
+     f90:	20 93 33 02 	sts	0x0233, r18	; 0x800233 <ledBackgroundTop>
+	ledPatternCycles = ledPatternTable[pattern].cycles;
+     f94:	42 81       	ldd	r20, Z+2	; 0x02
+     f96:	40 93 37 02 	sts	0x0237, r20	; 0x800237 <ledPatternCycles>
+	ledOverride = NULL;	// No override by default
+	ledRow = ledBackgroundTop;	// Start at top of table
+     f9a:	30 93 32 02 	sts	0x0232, r19	; 0x800232 <ledRow+0x1>
+     f9e:	20 93 31 02 	sts	0x0231, r18	; 0x800231 <ledRow>
+	ledState = (NULL != ledRow) ? LEDSTATE_PREPAREROW : LEDSTATE_IDLE;
+     fa2:	41 e0       	ldi	r20, 0x01	; 1
+     fa4:	23 2b       	or	r18, r19
+     fa6:	09 f4       	brne	.+2      	; 0xfaa <LEDStartPattern+0x52>
+     fa8:	40 e0       	ldi	r20, 0x00	; 0
+     faa:	40 93 3d 02 	sts	0x023D, r20	; 0x80023d <ledState>
+	return pattern;
+}
+     fae:	08 95       	ret
+
+00000fb0 <LEDStartSeries>:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+
+int LEDStartSeries(int series)	// A Series of Patterns
+{
+     fb0:	cf 93       	push	r28
+     fb2:	df 93       	push	r29
+     fb4:	ec 01       	movw	r28, r24
+	if (NULL == ledSeries[series]) series = 0;	// Restart series
+     fb6:	fc 01       	movw	r30, r24
+     fb8:	ee 0f       	add	r30, r30
+     fba:	ff 1f       	adc	r31, r31
+     fbc:	e0 50       	subi	r30, 0x00	; 0
+     fbe:	ff 4f       	sbci	r31, 0xFF	; 255
+     fc0:	80 81       	ld	r24, Z
+     fc2:	91 81       	ldd	r25, Z+1	; 0x01
+     fc4:	89 2b       	or	r24, r25
+     fc6:	11 f4       	brne	.+4      	; 0xfcc <LEDStartSeries+0x1c>
+     fc8:	c0 e0       	ldi	r28, 0x00	; 0
+     fca:	d0 e0       	ldi	r29, 0x00	; 0
+	ledPatternTable = ledSeries[series];
+     fcc:	fe 01       	movw	r30, r28
+     fce:	ee 0f       	add	r30, r30
+     fd0:	ff 1f       	adc	r31, r31
+     fd2:	e0 50       	subi	r30, 0x00	; 0
+     fd4:	ff 4f       	sbci	r31, 0xFF	; 255
+     fd6:	80 81       	ld	r24, Z
+     fd8:	91 81       	ldd	r25, Z+1	; 0x01
+     fda:	90 93 36 02 	sts	0x0236, r25	; 0x800236 <ledPatternTable+0x1>
+     fde:	80 93 35 02 	sts	0x0235, r24	; 0x800235 <ledPatternTable>
+	ledPatternIndex = LEDStartPattern(0);	// Start first pattern in series
+     fe2:	80 e0       	ldi	r24, 0x00	; 0
+     fe4:	90 e0       	ldi	r25, 0x00	; 0
+     fe6:	0e 94 ac 07 	call	0xf58	; 0xf58 <LEDStartPattern>
+     fea:	80 93 38 02 	sts	0x0238, r24	; 0x800238 <ledPatternIndex>
+	ledPlayingSeries = series;	// Keep a track of which series we're playing now
+     fee:	c0 93 3c 02 	sts	0x023C, r28	; 0x80023c <ledPlayingSeries>
+	return series;
+}
+     ff2:	ce 01       	movw	r24, r28
+     ff4:	df 91       	pop	r29
+     ff6:	cf 91       	pop	r28
+     ff8:	08 95       	ret
+
+00000ffa <LEDOverride>:
+
+void LEDOverride(const LED_ROW* ledTable)
+{
+	// Leave ledBackgroundTop as it was, so we can restore to it when override is done
+	ledOverride = (LED_ROW*)ledTable;
+	ledRow = (LED_ROW*)ledTable;	// Start at top of table
+     ffa:	90 93 32 02 	sts	0x0232, r25	; 0x800232 <ledRow+0x1>
+     ffe:	80 93 31 02 	sts	0x0231, r24	; 0x800231 <ledRow>
+	ledState = LEDSTATE_PREPAREROW;
+    1002:	81 e0       	ldi	r24, 0x01	; 1
+    1004:	80 93 3d 02 	sts	0x023D, r24	; 0x80023d <ledState>
+    1008:	08 95       	ret
+
+0000100a <LEDShowPercentage>:
+	return pattern;
+}
+
+void LEDShowPercentage(U16 val)
+{
+	if (val > 92) {	// Anything over 100% is treated as 100%
+    100a:	8d 35       	cpi	r24, 0x5D	; 93
+    100c:	91 05       	cpc	r25, r1
+    100e:	28 f0       	brcs	.+10     	; 0x101a <LEDShowPercentage+0x10>
+		LEDOverride(LedLevel100);
+    1010:	88 ed       	ldi	r24, 0xD8	; 216
+    1012:	91 e0       	ldi	r25, 0x01	; 1
+    1014:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+    1018:	08 95       	ret
+	} else if ((val <= 92) && (val > 76)) {	// 1/12th either side
+    101a:	9c 01       	movw	r18, r24
+    101c:	2d 54       	subi	r18, 0x4D	; 77
+    101e:	31 09       	sbc	r19, r1
+    1020:	20 31       	cpi	r18, 0x10	; 16
+    1022:	31 05       	cpc	r19, r1
+    1024:	28 f4       	brcc	.+10     	; 0x1030 <LEDShowPercentage+0x26>
+		LEDOverride(LedLevel84);	// 5/6
+    1026:	8a ea       	ldi	r24, 0xAA	; 170
+    1028:	92 e0       	ldi	r25, 0x02	; 2
+    102a:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+    102e:	08 95       	ret
+	} else if ((val <= 76) && (val > 58)) {
+    1030:	9c 01       	movw	r18, r24
+    1032:	2b 53       	subi	r18, 0x3B	; 59
+    1034:	31 09       	sbc	r19, r1
+    1036:	22 31       	cpi	r18, 0x12	; 18
+    1038:	31 05       	cpc	r19, r1
+    103a:	28 f4       	brcc	.+10     	; 0x1046 <LEDShowPercentage+0x3c>
+		LEDOverride(LedLevel67);	// 2/3
+    103c:	82 e7       	ldi	r24, 0x72	; 114
+    103e:	93 e0       	ldi	r25, 0x03	; 3
+    1040:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+    1044:	08 95       	ret
+	} else if ((val <= 58) && (val > 42)) {
+    1046:	9c 01       	movw	r18, r24
+    1048:	2b 52       	subi	r18, 0x2B	; 43
+    104a:	31 09       	sbc	r19, r1
+    104c:	20 31       	cpi	r18, 0x10	; 16
+    104e:	31 05       	cpc	r19, r1
+    1050:	28 f4       	brcc	.+10     	; 0x105c <LEDShowPercentage+0x52>
+		LEDOverride(LedLevel50);	// 1/2
+    1052:	80 e3       	ldi	r24, 0x30	; 48
+    1054:	94 e0       	ldi	r25, 0x04	; 4
+    1056:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+    105a:	08 95       	ret
+	} else if ((val <= 42) && (val > 25)) {
+    105c:	9c 01       	movw	r18, r24
+    105e:	2a 51       	subi	r18, 0x1A	; 26
+    1060:	31 09       	sbc	r19, r1
+    1062:	21 31       	cpi	r18, 0x11	; 17
+    1064:	31 05       	cpc	r19, r1
+    1066:	28 f4       	brcc	.+10     	; 0x1072 <LEDShowPercentage+0x68>
+		LEDOverride(LedLevel33);	// 1/3
+    1068:	84 ee       	ldi	r24, 0xE4	; 228
+    106a:	94 e0       	ldi	r25, 0x04	; 4
+    106c:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+    1070:	08 95       	ret
+	} else if ((val <= 25) && (val > 8)) {
+    1072:	09 97       	sbiw	r24, 0x09	; 9
+    1074:	41 97       	sbiw	r24, 0x11	; 17
+    1076:	28 f4       	brcc	.+10     	; 0x1082 <LEDShowPercentage+0x78>
+		LEDOverride(LedLevel17);	// 1/6
+    1078:	8e e8       	ldi	r24, 0x8E	; 142
+    107a:	95 e0       	ldi	r25, 0x05	; 5
+    107c:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+    1080:	08 95       	ret
+	} else {	// Less than or equal to 8
+		LEDOverride(LedLevel0);
+    1082:	8e e2       	ldi	r24, 0x2E	; 46
+    1084:	96 e0       	ldi	r25, 0x06	; 6
+    1086:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+    108a:	08 95       	ret
+
+0000108c <LEDDisable>:
+	ledState = LEDSTATE_PREPAREROW;
+}
+
+void LEDDisable(void)
+{
+	TURNOFF_LED(0);	// Disable all LEDs while measuring battery voltage or ambient light, or before deep sleep
+    108c:	25 98       	cbi	0x04, 5	; 4
+	TURNOFF_LED(1);
+    108e:	26 98       	cbi	0x04, 6	; 4
+	TURNOFF_LED(2);
+    1090:	27 98       	cbi	0x04, 7	; 4
+    1092:	08 95       	ret
+
+00001094 <LEDpwm>:
+}
+
+void LEDpwm(U16* ledLevels)
+{
+    1094:	fc 01       	movw	r30, r24
+	if (ledLevels[0]) {
+    1096:	80 81       	ld	r24, Z
+    1098:	91 81       	ldd	r25, Z+1	; 0x01
+    109a:	89 2b       	or	r24, r25
+    109c:	29 f0       	breq	.+10     	; 0x10a8 <LEDpwm+0x14>
+		TURNON_LED(0);	// Enable LED if non-zero light level
+    109e:	25 9a       	sbi	0x04, 5	; 4
+		OCR1AL = ledLevels[0] >> 8;	// Put top 8 bits of each LED level into PWM hardware
+    10a0:	81 81       	ldd	r24, Z+1	; 0x01
+    10a2:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7e0088>
+    10a6:	01 c0       	rjmp	.+2      	; 0x10aa <LEDpwm+0x16>
+	} else {
+		TURNOFF_LED(0);	// Must turn off LED when zero, since PWM=0 is still a glimmer
+    10a8:	25 98       	cbi	0x04, 5	; 4
+	}
+	if (ledLevels[1]) {
+    10aa:	82 81       	ldd	r24, Z+2	; 0x02
+    10ac:	93 81       	ldd	r25, Z+3	; 0x03
+    10ae:	89 2b       	or	r24, r25
+    10b0:	29 f0       	breq	.+10     	; 0x10bc <LEDpwm+0x28>
+		TURNON_LED(1);	// Enable LED if non-zero light level
+    10b2:	26 9a       	sbi	0x04, 6	; 4
+		OCR1BL = ledLevels[1] >> 8;	// Put top 8 bits of each LED level into PWM hardware
+    10b4:	83 81       	ldd	r24, Z+3	; 0x03
+    10b6:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <__TEXT_REGION_LENGTH__+0x7e008a>
+    10ba:	01 c0       	rjmp	.+2      	; 0x10be <LEDpwm+0x2a>
+	} else {
+		TURNOFF_LED(1);	// Must turn off LED when zero, since PWM=0 is still a glimmer
+    10bc:	26 98       	cbi	0x04, 6	; 4
+	}
+	if (ledLevels[2]) {
+    10be:	84 81       	ldd	r24, Z+4	; 0x04
+    10c0:	95 81       	ldd	r25, Z+5	; 0x05
+    10c2:	89 2b       	or	r24, r25
+    10c4:	29 f0       	breq	.+10     	; 0x10d0 <LEDpwm+0x3c>
+		TURNON_LED(2);	// Enable LED if non-zero light level
+    10c6:	27 9a       	sbi	0x04, 7	; 4
+		OCR1CL = ledLevels[2] >> 8;	// Put top 8 bits of each LED level into PWM hardware
+    10c8:	85 81       	ldd	r24, Z+5	; 0x05
+    10ca:	80 93 8c 00 	sts	0x008C, r24	; 0x80008c <__TEXT_REGION_LENGTH__+0x7e008c>
+    10ce:	08 95       	ret
+	} else {
+		TURNOFF_LED(2);	// Must turn off LED when zero, since PWM=0 is still a glimmer
+    10d0:	27 98       	cbi	0x04, 7	; 4
+    10d2:	08 95       	ret
+
+000010d4 <LEDEventHandler>:
+
+// Private function prototypes
+void LEDpwm(U16* ledLevels);
+
+void LEDEventHandler(U8 eventId, U16 eventArg)
+{
+    10d4:	ef 92       	push	r14
+    10d6:	ff 92       	push	r15
+    10d8:	0f 93       	push	r16
+    10da:	1f 93       	push	r17
+    10dc:	cf 93       	push	r28
+    10de:	df 93       	push	r29
+	U8 ledIndex;
+	switch (eventId) {
+    10e0:	90 e0       	ldi	r25, 0x00	; 0
+    10e2:	86 31       	cpi	r24, 0x16	; 22
+    10e4:	91 05       	cpc	r25, r1
+    10e6:	08 f0       	brcs	.+2      	; 0x10ea <LEDEventHandler+0x16>
+    10e8:	70 c1       	rjmp	.+736    	; 0x13ca <LEDEventHandler+0x2f6>
+    10ea:	eb 01       	movw	r28, r22
+    10ec:	fc 01       	movw	r30, r24
+    10ee:	ec 59       	subi	r30, 0x9C	; 156
+    10f0:	ff 4f       	sbci	r31, 0xFF	; 255
+    10f2:	0c 94 92 0d 	jmp	0x1b24	; 0x1b24 <__tablejump2__>
+	case EVENT_PREINIT:
+		TCCR1A = 0xA9;	// Bits 2-3,4-5 & 6-7 are PWM compare for each main LED, 10=Mark then space, bits 0-1 are WGM0,1
+    10f6:	89 ea       	ldi	r24, 0xA9	; 169
+    10f8:	80 93 80 00 	sts	0x0080, r24	; 0x800080 <__TEXT_REGION_LENGTH__+0x7e0080>
+		TCCR1B = 0x09;	// Bits 0-2 select clock (001==No prescaler), bits 3-4 are WGM2,3 (0101 for WGM=Fast PWM, 8 bit)
+    10fc:	89 e0       	ldi	r24, 0x09	; 9
+    10fe:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <__TEXT_REGION_LENGTH__+0x7e0081>
+		break;
+    1102:	63 c1       	rjmp	.+710    	; 0x13ca <LEDEventHandler+0x2f6>
+	case EVENT_INIT:
+		TURNOFF_LED(0);
+    1104:	25 98       	cbi	0x04, 5	; 4
+		TURNOFF_LED(1);
+    1106:	26 98       	cbi	0x04, 6	; 4
+		TURNOFF_LED(2);
+    1108:	27 98       	cbi	0x04, 7	; 4
+		nightSeriesIndex = LEDSERIES_ON;	// Steady On
+    110a:	81 e0       	ldi	r24, 0x01	; 1
+    110c:	80 93 3b 02 	sts	0x023B, r24	; 0x80023b <nightSeriesIndex>
+		duskSeriesIndex = LEDSERIES_CIRCLE;	// For single flash
+    1110:	82 e0       	ldi	r24, 0x02	; 2
+    1112:	80 93 3a 02 	sts	0x023A, r24	; 0x80023a <duskSeriesIndex>
+		daySeriesIndex = LEDSERIES_OFF;	// For LEDS off.  Should recover these values from EEPROM to cope with power outages
+    1116:	10 92 39 02 	sts	0x0239, r1	; 0x800239 <daySeriesIndex>
+		daylight = DAYTIME_UNKNOWN;	// Wait for first LDR reading to set this properly
+    111a:	10 92 55 02 	sts	0x0255, r1	; 0x800255 <daylight>
+		ledRow = 0;	// No animation until we know the light level
+    111e:	10 92 32 02 	sts	0x0232, r1	; 0x800232 <ledRow+0x1>
+    1122:	10 92 31 02 	sts	0x0231, r1	; 0x800231 <ledRow>
+		break;
+    1126:	51 c1       	rjmp	.+674    	; 0x13ca <LEDEventHandler+0x2f6>
+	case EVENT_TICK:
+		if (ledRow) {
+    1128:	80 91 31 02 	lds	r24, 0x0231	; 0x800231 <ledRow>
+    112c:	90 91 32 02 	lds	r25, 0x0232	; 0x800232 <ledRow+0x1>
+    1130:	00 97       	sbiw	r24, 0x00	; 0
+    1132:	09 f4       	brne	.+2      	; 0x1136 <LEDEventHandler+0x62>
+    1134:	4a c1       	rjmp	.+660    	; 0x13ca <LEDEventHandler+0x2f6>
+			switch (ledState) {
+    1136:	20 91 3d 02 	lds	r18, 0x023D	; 0x80023d <ledState>
+    113a:	22 30       	cpi	r18, 0x02	; 2
+    113c:	09 f4       	brne	.+2      	; 0x1140 <LEDEventHandler+0x6c>
+    113e:	3f c0       	rjmp	.+126    	; 0x11be <LEDEventHandler+0xea>
+    1140:	23 30       	cpi	r18, 0x03	; 3
+    1142:	09 f4       	brne	.+2      	; 0x1146 <LEDEventHandler+0x72>
+    1144:	83 c0       	rjmp	.+262    	; 0x124c <LEDEventHandler+0x178>
+    1146:	21 30       	cpi	r18, 0x01	; 1
+    1148:	09 f0       	breq	.+2      	; 0x114c <LEDEventHandler+0x78>
+    114a:	3f c1       	rjmp	.+638    	; 0x13ca <LEDEventHandler+0x2f6>
+			case LEDSTATE_PREPAREROW:
+				//OSprintf("Start Fading...\r\n");
+				ledFadeMs = pgm_read_word(&ledRow->fadeMs);	// Cache flash table entry into RAM (I hate Harvard architecture!)
+    114c:	fc 01       	movw	r30, r24
+    114e:	36 96       	adiw	r30, 0x06	; 6
+    1150:	65 91       	lpm	r22, Z+
+    1152:	74 91       	lpm	r23, Z
+				ledHoldMs = pgm_read_word(&ledRow->holdMs);
+    1154:	fc 01       	movw	r30, r24
+    1156:	38 96       	adiw	r30, 0x08	; 8
+    1158:	25 91       	lpm	r18, Z+
+    115a:	34 91       	lpm	r19, Z
+    115c:	30 93 2a 02 	sts	0x022A, r19	; 0x80022a <ledHoldMs+0x1>
+    1160:	20 93 29 02 	sts	0x0229, r18	; 0x800229 <ledHoldMs>
+    1164:	cb e2       	ldi	r28, 0x2B	; 43
+    1166:	d2 e0       	ldi	r29, 0x02	; 2
+    1168:	21 e3       	ldi	r18, 0x31	; 49
+    116a:	32 e0       	ldi	r19, 0x02	; 2
+    116c:	de 01       	movw	r26, r28
+				for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+					ledTargets[ledIndex] = pgm_read_word(&ledRow->targets[ledIndex]);
+    116e:	fc 01       	movw	r30, r24
+    1170:	45 91       	lpm	r20, Z+
+    1172:	54 91       	lpm	r21, Z
+    1174:	4d 93       	st	X+, r20
+    1176:	5d 93       	st	X+, r21
+    1178:	02 96       	adiw	r24, 0x02	; 2
+			switch (ledState) {
+			case LEDSTATE_PREPAREROW:
+				//OSprintf("Start Fading...\r\n");
+				ledFadeMs = pgm_read_word(&ledRow->fadeMs);	// Cache flash table entry into RAM (I hate Harvard architecture!)
+				ledHoldMs = pgm_read_word(&ledRow->holdMs);
+				for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+    117a:	a2 17       	cp	r26, r18
+    117c:	b3 07       	cpc	r27, r19
+    117e:	b9 f7       	brne	.-18     	; 0x116e <LEDEventHandler+0x9a>
+					ledTargets[ledIndex] = pgm_read_word(&ledRow->targets[ledIndex]);
+				}
+				//OSprintf("Row: %4x %4x %4x, Fade:%d, Hold:%d\r\n", ledTargets[0], ledTargets[1], ledTargets[2], ledFadeMs, ledHoldMs);
+				ledState = LEDSTATE_FADING;
+    1180:	82 e0       	ldi	r24, 0x02	; 2
+    1182:	80 93 3d 02 	sts	0x023D, r24	; 0x80023d <ledState>
+				// Set up ledSteps for each LED, so we know how much to add for each ms.  Allow for fractional adding
+				ledTime = ledFadeMs;
+    1186:	e6 2e       	mov	r14, r22
+    1188:	f7 2e       	mov	r15, r23
+    118a:	70 93 3f 02 	sts	0x023F, r23	; 0x80023f <ledTime+0x1>
+    118e:	60 93 3e 02 	sts	0x023E, r22	; 0x80023e <ledTime>
+    1192:	06 e4       	ldi	r16, 0x46	; 70
+    1194:	12 e0       	ldi	r17, 0x02	; 2
+    1196:	e0 e4       	ldi	r30, 0x40	; 64
+    1198:	f2 e0       	ldi	r31, 0x02	; 2
+				for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+					S16 ledDiff = ledTargets[ledIndex] - ledLvls[ledIndex];
+    119a:	89 91       	ld	r24, Y+
+    119c:	99 91       	ld	r25, Y+
+    119e:	d8 01       	movw	r26, r16
+    11a0:	4d 91       	ld	r20, X+
+    11a2:	5d 91       	ld	r21, X+
+    11a4:	8d 01       	movw	r16, r26
+					ledStep[ledIndex] = ledDiff / ledTime;	// Minimum change in PWM brightness is 1 units / 256 ms, or full scale over a minute
+    11a6:	84 1b       	sub	r24, r20
+    11a8:	95 0b       	sbc	r25, r21
+    11aa:	6e 2d       	mov	r22, r14
+    11ac:	7f 2d       	mov	r23, r15
+    11ae:	0e 94 7e 0d 	call	0x1afc	; 0x1afc <__divmodhi4>
+    11b2:	61 93       	st	Z+, r22
+    11b4:	71 93       	st	Z+, r23
+				}
+				//OSprintf("Row: %4x %4x %4x, Fade:%d, Hold:%d\r\n", ledTargets[0], ledTargets[1], ledTargets[2], ledFadeMs, ledHoldMs);
+				ledState = LEDSTATE_FADING;
+				// Set up ledSteps for each LED, so we know how much to add for each ms.  Allow for fractional adding
+				ledTime = ledFadeMs;
+				for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+    11b6:	c2 17       	cp	r28, r18
+    11b8:	d3 07       	cpc	r29, r19
+    11ba:	79 f7       	brne	.-34     	; 0x119a <LEDEventHandler+0xc6>
+    11bc:	06 c1       	rjmp	.+524    	; 0x13ca <LEDEventHandler+0x2f6>
+					ledStep[ledIndex] = ledDiff / ledTime;	// Minimum change in PWM brightness is 1 units / 256 ms, or full scale over a minute
+					//if (0 == ledIndex) OSprintf("Curr: %4x, Trgt: %4x, Diff: %4x, Step: %d\r\n", ledLvls[0], ledTargets[0], ledDiff, ledStep[0]);
+				}
+				break;
+			case LEDSTATE_FADING:
+				if (ledTime > eventArg) {
+    11be:	80 91 3e 02 	lds	r24, 0x023E	; 0x80023e <ledTime>
+    11c2:	90 91 3f 02 	lds	r25, 0x023F	; 0x80023f <ledTime+0x1>
+    11c6:	68 17       	cp	r22, r24
+    11c8:	79 07       	cpc	r23, r25
+    11ca:	e0 f4       	brcc	.+56     	; 0x1204 <LEDEventHandler+0x130>
+					ledTime -= eventArg;
+    11cc:	86 1b       	sub	r24, r22
+    11ce:	97 0b       	sbc	r25, r23
+    11d0:	90 93 3f 02 	sts	0x023F, r25	; 0x80023f <ledTime+0x1>
+    11d4:	80 93 3e 02 	sts	0x023E, r24	; 0x80023e <ledTime>
+    11d8:	a0 e4       	ldi	r26, 0x40	; 64
+    11da:	b2 e0       	ldi	r27, 0x02	; 2
+    11dc:	e6 e4       	ldi	r30, 0x46	; 70
+    11de:	f2 e0       	ldi	r31, 0x02	; 2
+    11e0:	4c e4       	ldi	r20, 0x4C	; 76
+    11e2:	52 e0       	ldi	r21, 0x02	; 2
+					for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+						ledLvls[ledIndex] += ledStep[ledIndex];
+    11e4:	8d 91       	ld	r24, X+
+    11e6:	9d 91       	ld	r25, X+
+    11e8:	20 81       	ld	r18, Z
+    11ea:	31 81       	ldd	r19, Z+1	; 0x01
+    11ec:	82 0f       	add	r24, r18
+    11ee:	93 1f       	adc	r25, r19
+    11f0:	81 93       	st	Z+, r24
+    11f2:	91 93       	st	Z+, r25
+				}
+				break;
+			case LEDSTATE_FADING:
+				if (ledTime > eventArg) {
+					ledTime -= eventArg;
+					for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+    11f4:	e4 17       	cp	r30, r20
+    11f6:	f5 07       	cpc	r31, r21
+    11f8:	a9 f7       	brne	.-22     	; 0x11e4 <LEDEventHandler+0x110>
+						ledLvls[ledIndex] += ledStep[ledIndex];
+					}
+					LEDpwm(ledLvls);
+    11fa:	86 e4       	ldi	r24, 0x46	; 70
+    11fc:	92 e0       	ldi	r25, 0x02	; 2
+    11fe:	0e 94 4a 08 	call	0x1094	; 0x1094 <LEDpwm>
+    1202:	e3 c0       	rjmp	.+454    	; 0x13ca <LEDEventHandler+0x2f6>
+				} else {
+					// Force LEDs to target values directly, to cope with accumulating errors
+					for (ledIndex = 0; ledIndex < NUMLEDS; ledIndex++) {
+						ledLvls[ledIndex] = ledTargets[ledIndex];
+    1204:	e6 e4       	ldi	r30, 0x46	; 70
+    1206:	f2 e0       	ldi	r31, 0x02	; 2
+    1208:	ab e2       	ldi	r26, 0x2B	; 43
+    120a:	b2 e0       	ldi	r27, 0x02	; 2
+    120c:	8d 91       	ld	r24, X+
+    120e:	9c 91       	ld	r25, X
+    1210:	11 97       	sbiw	r26, 0x01	; 1
+    1212:	91 83       	std	Z+1, r25	; 0x01
+    1214:	80 83       	st	Z, r24
+    1216:	12 96       	adiw	r26, 0x02	; 2
+    1218:	8d 91       	ld	r24, X+
+    121a:	9c 91       	ld	r25, X
+    121c:	13 97       	sbiw	r26, 0x03	; 3
+    121e:	93 83       	std	Z+3, r25	; 0x03
+    1220:	82 83       	std	Z+2, r24	; 0x02
+    1222:	14 96       	adiw	r26, 0x04	; 4
+    1224:	8d 91       	ld	r24, X+
+    1226:	9c 91       	ld	r25, X
+    1228:	15 97       	sbiw	r26, 0x05	; 5
+    122a:	95 83       	std	Z+5, r25	; 0x05
+    122c:	84 83       	std	Z+4, r24	; 0x04
+					}
+					LEDpwm(ledLvls);
+    122e:	cf 01       	movw	r24, r30
+    1230:	0e 94 4a 08 	call	0x1094	; 0x1094 <LEDpwm>
+					ledTime = ledHoldMs;
+    1234:	80 91 29 02 	lds	r24, 0x0229	; 0x800229 <ledHoldMs>
+    1238:	90 91 2a 02 	lds	r25, 0x022A	; 0x80022a <ledHoldMs+0x1>
+    123c:	90 93 3f 02 	sts	0x023F, r25	; 0x80023f <ledTime+0x1>
+    1240:	80 93 3e 02 	sts	0x023E, r24	; 0x80023e <ledTime>
+					//OSprintf("Start Holding...\r\n");
+					ledState = LEDSTATE_HOLDING;
+    1244:	83 e0       	ldi	r24, 0x03	; 3
+    1246:	80 93 3d 02 	sts	0x023D, r24	; 0x80023d <ledState>
+    124a:	bf c0       	rjmp	.+382    	; 0x13ca <LEDEventHandler+0x2f6>
+				}
+				break;
+			case LEDSTATE_HOLDING:
+				if (ledTime > eventArg) {
+    124c:	20 91 3e 02 	lds	r18, 0x023E	; 0x80023e <ledTime>
+    1250:	30 91 3f 02 	lds	r19, 0x023F	; 0x80023f <ledTime+0x1>
+    1254:	62 17       	cp	r22, r18
+    1256:	73 07       	cpc	r23, r19
+    1258:	38 f4       	brcc	.+14     	; 0x1268 <LEDEventHandler+0x194>
+					ledTime -= eventArg;
+    125a:	26 1b       	sub	r18, r22
+    125c:	37 0b       	sbc	r19, r23
+    125e:	30 93 3f 02 	sts	0x023F, r19	; 0x80023f <ledTime+0x1>
+    1262:	20 93 3e 02 	sts	0x023E, r18	; 0x80023e <ledTime>
+    1266:	b1 c0       	rjmp	.+354    	; 0x13ca <LEDEventHandler+0x2f6>
+				} else {
+					ledRow++;	// Get next row
+    1268:	9c 01       	movw	r18, r24
+    126a:	26 5f       	subi	r18, 0xF6	; 246
+    126c:	3f 4f       	sbci	r19, 0xFF	; 255
+    126e:	30 93 32 02 	sts	0x0232, r19	; 0x800232 <ledRow+0x1>
+    1272:	20 93 31 02 	sts	0x0231, r18	; 0x800231 <ledRow>
+					if (TABLE_END == pgm_read_word(&ledRow->fadeMs)) {	// Check for end of table in flash
+    1276:	fc 01       	movw	r30, r24
+    1278:	70 96       	adiw	r30, 0x10	; 16
+    127a:	85 91       	lpm	r24, Z+
+    127c:	94 91       	lpm	r25, Z
+    127e:	8f 3f       	cpi	r24, 0xFF	; 255
+    1280:	9f 47       	sbci	r25, 0x7F	; 127
+    1282:	49 f5       	brne	.+82     	; 0x12d6 <LEDEventHandler+0x202>
+						if (0 == ledPatternCycles) {
+    1284:	80 91 37 02 	lds	r24, 0x0237	; 0x800237 <ledPatternCycles>
+    1288:	81 11       	cpse	r24, r1
+    128a:	0b c0       	rjmp	.+22     	; 0x12a2 <LEDEventHandler+0x1ce>
+							ledState = LEDSTATE_IDLE;	// Assume all LEDs are now off, because LED_BRAKE also fades down to off before resuming
+    128c:	10 92 3d 02 	sts	0x023D, r1	; 0x80023d <ledState>
+							OSprintf("LEDs idle\r\n");
+    1290:	8a e2       	ldi	r24, 0x2A	; 42
+    1292:	91 e0       	ldi	r25, 0x01	; 1
+    1294:	9f 93       	push	r25
+    1296:	8f 93       	push	r24
+    1298:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+    129c:	0f 90       	pop	r0
+    129e:	0f 90       	pop	r0
+    12a0:	0d c0       	rjmp	.+26     	; 0x12bc <LEDEventHandler+0x1e8>
+						} else if (0 == --ledPatternCycles) {
+    12a2:	81 50       	subi	r24, 0x01	; 1
+    12a4:	80 93 37 02 	sts	0x0237, r24	; 0x800237 <ledPatternCycles>
+    12a8:	81 11       	cpse	r24, r1
+    12aa:	08 c0       	rjmp	.+16     	; 0x12bc <LEDEventHandler+0x1e8>
+							ledPatternIndex = LEDStartPattern(ledPatternIndex+1);
+    12ac:	80 91 38 02 	lds	r24, 0x0238	; 0x800238 <ledPatternIndex>
+    12b0:	90 e0       	ldi	r25, 0x00	; 0
+    12b2:	01 96       	adiw	r24, 0x01	; 1
+    12b4:	0e 94 ac 07 	call	0xf58	; 0xf58 <LEDStartPattern>
+    12b8:	80 93 38 02 	sts	0x0238, r24	; 0x800238 <ledPatternIndex>
+						}
+						ledRow = ledBackgroundTop;	// Go to top of current background table (maybe NULL)
+    12bc:	80 91 33 02 	lds	r24, 0x0233	; 0x800233 <ledBackgroundTop>
+    12c0:	90 91 34 02 	lds	r25, 0x0234	; 0x800234 <ledBackgroundTop+0x1>
+    12c4:	90 93 32 02 	sts	0x0232, r25	; 0x800232 <ledRow+0x1>
+    12c8:	80 93 31 02 	sts	0x0231, r24	; 0x800231 <ledRow>
+					}
+					if (LEDSTATE_IDLE != ledState) {
+    12cc:	80 91 3d 02 	lds	r24, 0x023D	; 0x80023d <ledState>
+    12d0:	88 23       	and	r24, r24
+    12d2:	09 f4       	brne	.+2      	; 0x12d6 <LEDEventHandler+0x202>
+    12d4:	7a c0       	rjmp	.+244    	; 0x13ca <LEDEventHandler+0x2f6>
+						//OSprintf("Prepare next LED row...\r\n");
+						ledState = LEDSTATE_PREPAREROW;
+    12d6:	81 e0       	ldi	r24, 0x01	; 1
+    12d8:	80 93 3d 02 	sts	0x023D, r24	; 0x80023d <ledState>
+    12dc:	76 c0       	rjmp	.+236    	; 0x13ca <LEDEventHandler+0x2f6>
+				break;
+			}
+		}
+		break;
+	case EVENT_BRAKE:
+		LEDOverride(LedBrake);
+    12de:	8a e1       	ldi	r24, 0x1A	; 26
+    12e0:	91 e0       	ldi	r25, 0x01	; 1
+    12e2:	0e 94 fd 07 	call	0xffa	; 0xffa <LEDOverride>
+		break;
+    12e6:	71 c0       	rjmp	.+226    	; 0x13ca <LEDEventHandler+0x2f6>
+	case EVENT_CHARGING:
+		OSprintf("Charging\r\n");
+    12e8:	86 e3       	ldi	r24, 0x36	; 54
+    12ea:	91 e0       	ldi	r25, 0x01	; 1
+    12ec:	9f 93       	push	r25
+    12ee:	8f 93       	push	r24
+    12f0:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		//LEDStartSeries(LEDSERIES_FLASHTOP); // Show flashing top LED
+		// Animate current charged level instead, unless in motion
+		break;
+    12f4:	0f 90       	pop	r0
+    12f6:	0f 90       	pop	r0
+    12f8:	68 c0       	rjmp	.+208    	; 0x13ca <LEDEventHandler+0x2f6>
+	case EVENT_CHARGED:
+		OSprintf("Charged\r\n");
+    12fa:	81 e4       	ldi	r24, 0x41	; 65
+    12fc:	91 e0       	ldi	r25, 0x01	; 1
+    12fe:	9f 93       	push	r25
+    1300:	8f 93       	push	r24
+    1302:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		//LEDStartSeries(LEDSERIES_OFF);	// All off and back to Idle
+		// Static display showing 100% charged, unless in motion
+		break;
+    1306:	0f 90       	pop	r0
+    1308:	0f 90       	pop	r0
+    130a:	5f c0       	rjmp	.+190    	; 0x13ca <LEDEventHandler+0x2f6>
+	case EVENT_SINGLE_CLICK:
+		OSIssueEvent(EVENT_NEXTLED, 0);	// Select next light pattern based on button press
+    130c:	60 e0       	ldi	r22, 0x00	; 0
+    130e:	70 e0       	ldi	r23, 0x00	; 0
+    1310:	8f e0       	ldi	r24, 0x0F	; 15
+    1312:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+		break;
+    1316:	59 c0       	rjmp	.+178    	; 0x13ca <LEDEventHandler+0x2f6>
+	case EVENT_REQSLEEP:
+		if ((LEDSTATE_IDLE != ledState) || (ledPlayingSeries != LEDSERIES_OFF)) *(bool*)eventArg = false;	// Disallow sleep unless we're idle
+    1318:	80 91 3d 02 	lds	r24, 0x023D	; 0x80023d <ledState>
+    131c:	81 11       	cpse	r24, r1
+    131e:	05 c0       	rjmp	.+10     	; 0x132a <LEDEventHandler+0x256>
+    1320:	80 91 3c 02 	lds	r24, 0x023C	; 0x80023c <ledPlayingSeries>
+    1324:	88 23       	and	r24, r24
+    1326:	09 f4       	brne	.+2      	; 0x132a <LEDEventHandler+0x256>
+    1328:	50 c0       	rjmp	.+160    	; 0x13ca <LEDEventHandler+0x2f6>
+    132a:	18 82       	st	Y, r1
+    132c:	4e c0       	rjmp	.+156    	; 0x13ca <LEDEventHandler+0x2f6>
+		break;
+	case EVENT_SLEEP:
+		LEDDisable();
+    132e:	0e 94 46 08 	call	0x108c	; 0x108c <LEDDisable>
+		break;
+    1332:	4b c0       	rjmp	.+150    	; 0x13ca <LEDEventHandler+0x2f6>
+	case EVENT_DAYLIGHT:
+		daylight = eventArg;
+    1334:	60 93 55 02 	sts	0x0255, r22	; 0x800255 <daylight>
+		OSprintf("New daylight=%d\r\n", daylight);
+    1338:	77 27       	eor	r23, r23
+    133a:	7f 93       	push	r23
+    133c:	6f 93       	push	r22
+    133e:	8b e4       	ldi	r24, 0x4B	; 75
+    1340:	91 e0       	ldi	r25, 0x01	; 1
+    1342:	9f 93       	push	r25
+    1344:	8f 93       	push	r24
+    1346:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		switch (daylight) {
+    134a:	0f 90       	pop	r0
+    134c:	0f 90       	pop	r0
+    134e:	0f 90       	pop	r0
+    1350:	0f 90       	pop	r0
+    1352:	80 91 55 02 	lds	r24, 0x0255	; 0x800255 <daylight>
+    1356:	82 30       	cpi	r24, 0x02	; 2
+    1358:	51 f0       	breq	.+20     	; 0x136e <LEDEventHandler+0x29a>
+    135a:	83 30       	cpi	r24, 0x03	; 3
+    135c:	71 f0       	breq	.+28     	; 0x137a <LEDEventHandler+0x2a6>
+    135e:	81 30       	cpi	r24, 0x01	; 1
+    1360:	a1 f5       	brne	.+104    	; 0x13ca <LEDEventHandler+0x2f6>
+		case DAYTIME_NIGHT:
+			LEDStartSeries(nightSeriesIndex);	// Nighttime, so turn on back light
+    1362:	80 91 3b 02 	lds	r24, 0x023B	; 0x80023b <nightSeriesIndex>
+    1366:	90 e0       	ldi	r25, 0x00	; 0
+    1368:	0e 94 d8 07 	call	0xfb0	; 0xfb0 <LEDStartSeries>
+			break;
+    136c:	2e c0       	rjmp	.+92     	; 0x13ca <LEDEventHandler+0x2f6>
+		case DAYTIME_DUSK:
+			LEDStartSeries(duskSeriesIndex);	// Dusk, so start flashing
+    136e:	80 91 3a 02 	lds	r24, 0x023A	; 0x80023a <duskSeriesIndex>
+    1372:	90 e0       	ldi	r25, 0x00	; 0
+    1374:	0e 94 d8 07 	call	0xfb0	; 0xfb0 <LEDStartSeries>
+			break;
+    1378:	28 c0       	rjmp	.+80     	; 0x13ca <LEDEventHandler+0x2f6>
+		case DAYTIME_DAY:
+			LEDStartSeries(daySeriesIndex);	// Daylight, so turn LEDs off in normal use
+    137a:	80 91 39 02 	lds	r24, 0x0239	; 0x800239 <daySeriesIndex>
+    137e:	90 e0       	ldi	r25, 0x00	; 0
+    1380:	0e 94 d8 07 	call	0xfb0	; 0xfb0 <LEDStartSeries>
+			break;
+    1384:	22 c0       	rjmp	.+68     	; 0x13ca <LEDEventHandler+0x2f6>
+		}
+		break;
+	case EVENT_NEXTLED:	// Select next LED series of patterns
+		switch (daylight) {
+    1386:	80 91 55 02 	lds	r24, 0x0255	; 0x800255 <daylight>
+    138a:	82 30       	cpi	r24, 0x02	; 2
+    138c:	69 f0       	breq	.+26     	; 0x13a8 <LEDEventHandler+0x2d4>
+    138e:	83 30       	cpi	r24, 0x03	; 3
+    1390:	a1 f0       	breq	.+40     	; 0x13ba <LEDEventHandler+0x2e6>
+    1392:	81 30       	cpi	r24, 0x01	; 1
+    1394:	d1 f4       	brne	.+52     	; 0x13ca <LEDEventHandler+0x2f6>
+		case DAYTIME_NIGHT:
+			nightSeriesIndex = LEDStartSeries(nightSeriesIndex+1);	// Select next night series
+    1396:	80 91 3b 02 	lds	r24, 0x023B	; 0x80023b <nightSeriesIndex>
+    139a:	90 e0       	ldi	r25, 0x00	; 0
+    139c:	01 96       	adiw	r24, 0x01	; 1
+    139e:	0e 94 d8 07 	call	0xfb0	; 0xfb0 <LEDStartSeries>
+    13a2:	80 93 3b 02 	sts	0x023B, r24	; 0x80023b <nightSeriesIndex>
+			break;
+    13a6:	11 c0       	rjmp	.+34     	; 0x13ca <LEDEventHandler+0x2f6>
+		case DAYTIME_DUSK:
+			duskSeriesIndex = LEDStartSeries(duskSeriesIndex+1);	// Select next dusk series
+    13a8:	80 91 3a 02 	lds	r24, 0x023A	; 0x80023a <duskSeriesIndex>
+    13ac:	90 e0       	ldi	r25, 0x00	; 0
+    13ae:	01 96       	adiw	r24, 0x01	; 1
+    13b0:	0e 94 d8 07 	call	0xfb0	; 0xfb0 <LEDStartSeries>
+    13b4:	80 93 3a 02 	sts	0x023A, r24	; 0x80023a <duskSeriesIndex>
+			break;
+    13b8:	08 c0       	rjmp	.+16     	; 0x13ca <LEDEventHandler+0x2f6>
+		case DAYTIME_DAY:
+			daySeriesIndex = LEDStartSeries(daySeriesIndex+1);	// Select next day series
+    13ba:	80 91 39 02 	lds	r24, 0x0239	; 0x800239 <daySeriesIndex>
+    13be:	90 e0       	ldi	r25, 0x00	; 0
+    13c0:	01 96       	adiw	r24, 0x01	; 1
+    13c2:	0e 94 d8 07 	call	0xfb0	; 0xfb0 <LEDStartSeries>
+    13c6:	80 93 39 02 	sts	0x0239, r24	; 0x800239 <daySeriesIndex>
+		}
+		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+    13ca:	df 91       	pop	r29
+    13cc:	cf 91       	pop	r28
+    13ce:	1f 91       	pop	r17
+    13d0:	0f 91       	pop	r16
+    13d2:	ff 90       	pop	r15
+    13d4:	ef 90       	pop	r14
+    13d6:	08 95       	ret
+
+000013d8 <EEPROMwrite>:
+	EEPROMwrite(logIndex++, (U8)item);
+}
+
+void EEPROMwrite(U16 addr, U8 data)
+{
+	wdt_reset();
+    13d8:	a8 95       	wdr
+	while(EECR & (1<<EEPE)) ;	/* Wait for completion of previous write */
+    13da:	f9 99       	sbic	0x1f, 1	; 31
+    13dc:	fe cf       	rjmp	.-4      	; 0x13da <EEPROMwrite+0x2>
+	EEAR = addr;	/* Set up address and Data Registers */
+    13de:	92 bd       	out	0x22, r25	; 34
+    13e0:	81 bd       	out	0x21, r24	; 33
+	if (0xFF == data) {	// Erase only
+    13e2:	6f 3f       	cpi	r22, 0xFF	; 255
+    13e4:	19 f4       	brne	.+6      	; 0x13ec <EEPROMwrite+0x14>
+		EECR = (1<<EEMPE) | (1<<EEPM0);	// Write logical one to EEMPE as well as 0 to EEPE and 01 to EEPM0 & 1
+    13e6:	84 e1       	ldi	r24, 0x14	; 20
+    13e8:	8f bb       	out	0x1f, r24	; 31
+    13ea:	03 c0       	rjmp	.+6      	; 0x13f2 <EEPROMwrite+0x1a>
+	} else { // Erase and program
+		EEDR = data;
+    13ec:	60 bd       	out	0x20, r22	; 32
+		EECR = (1<<EEMPE);	// Write logical one to EEMPE as well as 0 to EEPE and 00 to EEPM0 & 1
+    13ee:	84 e0       	ldi	r24, 0x04	; 4
+    13f0:	8f bb       	out	0x1f, r24	; 31
+	}
+	EECR |= (1<<EEPE);	// Start eeprom write by setting EEPE (Will auto-clear)
+    13f2:	f9 9a       	sbi	0x1f, 1	; 31
+    13f4:	08 95       	ret
+
+000013f6 <LOGEventHandler>:
+// Local prototypes
+void EEPROMwrite(U16 addr, U8 data);
+
+void LOGEventHandler(Event event, U16 eventArg)
+{
+	switch (event) {
+    13f6:	81 30       	cpi	r24, 0x01	; 1
+    13f8:	49 f4       	brne	.+18     	; 0x140c <LOGEventHandler+0x16>
+	case EVENT_INIT:
+		EEPROMwrite(0, 0xFF);	// Clear the old log, by writing EndOfLog byte (0xFF) to first byte 
+    13fa:	6f ef       	ldi	r22, 0xFF	; 255
+    13fc:	80 e0       	ldi	r24, 0x00	; 0
+    13fe:	90 e0       	ldi	r25, 0x00	; 0
+    1400:	0e 94 ec 09 	call	0x13d8	; 0x13d8 <EEPROMwrite>
+		logIndex = 0;	// Ready to start logging from start
+    1404:	10 92 4d 02 	sts	0x024D, r1	; 0x80024d <logIndex+0x1>
+    1408:	10 92 4c 02 	sts	0x024C, r1	; 0x80024c <logIndex>
+    140c:	08 95       	ret
+
+0000140e <__vector_10>:
+static const char ExtReset[] = "ExtReset";
+static const char PowerOn[] = "PowerOn";
+static const char Unknown[] = "Unknown";
+
+ISR(USB_GEN_vect)	// USB state change.  See C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\iom32u4.h
+{
+    140e:	1f 92       	push	r1
+    1410:	0f 92       	push	r0
+    1412:	0f b6       	in	r0, 0x3f	; 63
+    1414:	0f 92       	push	r0
+    1416:	11 24       	eor	r1, r1
+    1418:	8f 93       	push	r24
+	USBINT = 0x00;	// Clear interrupt
+    141a:	10 92 da 00 	sts	0x00DA, r1	; 0x8000da <__TEXT_REGION_LENGTH__+0x7e00da>
+	//usbState = (0 != (USBSTA & 0x01));	// New state (true if attached, false if detached)
+	usbInt = true;	// Tell foreground
+    141e:	81 e0       	ldi	r24, 0x01	; 1
+    1420:	80 93 54 02 	sts	0x0254, r24	; 0x800254 <usbInt>
+}
+    1424:	8f 91       	pop	r24
+    1426:	0f 90       	pop	r0
+    1428:	0f be       	out	0x3f, r0	; 63
+    142a:	0f 90       	pop	r0
+    142c:	1f 90       	pop	r1
+    142e:	18 95       	reti
+
+00001430 <OSSleep>:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+
+void OSSleep(int sleepType)
+{
+    1430:	1f 93       	push	r17
+    1432:	cf 93       	push	r28
+    1434:	df 93       	push	r29
+    1436:	ec 01       	movw	r28, r24
+	if (SLEEPTYPE_DEEP == sleepType) {	// So only allow button to wake us up
+    1438:	01 97       	sbiw	r24, 0x01	; 1
+    143a:	71 f4       	brne	.+28     	; 0x1458 <OSSleep+0x28>
+		OSprintf("DeepSleep\r\n");
+    143c:	88 e7       	ldi	r24, 0x78	; 120
+    143e:	91 e0       	ldi	r25, 0x01	; 1
+    1440:	9f 93       	push	r25
+    1442:	8f 93       	push	r24
+    1444:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		EICRA = 0x03;	// Wake on down edge from button (INT0), as long as EIMSK says so...
+    1448:	83 e0       	ldi	r24, 0x03	; 3
+    144a:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7e0069>
+		EIMSK = 0x01;	// Enable interrupts from button (INT0)
+    144e:	81 e0       	ldi	r24, 0x01	; 1
+    1450:	8d bb       	out	0x1d, r24	; 29
+    1452:	0f 90       	pop	r0
+    1454:	0f 90       	pop	r0
+    1456:	0d c0       	rjmp	.+26     	; 0x1472 <OSSleep+0x42>
+	} else {	// Assume SLEEPTYPE_LIGHT, so allow button and accelerometer to wake us up
+		OSprintf("LightSleep\r\n");
+    1458:	84 e8       	ldi	r24, 0x84	; 132
+    145a:	91 e0       	ldi	r25, 0x01	; 1
+    145c:	9f 93       	push	r25
+    145e:	8f 93       	push	r24
+    1460:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		EICRA = 0x13;	// Wake on down edge from button (INT0) and either edge from accelerometer (INT2), as long as EIMSK says so...
+    1464:	83 e1       	ldi	r24, 0x13	; 19
+    1466:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7e0069>
+		EIMSK = 0x05;	// Enable interrupts from button (INT0) and accelerometer (INT2)
+    146a:	85 e0       	ldi	r24, 0x05	; 5
+    146c:	8d bb       	out	0x1d, r24	; 29
+    146e:	0f 90       	pop	r0
+    1470:	0f 90       	pop	r0
+	}
+	OSIssueEvent(EVENT_SLEEP, sleepType);	// Tell system we're going to sleep
+    1472:	be 01       	movw	r22, r28
+    1474:	87 e0       	ldi	r24, 0x07	; 7
+    1476:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+    SMCR = 0x5;	// Power Down (----010x) and Sleep Enable bit (----xxx1) and only wake on external interrupt (button, accelerometer or USB power)
+    147a:	15 e0       	ldi	r17, 0x05	; 5
+    147c:	13 bf       	out	0x33, r17	; 51
+    sleep_cpu();    // Cause AVR to enter sleep mode
+    147e:	88 95       	sleep
+    SMCR = 0x0;	// Clear Sleep Enable bit (----xxx0)
+    1480:	13 be       	out	0x33, r1	; 51
+	OSIssueEvent(EVENT_WAKE, sleepType);	// Tell system we've woken from sleep
+    1482:	be 01       	movw	r22, r28
+    1484:	88 e0       	ldi	r24, 0x08	; 8
+    1486:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+	EICRA = 0x11;	// Wake on either edge from button (INT0) and accelerometer (INT2), as long as EIMSK says so...
+    148a:	81 e1       	ldi	r24, 0x11	; 17
+    148c:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7e0069>
+	EIMSK = 0x05;	// Enable interrupts from button (INT0) and accelerometer (INT2)
+    1490:	1d bb       	out	0x1d, r17	; 29
+	//OSprintf("Wake!\r\n");	// No earlier than this - UART won't be operating until WAKE has finished
+}
+    1492:	df 91       	pop	r29
+    1494:	cf 91       	pop	r28
+    1496:	1f 91       	pop	r17
+    1498:	08 95       	ret
+
+0000149a <OSEventHandler>:
+	BTNEventHandler(eventId, eventArg);
+	// Other event handlers here...
+}
+
+void OSEventHandler(Event event, U16 eventArg)
+{
+    149a:	cf 93       	push	r28
+    149c:	df 93       	push	r29
+    149e:	1f 92       	push	r1
+    14a0:	cd b7       	in	r28, 0x3d	; 61
+    14a2:	de b7       	in	r29, 0x3e	; 62
+	bool sleepReq;
+
+	switch (event) {
+    14a4:	90 e0       	ldi	r25, 0x00	; 0
+    14a6:	83 31       	cpi	r24, 0x13	; 19
+    14a8:	91 05       	cpc	r25, r1
+    14aa:	08 f0       	brcs	.+2      	; 0x14ae <OSEventHandler+0x14>
+    14ac:	0a c1       	rjmp	.+532    	; 0x16c2 <OSEventHandler+0x228>
+    14ae:	fc 01       	movw	r30, r24
+    14b0:	e6 58       	subi	r30, 0x86	; 134
+    14b2:	ff 4f       	sbci	r31, 0xFF	; 255
+    14b4:	0c 94 92 0d 	jmp	0x1b24	; 0x1b24 <__tablejump2__>
+	case EVENT_PREINIT:
+		oldMCUSR = MCUSR;
+    14b8:	84 b7       	in	r24, 0x34	; 52
+    14ba:	80 93 50 02 	sts	0x0250, r24	; 0x800250 <oldMCUSR>
+		MCUSR = 0;	// Ready for next time
+    14be:	14 be       	out	0x34, r1	; 52
+		PORTB = 0x10;	// Pull up PB5 (unused input).  Was 0x1E to pull up MOSI, MISO and SLCK when they're not used for SPI, but then SPI stopped working...
+    14c0:	80 e1       	ldi	r24, 0x10	; 16
+    14c2:	85 b9       	out	0x05, r24	; 5
+		DDRB = 0xE7;	// PB0-3 SPI (MOSI, SCLK and SS as outputs,  MISO as inputs to allow SPI to be activated), PB5-7 main LEDs
+    14c4:	87 ee       	ldi	r24, 0xE7	; 231
+    14c6:	84 b9       	out	0x04, r24	; 4
+		PORTC = 0xC0;	// Pull up PC6,7 (unused inputs)
+    14c8:	80 ec       	ldi	r24, 0xC0	; 192
+    14ca:	88 b9       	out	0x08, r24	; 8
+		DDRC = 0x00;	// Unused, only PC6,7 available
+    14cc:	17 b8       	out	0x07, r1	; 7
+		PORTD = 0xF2;	// Pull up PD1,4,5,6,7 (unused inputs)
+    14ce:	82 ef       	ldi	r24, 0xF2	; 242
+    14d0:	8b b9       	out	0x0b, r24	; 11
+		DDRD = 0x00;	// PD0 btn IRQ, PD2,3 WAKE IRQs from ADXL363 accelerometer
+    14d2:	1a b8       	out	0x0a, r1	; 10
+		PORTE = 0x04;	// PE2 is unused, so pullup to reduce power
+    14d4:	84 e0       	ldi	r24, 0x04	; 4
+    14d6:	8e b9       	out	0x0e, r24	; 14
+		DDRE = 0x00;	// PE6 STAT from battery charger
+    14d8:	1d b8       	out	0x0d, r1	; 13
+		PORTF = 0x82;	// Pull up PF1,7 as they're unused
+    14da:	82 e8       	ldi	r24, 0x82	; 130
+    14dc:	81 bb       	out	0x11, r24	; 17
+		DDRF = 0x21;	// PF0 Indicator LED, PF4 Light lvl, PF5 Light Enable, PF6 Battery Voltage
+    14de:	81 e2       	ldi	r24, 0x21	; 33
+    14e0:	80 bb       	out	0x10, r24	; 16
+		PORTB = 0x00;	// Turn off all main LEDs
+    14e2:	15 b8       	out	0x05, r1	; 5
+		PORTF = 0x50;	// Indicator LED off and LDR disable, but pull LDR_VAL and BATT_VAL up when not in use as ADC
+    14e4:	80 e5       	ldi	r24, 0x50	; 80
+    14e6:	81 bb       	out	0x11, r24	; 17
+		DIDR0 = 0x50;	// Digital Input Disable Register for ADC from LDR and Batt.  See 7.8.6 and 24.9.5
+    14e8:	80 93 7e 00 	sts	0x007E, r24	; 0x80007e <__TEXT_REGION_LENGTH__+0x7e007e>
+		break;
+    14ec:	ea c0       	rjmp	.+468    	; 0x16c2 <OSEventHandler+0x228>
+	case EVENT_INIT:
+		EICRA = 0x11;	// Wake on either edge from button (INT0) and accelerometer (INT2), as long as EIMSK says so...
+    14ee:	81 e1       	ldi	r24, 0x11	; 17
+    14f0:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7e0069>
+		EIMSK = 0x05;	// Enable interrupts from button (INT0) and accelerometer (INT2)
+    14f4:	95 e0       	ldi	r25, 0x05	; 5
+    14f6:	9d bb       	out	0x1d, r25	; 29
+		USBCON = 0x11;	// Enable USB power detection (but not the USB controller macro)
+    14f8:	80 93 d8 00 	sts	0x00D8, r24	; 0x8000d8 <__TEXT_REGION_LENGTH__+0x7e00d8>
+		break;
+    14fc:	e2 c0       	rjmp	.+452    	; 0x16c2 <OSEventHandler+0x228>
+				: "r0"
+		);
+	}
+	else
+	{
+		__asm__ __volatile__ (
+    14fe:	9d e0       	ldi	r25, 0x0D	; 13
+    1500:	88 e1       	ldi	r24, 0x18	; 24
+    1502:	0f b6       	in	r0, 0x3f	; 63
+    1504:	f8 94       	cli
+    1506:	a8 95       	wdr
+    1508:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
+    150c:	0f be       	out	0x3f, r0	; 63
+    150e:	90 93 60 00 	sts	0x0060, r25	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
+	case EVENT_POSTINIT:
+		wdt_enable(WDTO_500MS);
+		if (oldMCUSR & (1<<BORF)) {	// Brown Out
+    1512:	80 91 50 02 	lds	r24, 0x0250	; 0x800250 <oldMCUSR>
+    1516:	82 ff       	sbrs	r24, 2
+    1518:	07 c0       	rjmp	.+14     	; 0x1528 <OSEventHandler+0x8e>
+			resetStr = (char*)BrownOut;
+    151a:	2a e0       	ldi	r18, 0x0A	; 10
+    151c:	32 e0       	ldi	r19, 0x02	; 2
+    151e:	30 93 4f 02 	sts	0x024F, r19	; 0x80024f <resetStr+0x1>
+    1522:	20 93 4e 02 	sts	0x024E, r18	; 0x80024e <resetStr>
+    1526:	21 c0       	rjmp	.+66     	; 0x156a <OSEventHandler+0xd0>
+		} else if (oldMCUSR & (1<<WDRF)) {
+    1528:	83 ff       	sbrs	r24, 3
+    152a:	07 c0       	rjmp	.+14     	; 0x153a <OSEventHandler+0xa0>
+			resetStr = (char*)WatchDog;
+    152c:	21 e0       	ldi	r18, 0x01	; 1
+    152e:	32 e0       	ldi	r19, 0x02	; 2
+    1530:	30 93 4f 02 	sts	0x024F, r19	; 0x80024f <resetStr+0x1>
+    1534:	20 93 4e 02 	sts	0x024E, r18	; 0x80024e <resetStr>
+    1538:	18 c0       	rjmp	.+48     	; 0x156a <OSEventHandler+0xd0>
+		} else if (oldMCUSR & (1<<EXTRF)) {
+    153a:	81 ff       	sbrs	r24, 1
+    153c:	07 c0       	rjmp	.+14     	; 0x154c <OSEventHandler+0xb2>
+			resetStr = (char*)ExtReset;
+    153e:	28 ef       	ldi	r18, 0xF8	; 248
+    1540:	31 e0       	ldi	r19, 0x01	; 1
+    1542:	30 93 4f 02 	sts	0x024F, r19	; 0x80024f <resetStr+0x1>
+    1546:	20 93 4e 02 	sts	0x024E, r18	; 0x80024e <resetStr>
+    154a:	0f c0       	rjmp	.+30     	; 0x156a <OSEventHandler+0xd0>
+		} else if (oldMCUSR & (1<<PORF)) {
+    154c:	80 ff       	sbrs	r24, 0
+    154e:	07 c0       	rjmp	.+14     	; 0x155e <OSEventHandler+0xc4>
+			resetStr = (char*)PowerOn;
+    1550:	20 ef       	ldi	r18, 0xF0	; 240
+    1552:	31 e0       	ldi	r19, 0x01	; 1
+    1554:	30 93 4f 02 	sts	0x024F, r19	; 0x80024f <resetStr+0x1>
+    1558:	20 93 4e 02 	sts	0x024E, r18	; 0x80024e <resetStr>
+    155c:	06 c0       	rjmp	.+12     	; 0x156a <OSEventHandler+0xd0>
+		} else resetStr = (char*)Unknown;
+    155e:	28 ee       	ldi	r18, 0xE8	; 232
+    1560:	31 e0       	ldi	r19, 0x01	; 1
+    1562:	30 93 4f 02 	sts	0x024F, r19	; 0x80024f <resetStr+0x1>
+    1566:	20 93 4e 02 	sts	0x024E, r18	; 0x80024e <resetStr>
+		OSprintf("\r\n\nReset:%s (0x%2x)\r\n", resetStr, oldMCUSR);
+    156a:	1f 92       	push	r1
+    156c:	8f 93       	push	r24
+    156e:	80 91 4f 02 	lds	r24, 0x024F	; 0x80024f <resetStr+0x1>
+    1572:	8f 93       	push	r24
+    1574:	80 91 4e 02 	lds	r24, 0x024E	; 0x80024e <resetStr>
+    1578:	8f 93       	push	r24
+    157a:	83 ea       	ldi	r24, 0xA3	; 163
+    157c:	91 e0       	ldi	r25, 0x01	; 1
+    157e:	9f 93       	push	r25
+    1580:	8f 93       	push	r24
+    1582:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		OSprintf("%s%s", OS_BANNER, OS_NEWLINE);
+    1586:	86 eb       	ldi	r24, 0xB6	; 182
+    1588:	91 e0       	ldi	r25, 0x01	; 1
+    158a:	9f 93       	push	r25
+    158c:	8f 93       	push	r24
+    158e:	89 eb       	ldi	r24, 0xB9	; 185
+    1590:	91 e0       	ldi	r25, 0x01	; 1
+    1592:	9f 93       	push	r25
+    1594:	8f 93       	push	r24
+    1596:	83 ee       	ldi	r24, 0xE3	; 227
+    1598:	91 e0       	ldi	r25, 0x01	; 1
+    159a:	9f 93       	push	r25
+    159c:	8f 93       	push	r24
+    159e:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+		usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
+    15a2:	80 91 d9 00 	lds	r24, 0x00D9	; 0x8000d9 <__TEXT_REGION_LENGTH__+0x7e00d9>
+    15a6:	81 70       	andi	r24, 0x01	; 1
+    15a8:	80 93 53 02 	sts	0x0253, r24	; 0x800253 <usbState>
+		sysBits = (DAYTIME_UNKNOWN << SYSBITNUM_DAY) | SYSBIT_STATIONARY | ((usbState & 1) << SYSBITNUM_USB);
+    15ac:	88 0f       	add	r24, r24
+    15ae:	88 0f       	add	r24, r24
+    15b0:	88 0f       	add	r24, r24
+    15b2:	80 93 56 02 	sts	0x0256, r24	; 0x800256 <sysBits>
+		break;
+    15b6:	0f b6       	in	r0, 0x3f	; 63
+    15b8:	f8 94       	cli
+    15ba:	de bf       	out	0x3e, r29	; 62
+    15bc:	0f be       	out	0x3f, r0	; 63
+    15be:	cd bf       	out	0x3d, r28	; 61
+    15c0:	80 c0       	rjmp	.+256    	; 0x16c2 <OSEventHandler+0x228>
+	case EVENT_TICK:
+		wdt_reset();
+    15c2:	a8 95       	wdr
+		if (usbInt) {
+    15c4:	80 91 54 02 	lds	r24, 0x0254	; 0x800254 <usbInt>
+    15c8:	88 23       	and	r24, r24
+    15ca:	51 f1       	breq	.+84     	; 0x1620 <OSEventHandler+0x186>
+			usbInt = false;	// Acknowledge software interrupt
+    15cc:	10 92 54 02 	sts	0x0254, r1	; 0x800254 <usbInt>
+			usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
+    15d0:	80 91 d9 00 	lds	r24, 0x00D9	; 0x8000d9 <__TEXT_REGION_LENGTH__+0x7e00d9>
+    15d4:	91 e0       	ldi	r25, 0x01	; 1
+    15d6:	28 2f       	mov	r18, r24
+    15d8:	21 70       	andi	r18, 0x01	; 1
+    15da:	80 ff       	sbrs	r24, 0
+    15dc:	90 e0       	ldi	r25, 0x00	; 0
+    15de:	90 93 53 02 	sts	0x0253, r25	; 0x800253 <usbState>
+			OSprintf("USB %s%s", (usbState)?"attached" : "detached", OS_NEWLINE);
+    15e2:	21 11       	cpse	r18, r1
+    15e4:	03 c0       	rjmp	.+6      	; 0x15ec <OSEventHandler+0x152>
+    15e6:	2a e9       	ldi	r18, 0x9A	; 154
+    15e8:	31 e0       	ldi	r19, 0x01	; 1
+    15ea:	02 c0       	rjmp	.+4      	; 0x15f0 <OSEventHandler+0x156>
+    15ec:	21 e9       	ldi	r18, 0x91	; 145
+    15ee:	31 e0       	ldi	r19, 0x01	; 1
+    15f0:	86 eb       	ldi	r24, 0xB6	; 182
+    15f2:	91 e0       	ldi	r25, 0x01	; 1
+    15f4:	9f 93       	push	r25
+    15f6:	8f 93       	push	r24
+    15f8:	3f 93       	push	r19
+    15fa:	2f 93       	push	r18
+    15fc:	8f ed       	ldi	r24, 0xDF	; 223
+    15fe:	91 e0       	ldi	r25, 0x01	; 1
+    1600:	9f 93       	push	r25
+    1602:	8f 93       	push	r24
+    1604:	0e 94 58 0d 	call	0x1ab0	; 0x1ab0 <OSprintf>
+			OSIssueEvent(EVENT_USB, usbState);
+    1608:	60 91 53 02 	lds	r22, 0x0253	; 0x800253 <usbState>
+    160c:	70 e0       	ldi	r23, 0x00	; 0
+    160e:	8e e0       	ldi	r24, 0x0E	; 14
+    1610:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+    1614:	0f 90       	pop	r0
+    1616:	0f 90       	pop	r0
+    1618:	0f 90       	pop	r0
+    161a:	0f 90       	pop	r0
+    161c:	0f 90       	pop	r0
+    161e:	0f 90       	pop	r0
+		}
+		// Try to sleep...
+		sleepReq = true;	// Assume can sleep, unless any responder sets this to false
+    1620:	81 e0       	ldi	r24, 0x01	; 1
+    1622:	89 83       	std	Y+1, r24	; 0x01
+		OSIssueEvent(EVENT_REQSLEEP, &sleepReq);	// Request that system be allowed to sleep
+    1624:	be 01       	movw	r22, r28
+    1626:	6f 5f       	subi	r22, 0xFF	; 255
+    1628:	7f 4f       	sbci	r23, 0xFF	; 255
+    162a:	86 e0       	ldi	r24, 0x06	; 6
+    162c:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+		if (sleepReq) OSSleep(SLEEPTYPE_LIGHT);	// Allow either button or accelerometer to wake us from sleep
+    1630:	89 81       	ldd	r24, Y+1	; 0x01
+    1632:	88 23       	and	r24, r24
+    1634:	09 f4       	brne	.+2      	; 0x1638 <OSEventHandler+0x19e>
+    1636:	45 c0       	rjmp	.+138    	; 0x16c2 <OSEventHandler+0x228>
+    1638:	80 e0       	ldi	r24, 0x00	; 0
+    163a:	90 e0       	ldi	r25, 0x00	; 0
+    163c:	0e 94 18 0a 	call	0x1430	; 0x1430 <OSSleep>
+    1640:	40 c0       	rjmp	.+128    	; 0x16c2 <OSEventHandler+0x228>
+		break;
+	case EVENT_DOUBLE_CLICK:
+		OSIssueEvent(EVENT_INFO, 0);	// For now, anyway.  Could use some other trigger
+    1642:	60 e0       	ldi	r22, 0x00	; 0
+    1644:	70 e0       	ldi	r23, 0x00	; 0
+    1646:	85 e0       	ldi	r24, 0x05	; 5
+    1648:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+		break;
+    164c:	3a c0       	rjmp	.+116    	; 0x16c2 <OSEventHandler+0x228>
+	case EVENT_LONG_CLICK:
+		OSSleep(SLEEPTYPE_DEEP);	// Sleep, only looking for button press to wake
+    164e:	81 e0       	ldi	r24, 0x01	; 1
+    1650:	90 e0       	ldi	r25, 0x00	; 0
+    1652:	0e 94 18 0a 	call	0x1430	; 0x1430 <OSSleep>
+		break;
+    1656:	35 c0       	rjmp	.+106    	; 0x16c2 <OSEventHandler+0x228>
+	case EVENT_USB:
+		sysBits = (sysBits & ~SYSBITMASK_USB) | ((eventArg & 1) << SYSBITNUM_USB);
+    1658:	80 91 56 02 	lds	r24, 0x0256	; 0x800256 <sysBits>
+    165c:	87 7f       	andi	r24, 0xF7	; 247
+    165e:	61 70       	andi	r22, 0x01	; 1
+    1660:	66 0f       	add	r22, r22
+    1662:	66 0f       	add	r22, r22
+    1664:	66 0f       	add	r22, r22
+    1666:	68 2b       	or	r22, r24
+    1668:	60 93 56 02 	sts	0x0256, r22	; 0x800256 <sysBits>
+		break;
+    166c:	2a c0       	rjmp	.+84     	; 0x16c2 <OSEventHandler+0x228>
+	case EVENT_DAYLIGHT:
+		sysBits = (sysBits & ~SYSBITMASK_DAY) | ((eventArg & 3) << SYSBITNUM_DAY);
+    166e:	80 91 56 02 	lds	r24, 0x0256	; 0x800256 <sysBits>
+    1672:	8c 7f       	andi	r24, 0xFC	; 252
+    1674:	63 70       	andi	r22, 0x03	; 3
+    1676:	68 2b       	or	r22, r24
+    1678:	60 93 56 02 	sts	0x0256, r22	; 0x800256 <sysBits>
+		break;
+    167c:	22 c0       	rjmp	.+68     	; 0x16c2 <OSEventHandler+0x228>
+		);
+	}
+	else
+	{
+        uint8_t register temp_reg;
+		__asm__ __volatile__ (
+    167e:	0f b6       	in	r0, 0x3f	; 63
+    1680:	f8 94       	cli
+    1682:	a8 95       	wdr
+    1684:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
+    1688:	88 61       	ori	r24, 0x18	; 24
+    168a:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
+    168e:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
+    1692:	0f be       	out	0x3f, r0	; 63
+	case EVENT_SLEEP:
+		wdt_disable();	// Don't need a watchdog when we're asleep
+		IND_LED_OFF;
+    1694:	88 98       	cbi	0x11, 0	; 17
+		PRR0 = 0xAD;	// Shut down TWI, Timer0, Timer1, SPI and ADC
+    1696:	8d ea       	ldi	r24, 0xAD	; 173
+    1698:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__TEXT_REGION_LENGTH__+0x7e0064>
+		PRR1 = 0x99;	// Shut down USB, Timer3, Timer4 and USART
+    169c:	89 e9       	ldi	r24, 0x99	; 153
+    169e:	80 93 65 00 	sts	0x0065, r24	; 0x800065 <__TEXT_REGION_LENGTH__+0x7e0065>
+		break;
+    16a2:	0f c0       	rjmp	.+30     	; 0x16c2 <OSEventHandler+0x228>
+	case EVENT_WAKE:
+		PRR0 = 0xA0;	// Re-enable Timer1, SPI and ADC.  Timer1 used by LEDs for PWM, SPI used by Accelerometer, ADC used by LDR & BattLvl
+    16a4:	80 ea       	ldi	r24, 0xA0	; 160
+    16a6:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <__TEXT_REGION_LENGTH__+0x7e0064>
+		PRR1 = 0x00;	// Re-enable USB, Timer3, Timer4 and USART
+    16aa:	10 92 65 00 	sts	0x0065, r1	; 0x800065 <__TEXT_REGION_LENGTH__+0x7e0065>
+				: "r0"
+		);
+	}
+	else
+	{
+		__asm__ __volatile__ (
+    16ae:	9d e0       	ldi	r25, 0x0D	; 13
+    16b0:	88 e1       	ldi	r24, 0x18	; 24
+    16b2:	0f b6       	in	r0, 0x3f	; 63
+    16b4:	f8 94       	cli
+    16b6:	a8 95       	wdr
+    16b8:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
+    16bc:	0f be       	out	0x3f, r0	; 63
+    16be:	90 93 60 00 	sts	0x0060, r25	; 0x800060 <__TEXT_REGION_LENGTH__+0x7e0060>
+		wdt_enable(WDTO_500MS);
+		break;
+	default:
+		break;	// Does nothing, but stops useless warnings from the compiler
+	}
+}
+    16c2:	0f 90       	pop	r0
+    16c4:	df 91       	pop	r29
+    16c6:	cf 91       	pop	r28
+    16c8:	08 95       	ret
+
+000016ca <_OSIssueEvent>:
+		}
+	}
+}
+
+void _OSIssueEvent(Event eventId, U16 eventArg)
+{
+    16ca:	0f 93       	push	r16
+    16cc:	1f 93       	push	r17
+    16ce:	cf 93       	push	r28
+    16d0:	c8 2f       	mov	r28, r24
+    16d2:	8b 01       	movw	r16, r22
+	OSEventHandler(eventId, eventArg);
+    16d4:	0e 94 4d 0a 	call	0x149a	; 0x149a <OSEventHandler>
+#ifdef SWITCH_LOG
+	LOGEventHandler(eventId, eventArg);
+    16d8:	b8 01       	movw	r22, r16
+    16da:	8c 2f       	mov	r24, r28
+    16dc:	0e 94 fb 09 	call	0x13f6	; 0x13f6 <LOGEventHandler>
+#endif //def SWITCH_LOG
+#ifdef SWITCH_UART
+	UARTEventHandler(eventId, eventArg);
+    16e0:	b8 01       	movw	r22, r16
+    16e2:	8c 2f       	mov	r24, r28
+    16e4:	0e 94 44 0d 	call	0x1a88	; 0x1a88 <UARTEventHandler>
+#endif //def SWITCH_UART
+	ACCELEventHandler(eventId, eventArg);
+    16e8:	b8 01       	movw	r22, r16
+    16ea:	8c 2f       	mov	r24, r28
+    16ec:	0e 94 01 04 	call	0x802	; 0x802 <ACCELEventHandler>
+	LEDEventHandler(eventId, eventArg);
+    16f0:	b8 01       	movw	r22, r16
+    16f2:	8c 2f       	mov	r24, r28
+    16f4:	0e 94 6a 08 	call	0x10d4	; 0x10d4 <LEDEventHandler>
+	ADCEventHandler(eventId, eventArg);
+    16f8:	b8 01       	movw	r22, r16
+    16fa:	8c 2f       	mov	r24, r28
+    16fc:	0e 94 5b 05 	call	0xab6	; 0xab6 <ADCEventHandler>
+	BATEventHandler(eventId, eventArg);
+    1700:	b8 01       	movw	r22, r16
+    1702:	8c 2f       	mov	r24, r28
+    1704:	0e 94 26 06 	call	0xc4c	; 0xc4c <BATEventHandler>
+	BTNEventHandler(eventId, eventArg);
+    1708:	b8 01       	movw	r22, r16
+    170a:	8c 2f       	mov	r24, r28
+    170c:	0e 94 d2 06 	call	0xda4	; 0xda4 <BTNEventHandler>
+	// Other event handlers here...
+}
+    1710:	cf 91       	pop	r28
+    1712:	1f 91       	pop	r17
+    1714:	0f 91       	pop	r16
+    1716:	08 95       	ret
+
+00001718 <main>:
+}
+
+int main(void)
+{
+	U16 ms, elapsedMs = 0;
+	OSIssueEvent(EVENT_PREINIT, 0);
+    1718:	60 e0       	ldi	r22, 0x00	; 0
+    171a:	70 e0       	ldi	r23, 0x00	; 0
+    171c:	80 e0       	ldi	r24, 0x00	; 0
+    171e:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+	OSIssueEvent(EVENT_INIT, 0);
+    1722:	60 e0       	ldi	r22, 0x00	; 0
+    1724:	70 e0       	ldi	r23, 0x00	; 0
+    1726:	81 e0       	ldi	r24, 0x01	; 1
+    1728:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+	OSIssueEvent(EVENT_POSTINIT, 0);
+    172c:	60 e0       	ldi	r22, 0x00	; 0
+    172e:	70 e0       	ldi	r23, 0x00	; 0
+    1730:	82 e0       	ldi	r24, 0x02	; 2
+    1732:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+	sei();	// Enable interrupts
+    1736:	78 94       	sei
+	usbInt = true;	// Tell foreground
+}
+
+int main(void)
+{
+	U16 ms, elapsedMs = 0;
+    1738:	c0 e0       	ldi	r28, 0x00	; 0
+    173a:	d0 e0       	ldi	r29, 0x00	; 0
+		OSIssueEvent(EVENT_TICK, ms);
+		elapsedMs += ms;
+		if (elapsedMs >= MS_PERSEC) {
+			OSIssueEvent(EVENT_SECOND, elapsedMs / MS_PERSEC);
+			elapsedS += elapsedMs / MS_PERSEC;
+			elapsedMs %= MS_PERSEC;	// Keep remainder
+    173c:	0f 2e       	mov	r0, r31
+    173e:	f8 ee       	ldi	r31, 0xE8	; 232
+    1740:	ef 2e       	mov	r14, r31
+    1742:	f3 e0       	ldi	r31, 0x03	; 3
+    1744:	ff 2e       	mov	r15, r31
+    1746:	f0 2d       	mov	r31, r0
+	OSIssueEvent(EVENT_INIT, 0);
+	OSIssueEvent(EVENT_POSTINIT, 0);
+	sei();	// Enable interrupts
+	for (;;) {
+		ms = 1;	// Should set this up correctly once we have a timer...
+		OSIssueEvent(EVENT_TICK, ms);
+    1748:	61 e0       	ldi	r22, 0x01	; 1
+    174a:	70 e0       	ldi	r23, 0x00	; 0
+    174c:	83 e0       	ldi	r24, 0x03	; 3
+    174e:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+		elapsedMs += ms;
+    1752:	21 96       	adiw	r28, 0x01	; 1
+		if (elapsedMs >= MS_PERSEC) {
+    1754:	c8 3e       	cpi	r28, 0xE8	; 232
+    1756:	83 e0       	ldi	r24, 0x03	; 3
+    1758:	d8 07       	cpc	r29, r24
+    175a:	b0 f3       	brcs	.-20     	; 0x1748 <main+0x30>
+			OSIssueEvent(EVENT_SECOND, elapsedMs / MS_PERSEC);
+    175c:	9e 01       	movw	r18, r28
+    175e:	36 95       	lsr	r19
+    1760:	27 95       	ror	r18
+    1762:	36 95       	lsr	r19
+    1764:	27 95       	ror	r18
+    1766:	36 95       	lsr	r19
+    1768:	27 95       	ror	r18
+    176a:	a5 ec       	ldi	r26, 0xC5	; 197
+    176c:	b0 e2       	ldi	r27, 0x20	; 32
+    176e:	0e 94 98 0d 	call	0x1b30	; 0x1b30 <__umulhisi3>
+    1772:	8c 01       	movw	r16, r24
+    1774:	12 95       	swap	r17
+    1776:	02 95       	swap	r16
+    1778:	0f 70       	andi	r16, 0x0F	; 15
+    177a:	01 27       	eor	r16, r17
+    177c:	1f 70       	andi	r17, 0x0F	; 15
+    177e:	01 27       	eor	r16, r17
+    1780:	b8 01       	movw	r22, r16
+    1782:	84 e0       	ldi	r24, 0x04	; 4
+    1784:	0e 94 65 0b 	call	0x16ca	; 0x16ca <_OSIssueEvent>
+			elapsedS += elapsedMs / MS_PERSEC;
+    1788:	80 91 51 02 	lds	r24, 0x0251	; 0x800251 <elapsedS>
+    178c:	90 91 52 02 	lds	r25, 0x0252	; 0x800252 <elapsedS+0x1>
+    1790:	80 0f       	add	r24, r16
+    1792:	91 1f       	adc	r25, r17
+    1794:	90 93 52 02 	sts	0x0252, r25	; 0x800252 <elapsedS+0x1>
+    1798:	80 93 51 02 	sts	0x0251, r24	; 0x800251 <elapsedS>
+			elapsedMs %= MS_PERSEC;	// Keep remainder
+    179c:	0e 9d       	mul	r16, r14
+    179e:	c0 01       	movw	r24, r0
+    17a0:	0f 9d       	mul	r16, r15
+    17a2:	90 0d       	add	r25, r0
+    17a4:	1e 9d       	mul	r17, r14
+    17a6:	90 0d       	add	r25, r0
+    17a8:	11 24       	eor	r1, r1
+    17aa:	c8 1b       	sub	r28, r24
+    17ac:	d9 0b       	sbc	r29, r25
+    17ae:	cc cf       	rjmp	.-104    	; 0x1748 <main+0x30>
+
+000017b0 <OSitoa>:
+#include <stdarg.h>
+
+static char* ramPtr;
+
+char* OSitoa(int val, char* buf, int radix, U8 pad) // buf must be 10 or more chars long, radix must be <=36
+{
+    17b0:	cf 92       	push	r12
+    17b2:	df 92       	push	r13
+    17b4:	ff 92       	push	r15
+    17b6:	0f 93       	push	r16
+    17b8:	1f 93       	push	r17
+    17ba:	cf 93       	push	r28
+    17bc:	df 93       	push	r29
+    17be:	ec 01       	movw	r28, r24
+    17c0:	8a 01       	movw	r16, r20
+    int wasNegative = false;
+    U8 count = 0;
+    U8 i;
+    unsigned int uval = (unsigned int)val;
+    17c2:	fc 01       	movw	r30, r24
+    char* pDigit = buf+10; // Move to end of buffer, to work backwards
+
+    if (pad) {
+    17c4:	22 23       	and	r18, r18
+    17c6:	71 f0       	breq	.+28     	; 0x17e4 <OSitoa+0x34>
+        char padc = (16 == radix) ? '0' : ' ';
+    17c8:	40 31       	cpi	r20, 0x10	; 16
+    17ca:	51 05       	cpc	r21, r1
+    17cc:	11 f0       	breq	.+4      	; 0x17d2 <OSitoa+0x22>
+    17ce:	90 e2       	ldi	r25, 0x20	; 32
+    17d0:	01 c0       	rjmp	.+2      	; 0x17d4 <OSitoa+0x24>
+    17d2:	90 e3       	ldi	r25, 0x30	; 48
+    17d4:	db 01       	movw	r26, r22
+    17d6:	ab 01       	movw	r20, r22
+    17d8:	46 5f       	subi	r20, 0xF6	; 246
+    17da:	5f 4f       	sbci	r21, 0xFF	; 255
+        for (i = 0; i < 10; i++) {
+            buf[i] = padc;
+    17dc:	9d 93       	st	X+, r25
+    unsigned int uval = (unsigned int)val;
+    char* pDigit = buf+10; // Move to end of buffer, to work backwards
+
+    if (pad) {
+        char padc = (16 == radix) ? '0' : ' ';
+        for (i = 0; i < 10; i++) {
+    17de:	a4 17       	cp	r26, r20
+    17e0:	b5 07       	cpc	r27, r21
+    17e2:	e1 f7       	brne	.-8      	; 0x17dc <OSitoa+0x2c>
+            buf[i] = padc;
+        }
+    }
+    *--pDigit = 0; // Terminate string
+    17e4:	db 01       	movw	r26, r22
+    17e6:	19 96       	adiw	r26, 0x09	; 9
+    17e8:	1c 92       	st	X, r1
+    if ((10 == radix) && (val < 0)) { // Decimal numbers may be negative
+    17ea:	0a 30       	cpi	r16, 0x0A	; 10
+    17ec:	11 05       	cpc	r17, r1
+    17ee:	09 f0       	breq	.+2      	; 0x17f2 <OSitoa+0x42>
+    17f0:	47 c0       	rjmp	.+142    	; 0x1880 <OSitoa+0xd0>
+    17f2:	dd 23       	and	r29, r29
+    17f4:	44 f4       	brge	.+16     	; 0x1806 <OSitoa+0x56>
+        wasNegative = true;
+        uval = -val;
+    17f6:	ee 27       	eor	r30, r30
+    17f8:	ff 27       	eor	r31, r31
+    17fa:	ec 1b       	sub	r30, r28
+    17fc:	fd 0b       	sbc	r31, r29
+            buf[i] = padc;
+        }
+    }
+    *--pDigit = 0; // Terminate string
+    if ((10 == radix) && (val < 0)) { // Decimal numbers may be negative
+        wasNegative = true;
+    17fe:	cc 24       	eor	r12, r12
+    1800:	c3 94       	inc	r12
+    1802:	d1 2c       	mov	r13, r1
+    1804:	02 c0       	rjmp	.+4      	; 0x180a <OSitoa+0x5a>
+
+static char* ramPtr;
+
+char* OSitoa(int val, char* buf, int radix, U8 pad) // buf must be 10 or more chars long, radix must be <=36
+{
+    int wasNegative = false;
+    1806:	c1 2c       	mov	r12, r1
+    1808:	d1 2c       	mov	r13, r1
+    *--pDigit = 0; // Terminate string
+    if ((10 == radix) && (val < 0)) { // Decimal numbers may be negative
+        wasNegative = true;
+        uval = -val;
+    }
+    if (uval) {
+    180a:	30 97       	sbiw	r30, 0x00	; 0
+    180c:	f1 f0       	breq	.+60     	; 0x184a <OSitoa+0x9a>
+    180e:	02 c0       	rjmp	.+4      	; 0x1814 <OSitoa+0x64>
+
+static char* ramPtr;
+
+char* OSitoa(int val, char* buf, int radix, U8 pad) // buf must be 10 or more chars long, radix must be <=36
+{
+    int wasNegative = false;
+    1810:	c1 2c       	mov	r12, r1
+    1812:	d1 2c       	mov	r13, r1
+        char padc = (16 == radix) ? '0' : ' ';
+        for (i = 0; i < 10; i++) {
+            buf[i] = padc;
+        }
+    }
+    *--pDigit = 0; // Terminate string
+    1814:	eb 01       	movw	r28, r22
+    1816:	29 96       	adiw	r28, 0x09	; 9
+    1818:	30 e0       	ldi	r19, 0x00	; 0
+        wasNegative = true;
+        uval = -val;
+    }
+    if (uval) {
+        while (uval) {
+            char digit = uval%radix;
+    181a:	f0 2e       	mov	r15, r16
+    181c:	41 2f       	mov	r20, r17
+    181e:	cf 01       	movw	r24, r30
+    1820:	b8 01       	movw	r22, r16
+    1822:	0e 94 6a 0d 	call	0x1ad4	; 0x1ad4 <__udivmodhi4>
+            *--pDigit = digit + ((digit > 9) ? '7' : '0'); // 7 chars between '9' and 'A' in ASCII
+    1826:	21 97       	sbiw	r28, 0x01	; 1
+    1828:	8a 30       	cpi	r24, 0x0A	; 10
+    182a:	10 f4       	brcc	.+4      	; 0x1830 <OSitoa+0x80>
+    182c:	90 e3       	ldi	r25, 0x30	; 48
+    182e:	01 c0       	rjmp	.+2      	; 0x1832 <OSitoa+0x82>
+    1830:	97 e3       	ldi	r25, 0x37	; 55
+    1832:	89 0f       	add	r24, r25
+    1834:	88 83       	st	Y, r24
+            uval /= radix;
+    1836:	cf 01       	movw	r24, r30
+    1838:	6f 2d       	mov	r22, r15
+    183a:	74 2f       	mov	r23, r20
+    183c:	0e 94 6a 0d 	call	0x1ad4	; 0x1ad4 <__udivmodhi4>
+    1840:	fb 01       	movw	r30, r22
+            count++;
+    1842:	3f 5f       	subi	r19, 0xFF	; 255
+    if ((10 == radix) && (val < 0)) { // Decimal numbers may be negative
+        wasNegative = true;
+        uval = -val;
+    }
+    if (uval) {
+        while (uval) {
+    1844:	30 97       	sbiw	r30, 0x00	; 0
+    1846:	59 f7       	brne	.-42     	; 0x181e <OSitoa+0x6e>
+    1848:	06 c0       	rjmp	.+12     	; 0x1856 <OSitoa+0xa6>
+            *--pDigit = digit + ((digit > 9) ? '7' : '0'); // 7 chars between '9' and 'A' in ASCII
+            uval /= radix;
+            count++;
+        }
+    } else {
+        *--pDigit = '0'; // Simple case of 0 being passed in
+    184a:	eb 01       	movw	r28, r22
+    184c:	28 96       	adiw	r28, 0x08	; 8
+    184e:	80 e3       	ldi	r24, 0x30	; 48
+    1850:	fb 01       	movw	r30, r22
+    1852:	80 87       	std	Z+8, r24	; 0x08
+        count = 1;
+    1854:	31 e0       	ldi	r19, 0x01	; 1
+    }
+    if (wasNegative) *--pDigit = '-';
+    1856:	cd 28       	or	r12, r13
+    1858:	11 f0       	breq	.+4      	; 0x185e <OSitoa+0xae>
+    185a:	8d e2       	ldi	r24, 0x2D	; 45
+    185c:	8a 93       	st	-Y, r24
+    if (pad) pDigit -= ((pad < count) ? 0 : (pad - count));
+    185e:	22 23       	and	r18, r18
+    1860:	a1 f0       	breq	.+40     	; 0x188a <OSitoa+0xda>
+    1862:	23 17       	cp	r18, r19
+    1864:	40 f0       	brcs	.+16     	; 0x1876 <OSitoa+0xc6>
+    1866:	82 2f       	mov	r24, r18
+    1868:	90 e0       	ldi	r25, 0x00	; 0
+    186a:	83 1b       	sub	r24, r19
+    186c:	91 09       	sbc	r25, r1
+    186e:	91 95       	neg	r25
+    1870:	81 95       	neg	r24
+    1872:	91 09       	sbc	r25, r1
+    1874:	02 c0       	rjmp	.+4      	; 0x187a <OSitoa+0xca>
+    1876:	80 e0       	ldi	r24, 0x00	; 0
+    1878:	90 e0       	ldi	r25, 0x00	; 0
+    187a:	c8 0f       	add	r28, r24
+    187c:	d9 1f       	adc	r29, r25
+    return pDigit; // Returns start of actual string of digits (inside original buffer, but probably not at the start)
+    187e:	05 c0       	rjmp	.+10     	; 0x188a <OSitoa+0xda>
+    *--pDigit = 0; // Terminate string
+    if ((10 == radix) && (val < 0)) { // Decimal numbers may be negative
+        wasNegative = true;
+        uval = -val;
+    }
+    if (uval) {
+    1880:	30 97       	sbiw	r30, 0x00	; 0
+    1882:	31 f6       	brne	.-116    	; 0x1810 <OSitoa+0x60>
+
+static char* ramPtr;
+
+char* OSitoa(int val, char* buf, int radix, U8 pad) // buf must be 10 or more chars long, radix must be <=36
+{
+    int wasNegative = false;
+    1884:	c1 2c       	mov	r12, r1
+    1886:	d1 2c       	mov	r13, r1
+    1888:	e0 cf       	rjmp	.-64     	; 0x184a <OSitoa+0x9a>
+        count = 1;
+    }
+    if (wasNegative) *--pDigit = '-';
+    if (pad) pDigit -= ((pad < count) ? 0 : (pad - count));
+    return pDigit; // Returns start of actual string of digits (inside original buffer, but probably not at the start)
+}
+    188a:	ce 01       	movw	r24, r28
+    188c:	df 91       	pop	r29
+    188e:	cf 91       	pop	r28
+    1890:	1f 91       	pop	r17
+    1892:	0f 91       	pop	r16
+    1894:	ff 90       	pop	r15
+    1896:	df 90       	pop	r13
+    1898:	cf 90       	pop	r12
+    189a:	08 95       	ret
+
+0000189c <OSvsprintf>:
+    va_end(args);
+    return ramPtr-buf-1;    // Return size of new string (not including terminating '\0')
+}
+
+void OSvsprintf(PUTC putc, char* str, va_list args) // Minimal vsprintf(), extensively modified from http://codereview.stackexchange.com/questions/96354/sample-printf-implementation
+{
+    189c:	6f 92       	push	r6
+    189e:	7f 92       	push	r7
+    18a0:	8f 92       	push	r8
+    18a2:	9f 92       	push	r9
+    18a4:	af 92       	push	r10
+    18a6:	bf 92       	push	r11
+    18a8:	cf 92       	push	r12
+    18aa:	df 92       	push	r13
+    18ac:	ef 92       	push	r14
+    18ae:	ff 92       	push	r15
+    18b0:	0f 93       	push	r16
+    18b2:	1f 93       	push	r17
+    18b4:	cf 93       	push	r28
+    18b6:	df 93       	push	r29
+    18b8:	cd b7       	in	r28, 0x3d	; 61
+    18ba:	de b7       	in	r29, 0x3e	; 62
+    18bc:	2a 97       	sbiw	r28, 0x0a	; 10
+    18be:	0f b6       	in	r0, 0x3f	; 63
+    18c0:	f8 94       	cli
+    18c2:	de bf       	out	0x3e, r29	; 62
+    18c4:	0f be       	out	0x3f, r0	; 63
+    18c6:	cd bf       	out	0x3d, r28	; 61
+    18c8:	7c 01       	movw	r14, r24
+    18ca:	8b 01       	movw	r16, r22
+    18cc:	6a 01       	movw	r12, r20
+            case 'd': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 10, pad);
+                while (*pcTemp) putc(*pcTemp++);  // Copy decimal
+            } break;
+            case 'x': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 16, max(pad,2));
+    18ce:	68 94       	set
+    18d0:	99 24       	eor	r9, r9
+    18d2:	91 f8       	bld	r9, 1
+    while ((ch = *str++)) {
+	    U8 pad = 0;
+        if (ch == '%') {
+            switch (ch = *str++) {
+            case '2': pad = 2; ch = *str++; break;
+            case '4': pad = 4; ch = *str++; break;
+    18d4:	68 94       	set
+    18d6:	88 24       	eor	r8, r8
+    18d8:	82 f8       	bld	r8, 2
+            case '8': pad = 8; ch = *str++; break;
+    18da:	68 94       	set
+    18dc:	77 24       	eor	r7, r7
+    18de:	73 f8       	bld	r7, 3
+    char ch;  // Character under consideration
+    char acTemp[10];  // Buffer to hold string of digits
+    char* pcTemp;
+
+    while ((ch = *str++)) {
+	    U8 pad = 0;
+    18e0:	61 2c       	mov	r6, r1
+{
+    char ch;  // Character under consideration
+    char acTemp[10];  // Buffer to hold string of digits
+    char* pcTemp;
+
+    while ((ch = *str++)) {
+    18e2:	a3 c0       	rjmp	.+326    	; 0x1a2a <OSvsprintf+0x18e>
+	    U8 pad = 0;
+        if (ch == '%') {
+    18e4:	85 32       	cpi	r24, 0x25	; 37
+    18e6:	09 f0       	breq	.+2      	; 0x18ea <OSvsprintf+0x4e>
+    18e8:	96 c0       	rjmp	.+300    	; 0x1a16 <OSvsprintf+0x17a>
+            switch (ch = *str++) {
+    18ea:	d8 01       	movw	r26, r16
+    18ec:	11 96       	adiw	r26, 0x01	; 1
+    18ee:	8c 91       	ld	r24, X
+    18f0:	84 33       	cpi	r24, 0x34	; 52
+    18f2:	71 f0       	breq	.+28     	; 0x1910 <OSvsprintf+0x74>
+    18f4:	88 33       	cpi	r24, 0x38	; 56
+    18f6:	99 f0       	breq	.+38     	; 0x191e <OSvsprintf+0x82>
+    18f8:	82 33       	cpi	r24, 0x32	; 50
+    18fa:	21 f0       	breq	.+8      	; 0x1904 <OSvsprintf+0x68>
+    18fc:	0e 5f       	subi	r16, 0xFE	; 254
+    18fe:	1f 4f       	sbci	r17, 0xFF	; 255
+    char ch;  // Character under consideration
+    char acTemp[10];  // Buffer to hold string of digits
+    char* pcTemp;
+
+    while ((ch = *str++)) {
+	    U8 pad = 0;
+    1900:	26 2d       	mov	r18, r6
+    1902:	12 c0       	rjmp	.+36     	; 0x1928 <OSvsprintf+0x8c>
+        if (ch == '%') {
+            switch (ch = *str++) {
+            case '2': pad = 2; ch = *str++; break;
+    1904:	f8 01       	movw	r30, r16
+    1906:	82 81       	ldd	r24, Z+2	; 0x02
+    1908:	0d 5f       	subi	r16, 0xFD	; 253
+    190a:	1f 4f       	sbci	r17, 0xFF	; 255
+    190c:	29 2d       	mov	r18, r9
+    190e:	0c c0       	rjmp	.+24     	; 0x1928 <OSvsprintf+0x8c>
+            case '4': pad = 4; ch = *str++; break;
+    1910:	d8 01       	movw	r26, r16
+    1912:	12 96       	adiw	r26, 0x02	; 2
+    1914:	8c 91       	ld	r24, X
+    1916:	0d 5f       	subi	r16, 0xFD	; 253
+    1918:	1f 4f       	sbci	r17, 0xFF	; 255
+    191a:	28 2d       	mov	r18, r8
+    191c:	05 c0       	rjmp	.+10     	; 0x1928 <OSvsprintf+0x8c>
+            case '8': pad = 8; ch = *str++; break;
+    191e:	f8 01       	movw	r30, r16
+    1920:	82 81       	ldd	r24, Z+2	; 0x02
+    1922:	0d 5f       	subi	r16, 0xFD	; 253
+    1924:	1f 4f       	sbci	r17, 0xFF	; 255
+    1926:	27 2d       	mov	r18, r7
+            }
+            switch (ch) {
+    1928:	84 36       	cpi	r24, 0x64	; 100
+    192a:	71 f0       	breq	.+28     	; 0x1948 <OSvsprintf+0xac>
+    192c:	38 f4       	brcc	.+14     	; 0x193c <OSvsprintf+0xa0>
+    192e:	85 32       	cpi	r24, 0x25	; 37
+    1930:	09 f4       	brne	.+2      	; 0x1934 <OSvsprintf+0x98>
+    1932:	6d c0       	rjmp	.+218    	; 0x1a0e <OSvsprintf+0x172>
+    1934:	83 36       	cpi	r24, 0x63	; 99
+    1936:	09 f4       	brne	.+2      	; 0x193a <OSvsprintf+0x9e>
+    1938:	60 c0       	rjmp	.+192    	; 0x19fa <OSvsprintf+0x15e>
+    193a:	77 c0       	rjmp	.+238    	; 0x1a2a <OSvsprintf+0x18e>
+    193c:	83 37       	cpi	r24, 0x73	; 115
+    193e:	09 f4       	brne	.+2      	; 0x1942 <OSvsprintf+0xa6>
+    1940:	45 c0       	rjmp	.+138    	; 0x19cc <OSvsprintf+0x130>
+    1942:	88 37       	cpi	r24, 0x78	; 120
+    1944:	09 f1       	breq	.+66     	; 0x1988 <OSvsprintf+0xec>
+    1946:	71 c0       	rjmp	.+226    	; 0x1a2a <OSvsprintf+0x18e>
+            case 'd': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 10, pad);
+    1948:	56 01       	movw	r10, r12
+    194a:	f2 e0       	ldi	r31, 0x02	; 2
+    194c:	af 0e       	add	r10, r31
+    194e:	b1 1c       	adc	r11, r1
+    1950:	4a e0       	ldi	r20, 0x0A	; 10
+    1952:	50 e0       	ldi	r21, 0x00	; 0
+    1954:	be 01       	movw	r22, r28
+    1956:	6f 5f       	subi	r22, 0xFF	; 255
+    1958:	7f 4f       	sbci	r23, 0xFF	; 255
+    195a:	d6 01       	movw	r26, r12
+    195c:	8d 91       	ld	r24, X+
+    195e:	9c 91       	ld	r25, X
+    1960:	0e 94 d8 0b 	call	0x17b0	; 0x17b0 <OSitoa>
+    1964:	fc 01       	movw	r30, r24
+                while (*pcTemp) putc(*pcTemp++);  // Copy decimal
+    1966:	80 81       	ld	r24, Z
+    1968:	88 23       	and	r24, r24
+    196a:	09 f4       	brne	.+2      	; 0x196e <OSvsprintf+0xd2>
+    196c:	59 c0       	rjmp	.+178    	; 0x1a20 <OSvsprintf+0x184>
+    196e:	6f 01       	movw	r12, r30
+    1970:	bf ef       	ldi	r27, 0xFF	; 255
+    1972:	cb 1a       	sub	r12, r27
+    1974:	db 0a       	sbc	r13, r27
+    1976:	f7 01       	movw	r30, r14
+    1978:	09 95       	icall
+    197a:	d6 01       	movw	r26, r12
+    197c:	8d 91       	ld	r24, X+
+    197e:	6d 01       	movw	r12, r26
+    1980:	81 11       	cpse	r24, r1
+    1982:	f9 cf       	rjmp	.-14     	; 0x1976 <OSvsprintf+0xda>
+            case '4': pad = 4; ch = *str++; break;
+            case '8': pad = 8; ch = *str++; break;
+            }
+            switch (ch) {
+            case 'd': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 10, pad);
+    1984:	65 01       	movw	r12, r10
+    1986:	51 c0       	rjmp	.+162    	; 0x1a2a <OSvsprintf+0x18e>
+                while (*pcTemp) putc(*pcTemp++);  // Copy decimal
+            } break;
+            case 'x': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 16, max(pad,2));
+    1988:	56 01       	movw	r10, r12
+    198a:	b2 e0       	ldi	r27, 0x02	; 2
+    198c:	ab 0e       	add	r10, r27
+    198e:	b1 1c       	adc	r11, r1
+    1990:	22 30       	cpi	r18, 0x02	; 2
+    1992:	08 f4       	brcc	.+2      	; 0x1996 <OSvsprintf+0xfa>
+    1994:	29 2d       	mov	r18, r9
+    1996:	40 e1       	ldi	r20, 0x10	; 16
+    1998:	50 e0       	ldi	r21, 0x00	; 0
+    199a:	be 01       	movw	r22, r28
+    199c:	6f 5f       	subi	r22, 0xFF	; 255
+    199e:	7f 4f       	sbci	r23, 0xFF	; 255
+    19a0:	f6 01       	movw	r30, r12
+    19a2:	80 81       	ld	r24, Z
+    19a4:	91 81       	ldd	r25, Z+1	; 0x01
+    19a6:	0e 94 d8 0b 	call	0x17b0	; 0x17b0 <OSitoa>
+    19aa:	fc 01       	movw	r30, r24
+                while (*pcTemp) putc(*pcTemp++);  // Copy hex
+    19ac:	80 81       	ld	r24, Z
+    19ae:	88 23       	and	r24, r24
+    19b0:	c9 f1       	breq	.+114    	; 0x1a24 <OSvsprintf+0x188>
+    19b2:	6f 01       	movw	r12, r30
+    19b4:	9f ef       	ldi	r25, 0xFF	; 255
+    19b6:	c9 1a       	sub	r12, r25
+    19b8:	d9 0a       	sbc	r13, r25
+    19ba:	f7 01       	movw	r30, r14
+    19bc:	09 95       	icall
+    19be:	d6 01       	movw	r26, r12
+    19c0:	8d 91       	ld	r24, X+
+    19c2:	6d 01       	movw	r12, r26
+    19c4:	81 11       	cpse	r24, r1
+    19c6:	f9 cf       	rjmp	.-14     	; 0x19ba <OSvsprintf+0x11e>
+            case 'd': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 10, pad);
+                while (*pcTemp) putc(*pcTemp++);  // Copy decimal
+            } break;
+            case 'x': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 16, max(pad,2));
+    19c8:	65 01       	movw	r12, r10
+    19ca:	2f c0       	rjmp	.+94     	; 0x1a2a <OSvsprintf+0x18e>
+                while (*pcTemp) putc(*pcTemp++);  // Copy hex
+            } break;
+            case 's': {
+                pcTemp = va_arg(args, char*);
+    19cc:	56 01       	movw	r10, r12
+    19ce:	b2 e0       	ldi	r27, 0x02	; 2
+    19d0:	ab 0e       	add	r10, r27
+    19d2:	b1 1c       	adc	r11, r1
+    19d4:	d6 01       	movw	r26, r12
+    19d6:	ed 91       	ld	r30, X+
+    19d8:	fc 91       	ld	r31, X
+                while (*pcTemp) putc(*pcTemp++);  // Copy string
+    19da:	80 81       	ld	r24, Z
+    19dc:	88 23       	and	r24, r24
+    19de:	21 f1       	breq	.+72     	; 0x1a28 <OSvsprintf+0x18c>
+    19e0:	6f 01       	movw	r12, r30
+    19e2:	bf ef       	ldi	r27, 0xFF	; 255
+    19e4:	cb 1a       	sub	r12, r27
+    19e6:	db 0a       	sbc	r13, r27
+    19e8:	f7 01       	movw	r30, r14
+    19ea:	09 95       	icall
+    19ec:	d6 01       	movw	r26, r12
+    19ee:	8d 91       	ld	r24, X+
+    19f0:	6d 01       	movw	r12, r26
+    19f2:	81 11       	cpse	r24, r1
+    19f4:	f9 cf       	rjmp	.-14     	; 0x19e8 <OSvsprintf+0x14c>
+            case 'x': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 16, max(pad,2));
+                while (*pcTemp) putc(*pcTemp++);  // Copy hex
+            } break;
+            case 's': {
+                pcTemp = va_arg(args, char*);
+    19f6:	65 01       	movw	r12, r10
+    19f8:	18 c0       	rjmp	.+48     	; 0x1a2a <OSvsprintf+0x18e>
+                while (*pcTemp) putc(*pcTemp++);  // Copy string
+            } break;
+            case 'c': putc(va_arg(args, int)); break; // Copy char
+    19fa:	56 01       	movw	r10, r12
+    19fc:	b2 e0       	ldi	r27, 0x02	; 2
+    19fe:	ab 0e       	add	r10, r27
+    1a00:	b1 1c       	adc	r11, r1
+    1a02:	f6 01       	movw	r30, r12
+    1a04:	80 81       	ld	r24, Z
+    1a06:	f7 01       	movw	r30, r14
+    1a08:	09 95       	icall
+    1a0a:	65 01       	movw	r12, r10
+    1a0c:	0e c0       	rjmp	.+28     	; 0x1a2a <OSvsprintf+0x18e>
+            case '%': putc(ch); break;// Allow for %% to be printed as %
+    1a0e:	85 e2       	ldi	r24, 0x25	; 37
+    1a10:	f7 01       	movw	r30, r14
+    1a12:	09 95       	icall
+    1a14:	0a c0       	rjmp	.+20     	; 0x1a2a <OSvsprintf+0x18e>
+{
+    char ch;  // Character under consideration
+    char acTemp[10];  // Buffer to hold string of digits
+    char* pcTemp;
+
+    while ((ch = *str++)) {
+    1a16:	0f 5f       	subi	r16, 0xFF	; 255
+    1a18:	1f 4f       	sbci	r17, 0xFF	; 255
+            } break;
+            case 'c': putc(va_arg(args, int)); break; // Copy char
+            case '%': putc(ch); break;// Allow for %% to be printed as %
+            // default is to absorb the character after the % if we don't understand it
+            } // end switch
+        } else putc(ch);  // Just copy char directly
+    1a1a:	f7 01       	movw	r30, r14
+    1a1c:	09 95       	icall
+    1a1e:	05 c0       	rjmp	.+10     	; 0x1a2a <OSvsprintf+0x18e>
+            case '4': pad = 4; ch = *str++; break;
+            case '8': pad = 8; ch = *str++; break;
+            }
+            switch (ch) {
+            case 'd': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 10, pad);
+    1a20:	65 01       	movw	r12, r10
+    1a22:	03 c0       	rjmp	.+6      	; 0x1a2a <OSvsprintf+0x18e>
+                while (*pcTemp) putc(*pcTemp++);  // Copy decimal
+            } break;
+            case 'x': {
+                pcTemp = OSitoa(va_arg(args, int), acTemp, 16, max(pad,2));
+    1a24:	65 01       	movw	r12, r10
+    1a26:	01 c0       	rjmp	.+2      	; 0x1a2a <OSvsprintf+0x18e>
+                while (*pcTemp) putc(*pcTemp++);  // Copy hex
+            } break;
+            case 's': {
+                pcTemp = va_arg(args, char*);
+    1a28:	65 01       	movw	r12, r10
+{
+    char ch;  // Character under consideration
+    char acTemp[10];  // Buffer to hold string of digits
+    char* pcTemp;
+
+    while ((ch = *str++)) {
+    1a2a:	d8 01       	movw	r26, r16
+    1a2c:	8c 91       	ld	r24, X
+    1a2e:	81 11       	cpse	r24, r1
+    1a30:	59 cf       	rjmp	.-334    	; 0x18e4 <OSvsprintf+0x48>
+            case '%': putc(ch); break;// Allow for %% to be printed as %
+            // default is to absorb the character after the % if we don't understand it
+            } // end switch
+        } else putc(ch);  // Just copy char directly
+    } // end while
+    putc('\0');  // Terminate string
+    1a32:	f7 01       	movw	r30, r14
+    1a34:	09 95       	icall
+}
+    1a36:	2a 96       	adiw	r28, 0x0a	; 10
+    1a38:	0f b6       	in	r0, 0x3f	; 63
+    1a3a:	f8 94       	cli
+    1a3c:	de bf       	out	0x3e, r29	; 62
+    1a3e:	0f be       	out	0x3f, r0	; 63
+    1a40:	cd bf       	out	0x3d, r28	; 61
+    1a42:	df 91       	pop	r29
+    1a44:	cf 91       	pop	r28
+    1a46:	1f 91       	pop	r17
+    1a48:	0f 91       	pop	r16
+    1a4a:	ff 90       	pop	r15
+    1a4c:	ef 90       	pop	r14
+    1a4e:	df 90       	pop	r13
+    1a50:	cf 90       	pop	r12
+    1a52:	bf 90       	pop	r11
+    1a54:	af 90       	pop	r10
+    1a56:	9f 90       	pop	r9
+    1a58:	8f 90       	pop	r8
+    1a5a:	7f 90       	pop	r7
+    1a5c:	6f 90       	pop	r6
+    1a5e:	08 95       	ret
+
+00001a60 <UARTputc>:
+	UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);  // set 8N1 frame format
+}
+
+void UARTputc(char c)
+{
+	while (!(UCSR1A & (1<<UDRE1))) ;  // wait for Uart Data Register Empty bit to be set
+    1a60:	e8 ec       	ldi	r30, 0xC8	; 200
+    1a62:	f0 e0       	ldi	r31, 0x00	; 0
+    1a64:	90 81       	ld	r25, Z
+    1a66:	95 ff       	sbrs	r25, 5
+    1a68:	fd cf       	rjmp	.-6      	; 0x1a64 <UARTputc+0x4>
+	UDR1 = c;  // send char
+    1a6a:	80 93 ce 00 	sts	0x00CE, r24	; 0x8000ce <__TEXT_REGION_LENGTH__+0x7e00ce>
+    1a6e:	08 95       	ret
+
+00001a70 <UARTInit>:
+	}
+}
+
+void UARTInit(void)
+{
+	UBRR1H = 0;
+    1a70:	10 92 cd 00 	sts	0x00CD, r1	; 0x8000cd <__TEXT_REGION_LENGTH__+0x7e00cd>
+	UBRR1L = 12;	//3!=19200, 6!=9600, but 12==4800baud with 1MHz clock
+    1a74:	8c e0       	ldi	r24, 0x0C	; 12
+    1a76:	80 93 cc 00 	sts	0x00CC, r24	; 0x8000cc <__TEXT_REGION_LENGTH__+0x7e00cc>
+#ifdef UART_READCHAR
+	UCSR1B = (1<<RXEN1)|(1<<TXEN1);  // Enable both uart TX & Rx
+#else	//ifndef UART_READCHAR
+	UCSR1B = (1<<TXEN1);  // Just enable uart TX (Leave Rx for ADXL363 Int2)
+    1a7a:	88 e0       	ldi	r24, 0x08	; 8
+    1a7c:	80 93 c9 00 	sts	0x00C9, r24	; 0x8000c9 <__TEXT_REGION_LENGTH__+0x7e00c9>
+#endif	//def UART_READCHAR
+	UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);  // set 8N1 frame format
+    1a80:	86 e0       	ldi	r24, 0x06	; 6
+    1a82:	80 93 ca 00 	sts	0x00CA, r24	; 0x8000ca <__TEXT_REGION_LENGTH__+0x7e00ca>
+    1a86:	08 95       	ret
+
+00001a88 <UARTEventHandler>:
+char cmdBuf[MAX_CMDLEN];	// Handy buffer for accumulating commands from serial port
+#endif	//def UART_READCHAR
+
+void UARTEventHandler(U8 eventId, U16 eventArg)
+{
+	switch (eventId) {
+    1a88:	87 30       	cpi	r24, 0x07	; 7
+    1a8a:	39 f0       	breq	.+14     	; 0x1a9a <UARTEventHandler+0x12>
+    1a8c:	88 30       	cpi	r24, 0x08	; 8
+    1a8e:	41 f0       	breq	.+16     	; 0x1aa0 <UARTEventHandler+0x18>
+    1a90:	81 30       	cpi	r24, 0x01	; 1
+    1a92:	69 f4       	brne	.+26     	; 0x1aae <UARTEventHandler+0x26>
+	case EVENT_INIT:
+		UARTInit();
+    1a94:	0e 94 38 0d 	call	0x1a70	; 0x1a70 <UARTInit>
+#ifdef UART_READCHAR
+		*cmdBuf = 0;
+#endif	//def UART_READCHAR
+		break;
+    1a98:	08 95       	ret
+			*cmdBuf = 0;	// Ready for a new command
+		}
+		break;
+#endif	//def UART_READCHAR
+	case EVENT_SLEEP:
+		UCSR1B = 0x00;	// Disable UART
+    1a9a:	10 92 c9 00 	sts	0x00C9, r1	; 0x8000c9 <__TEXT_REGION_LENGTH__+0x7e00c9>
+		break;
+    1a9e:	08 95       	ret
+	case EVENT_WAKE:
+		PRR1 &= ~0x01;	// Re-enable USART by clearing bit in Power Reduction Register
+    1aa0:	e5 e6       	ldi	r30, 0x65	; 101
+    1aa2:	f0 e0       	ldi	r31, 0x00	; 0
+    1aa4:	80 81       	ld	r24, Z
+    1aa6:	8e 7f       	andi	r24, 0xFE	; 254
+    1aa8:	80 83       	st	Z, r24
+		UARTInit();	// Must re-enable UART after sleep
+    1aaa:	0e 94 38 0d 	call	0x1a70	; 0x1a70 <UARTInit>
+    1aae:	08 95       	ret
+
+00001ab0 <OSprintf>:
+	while (!(UCSR1A & (1<<UDRE1))) ;  // wait for Uart Data Register Empty bit to be set
+	UDR1 = c;  // send char
+}
+
+void OSprintf(char* str, ...)	// Actually UARTprintf()
+{
+    1ab0:	cf 93       	push	r28
+    1ab2:	df 93       	push	r29
+    1ab4:	cd b7       	in	r28, 0x3d	; 61
+    1ab6:	de b7       	in	r29, 0x3e	; 62
+    1ab8:	ae 01       	movw	r20, r28
+    1aba:	4b 5f       	subi	r20, 0xFB	; 251
+    1abc:	5f 4f       	sbci	r21, 0xFF	; 255
+    1abe:	fa 01       	movw	r30, r20
+    1ac0:	61 91       	ld	r22, Z+
+    1ac2:	71 91       	ld	r23, Z+
+    1ac4:	af 01       	movw	r20, r30
+    va_list args;
+    va_start(args, str);
+    OSvsprintf(UARTputc, str, args);
+    1ac6:	80 e3       	ldi	r24, 0x30	; 48
+    1ac8:	9d e0       	ldi	r25, 0x0D	; 13
+    1aca:	0e 94 4e 0c 	call	0x189c	; 0x189c <OSvsprintf>
+    va_end(args);
+}
+    1ace:	df 91       	pop	r29
+    1ad0:	cf 91       	pop	r28
+    1ad2:	08 95       	ret
+
+00001ad4 <__udivmodhi4>:
+    1ad4:	aa 1b       	sub	r26, r26
+    1ad6:	bb 1b       	sub	r27, r27
+    1ad8:	51 e1       	ldi	r21, 0x11	; 17
+    1ada:	07 c0       	rjmp	.+14     	; 0x1aea <__udivmodhi4_ep>
+
+00001adc <__udivmodhi4_loop>:
+    1adc:	aa 1f       	adc	r26, r26
+    1ade:	bb 1f       	adc	r27, r27
+    1ae0:	a6 17       	cp	r26, r22
+    1ae2:	b7 07       	cpc	r27, r23
+    1ae4:	10 f0       	brcs	.+4      	; 0x1aea <__udivmodhi4_ep>
+    1ae6:	a6 1b       	sub	r26, r22
+    1ae8:	b7 0b       	sbc	r27, r23
+
+00001aea <__udivmodhi4_ep>:
+    1aea:	88 1f       	adc	r24, r24
+    1aec:	99 1f       	adc	r25, r25
+    1aee:	5a 95       	dec	r21
+    1af0:	a9 f7       	brne	.-22     	; 0x1adc <__udivmodhi4_loop>
+    1af2:	80 95       	com	r24
+    1af4:	90 95       	com	r25
+    1af6:	bc 01       	movw	r22, r24
+    1af8:	cd 01       	movw	r24, r26
+    1afa:	08 95       	ret
+
+00001afc <__divmodhi4>:
+    1afc:	97 fb       	bst	r25, 7
+    1afe:	07 2e       	mov	r0, r23
+    1b00:	16 f4       	brtc	.+4      	; 0x1b06 <__divmodhi4+0xa>
+    1b02:	00 94       	com	r0
+    1b04:	07 d0       	rcall	.+14     	; 0x1b14 <__divmodhi4_neg1>
+    1b06:	77 fd       	sbrc	r23, 7
+    1b08:	09 d0       	rcall	.+18     	; 0x1b1c <__divmodhi4_neg2>
+    1b0a:	0e 94 6a 0d 	call	0x1ad4	; 0x1ad4 <__udivmodhi4>
+    1b0e:	07 fc       	sbrc	r0, 7
+    1b10:	05 d0       	rcall	.+10     	; 0x1b1c <__divmodhi4_neg2>
+    1b12:	3e f4       	brtc	.+14     	; 0x1b22 <__divmodhi4_exit>
+
+00001b14 <__divmodhi4_neg1>:
+    1b14:	90 95       	com	r25
+    1b16:	81 95       	neg	r24
+    1b18:	9f 4f       	sbci	r25, 0xFF	; 255
+    1b1a:	08 95       	ret
+
+00001b1c <__divmodhi4_neg2>:
+    1b1c:	70 95       	com	r23
+    1b1e:	61 95       	neg	r22
+    1b20:	7f 4f       	sbci	r23, 0xFF	; 255
+
+00001b22 <__divmodhi4_exit>:
+    1b22:	08 95       	ret
+
+00001b24 <__tablejump2__>:
+    1b24:	ee 0f       	add	r30, r30
+    1b26:	ff 1f       	adc	r31, r31
+    1b28:	05 90       	lpm	r0, Z+
+    1b2a:	f4 91       	lpm	r31, Z
+    1b2c:	e0 2d       	mov	r30, r0
+    1b2e:	09 94       	ijmp
+
+00001b30 <__umulhisi3>:
+    1b30:	a2 9f       	mul	r26, r18
+    1b32:	b0 01       	movw	r22, r0
+    1b34:	b3 9f       	mul	r27, r19
+    1b36:	c0 01       	movw	r24, r0
+    1b38:	a3 9f       	mul	r26, r19
+    1b3a:	70 0d       	add	r23, r0
+    1b3c:	81 1d       	adc	r24, r1
+    1b3e:	11 24       	eor	r1, r1
+    1b40:	91 1d       	adc	r25, r1
+    1b42:	b2 9f       	mul	r27, r18
+    1b44:	70 0d       	add	r23, r0
+    1b46:	81 1d       	adc	r24, r1
+    1b48:	11 24       	eor	r1, r1
+    1b4a:	91 1d       	adc	r25, r1
+    1b4c:	08 95       	ret
+
+00001b4e <_exit>:
+    1b4e:	f8 94       	cli
+
+00001b50 <__stop_program>:
+    1b50:	ff cf       	rjmp	.-2      	; 0x1b50 <__stop_program>

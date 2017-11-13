@@ -3,7 +3,7 @@
  *
  * Created: 26/07/2017 23:07:21
  *  Author: Spikey
- */ 
+ */
 
 #ifndef MAIN_H_
 #define MAIN_H_
@@ -49,7 +49,7 @@ typedef enum {
 	EVENT_BRAKE,	// No arg
 	EVENT_USB,		// Arg is true if just connected
 	EVENT_NEXTLED,	// Select next LED series
-	EVENT_MOTION,	// True if bike in motion, false if stationary
+	EVENT_MOTION,	// True if bike in motion, false if stationary for too long
 	EVENT_LDR,		// Arg is light level as a percentage
 	EVENT_DAYLIGHT,	// Arg is DAYLIGHT_xxx
 	EVENT_BATTERY,	// Arg is battery level as a percentage
@@ -63,6 +63,17 @@ enum {
 	DAYTIME_DUSK,	// Also DAWN - basically the intermediate state between night and day
 	DAYTIME_DAY,
 };
+
+#define SYSBITNUM_DAY (0)	// 2 bits for this
+#define SYSBITNUM_MOTION (2)
+#define SYSBITNUM_USB (3)
+#define SYSBITMASK_DAY (3<<SYSBITNUM_DAY)	// Bits 0 & 1 for DAY (See DAYTIME_xxx above for values)
+#define SYSBITMASK_MOTION (1<<SYSBITNUM_MOTION)
+#define SYSBIT_STATIONARY (0<<SYSBITNUM_MOTION)	// Bit 2 for whether we're in motion or stationary
+#define SYSBIT_MOTION (1<<SYSBITNUM_MOTION)
+#define SYSBITMASK_USB (1<<SYSBITNUM_USB)
+#define SYSBIT_NOUSB (0<<SYSBITNUM_USB)	// Bit 3 for whether USB attached(1) or detached(0)
+#define SYSBIT_USB (1<<SYSBITNUM_USB)
 
 typedef enum { SLEEPTYPE_LIGHT,	/* Allow accelerometer or button to wake us up*/ SLEEPTYPE_DEEP, /* Only button can wake from this */} SleepType;
 
@@ -90,7 +101,7 @@ void OSEventHandler(Event event, U16 eventArg);
 
 #define min(a,b) ((a < b) ? a : b)
 #define max(a,b) ((a > b) ? a : b)
-#define abs(a) ((a < 0) -a : a)
+#define abs(a) ((a < 0) ? -a : a)
 
 //Pinout
 // SPI PB0-3 SPI to accelerometer
@@ -109,6 +120,8 @@ void OSEventHandler(Event event, U16 eventArg);
 
 // Global Variables
 char* lastErr;
+U8 daylight;	// Used by ADCmod as well as LEDmod
+U8 sysBits;
 
 // Public functions
 void OSSleep(int sleepType);

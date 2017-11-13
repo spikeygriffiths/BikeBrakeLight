@@ -115,6 +115,7 @@ void OSEventHandler(Event event, U16 eventArg)
 		OSprintf("\r\n\nReset:%s (0x%2x)\r\n", resetStr, oldMCUSR);
 		OSprintf("%s%s", OS_BANNER, OS_NEWLINE);
 		usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
+		sysBits = (DAYTIME_UNKNOWN << SYSBITNUM_DAY) | SYSBIT_STATIONARY | ((usbState & 1) << SYSBITNUM_USB);
 		break;
 	case EVENT_TICK:
 		wdt_reset();
@@ -130,10 +131,16 @@ void OSEventHandler(Event event, U16 eventArg)
 		if (sleepReq) OSSleep(SLEEPTYPE_LIGHT);	// Allow either button or accelerometer to wake us from sleep
 		break;
 	case EVENT_DOUBLE_CLICK:
-		OSIssueEvent(EVENT_INFO, 0);	// FOr now, anyway.  Could use some other trigger
+		OSIssueEvent(EVENT_INFO, 0);	// For now, anyway.  Could use some other trigger
 		break;
 	case EVENT_LONG_CLICK:
 		OSSleep(SLEEPTYPE_DEEP);	// Sleep, only looking for button press to wake
+		break;
+	case EVENT_USB:
+		sysBits = (sysBits & ~SYSBITMASK_USB) | ((eventArg & 1) << SYSBITNUM_USB);
+		break;
+	case EVENT_DAYLIGHT:
+		sysBits = (sysBits & ~SYSBITMASK_DAY) | ((eventArg & 3) << SYSBITNUM_DAY);
 		break;
 	case EVENT_SLEEP:
 		wdt_disable();	// Don't need a watchdog when we're asleep
@@ -159,7 +166,7 @@ void OSSleep(int sleepType)
 		EIMSK = 0x01;	// Enable interrupts from button (INT0)
 	} else {	// Assume SLEEPTYPE_LIGHT, so allow button and accelerometer to wake us up
 		OSprintf("LightSleep\r\n");
-		EICRA = 0x11;	// Wake on either edge from button (INT0) and accelerometer (INT2), as long as EIMSK says so...
+		EICRA = 0x13;	// Wake on down edge from button (INT0) and either edge from accelerometer (INT2), as long as EIMSK says so...
 		EIMSK = 0x05;	// Enable interrupts from button (INT0) and accelerometer (INT2)
 	}
 	OSIssueEvent(EVENT_SLEEP, sleepType);	// Tell system we're going to sleep

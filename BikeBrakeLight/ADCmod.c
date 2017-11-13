@@ -34,6 +34,41 @@ void ADCEventHandler(Event event, U16 eventArg)
 			}
 		}
 		break;
+	case EVENT_LDR:
+	switch (daylight) {
+	case DAYTIME_NIGHT:
+		if (eventArg > DAY_THRESHOLD + 5) {	// Add some margin for hysteresis
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
+		} else if (eventArg > DARK_THRESHOLD + 5) {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);
+		} else return;	// else hasn't changed enough, so leave as NIGHT
+		break;
+	case DAYTIME_DUSK:
+		if (eventArg < DARK_THRESHOLD) {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
+		} else if (eventArg > DAY_THRESHOLD + 5) {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
+		} else return;	// else hasn't changed enough, so leave as DUSK
+		break;
+	case DAYTIME_DAY:
+		if (eventArg < DARK_THRESHOLD) {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
+		} else if (eventArg < DAY_THRESHOLD) {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);
+		} else return;	// else hasn't changed enough, so leave as DAY
+		break;
+	default:	// In case we didn't have a previous idea of light level
+		if (eventArg < DARK_THRESHOLD) {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_NIGHT);
+		} else if (eventArg > DAY_THRESHOLD) {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DAY);
+		} else {
+			OSIssueEvent(EVENT_DAYLIGHT, DAYTIME_DUSK);	// Neither fully night or day
+		}
+		break;
+	}
+	OSprintf("LDR %d\r\n", eventArg);	// If we get here then we have issued a new daylight event
+	break;
 	case EVENT_REQSLEEP:
 		if (NOTANUMBER_U16 == ldrVal) *(bool*)eventArg = false;	// Disallow sleep until we've got a light level
 		break;
