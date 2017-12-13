@@ -3,7 +3,7 @@
  *
  * Created: 26/07/2017 22:04:57
  * Author : Spikey
- */ 
+ */
 
 #include <avr/io.h>
 #include <avr/wdt.h>	// Watchdog timer (actually in C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\)
@@ -16,11 +16,10 @@
 #include "ACCELmod.h"
 #include "LEDmod.h"
 #include "BTNmod.h"
+#include "USBmod.h"
 #include "ADCmod.h"
 #include "BATmod.h"
 
-static bool usbInt = false;
-static bool usbState;
 static U16 elapsedS = 0;	// Keep track of time spent active (don't know why yet, though...)
 static U8 oldMCUSR;	// Reset source
 static char* resetStr;
@@ -30,13 +29,6 @@ static const char WatchDog[] = "WatchDog";
 static const char ExtReset[] = "ExtReset";
 static const char PowerOn[] = "PowerOn";
 static const char Unknown[] = "Unknown";
-
-ISR(USB_GEN_vect)	// USB state change.  See C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\iom32u4.h
-{
-	USBINT = 0x00;	// Clear interrupt
-	//usbState = (0 != (USBSTA & 0x01));	// New state (true if attached, false if detached)
-	usbInt = true;	// Tell foreground
-}
 
 int main(void)
 {
@@ -69,6 +61,7 @@ void _OSIssueEvent(Event eventId, U16 eventArg)
 	ACCELEventHandler(eventId, eventArg);
 	LEDEventHandler(eventId, eventArg);
 	ADCEventHandler(eventId, eventArg);
+	USBEventHandler(eventId, eventArg);
 	BATEventHandler(eventId, eventArg);
 	BTNEventHandler(eventId, eventArg);
 	// Other event handlers here...
@@ -99,7 +92,6 @@ void OSEventHandler(Event event, U16 eventArg)
 	case EVENT_INIT:
 		EICRA = 0x11;	// Wake on either edge from button (INT0) and accelerometer (INT2), as long as EIMSK says so...
 		EIMSK = 0x05;	// Enable interrupts from button (INT0) and accelerometer (INT2)
-		USBCON = 0x11;	// Enable USB power detection (but not the USB controller macro)
 		break;
 	case EVENT_POSTINIT:
 		wdt_enable(WDTO_500MS);
@@ -114,17 +106,10 @@ void OSEventHandler(Event event, U16 eventArg)
 		} else resetStr = (char*)Unknown;
 		OSprintf("\r\n\nReset:%s (0x%2x)\r\n", resetStr, oldMCUSR);
 		OSprintf("%s%s", OS_BANNER, OS_NEWLINE);
-		usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
-		sysBits = (DAYTIME_UNKNOWN << SYSBITNUM_DAY) | SYSBIT_STATIONARY | ((usbState & 1) << SYSBITNUM_USB);
+		//sysBits = (DAYTIME_UNKNOWN << SYSBITNUM_DAY) | SYSBIT_STATIONARY | ((usbState & 1) << SYSBITNUM_USB);
 		break;
 	case EVENT_TICK:
 		wdt_reset();
-		if (usbInt) {
-			usbInt = false;	// Acknowledge software interrupt
-			usbState = (0 != (USBSTA & 0x01));	// State (true if attached, false if detached)
-			OSprintf("USB %s%s", (usbState)?"attached" : "detached", OS_NEWLINE);
-			OSIssueEvent(EVENT_USB, usbState);
-		}
 		// Try to sleep...
 		sleepReq = true;	// Assume can sleep, unless any responder sets this to false
 		OSIssueEvent(EVENT_REQSLEEP, &sleepReq);	// Request that system be allowed to sleep
@@ -136,11 +121,32 @@ void OSEventHandler(Event event, U16 eventArg)
 	case EVENT_LONG_CLICK:
 		OSSleep(SLEEPTYPE_DEEP);	// Sleep, only looking for button press to wake
 		break;
+	case EVENT_MOTION:
+		sysBits = (sysBits & ~SYSBITMASK_MOT) | ((eventArg & 1) << SYSBITOFF_MOT);
+		break;
 	case EVENT_USB:
-		sysBits = (sysBits & ~SYSBITMASK_USB) | ((eventArg & 1) << SYSBITNUM_USB);
+		sysBits = (sysBits & ~SYSBITMASK_USB) | ((eventArg & 1) << SYSBITOFF_USB);
+		break;
+	case EVENT_BATTGOOD:
+		sysBits = (sysBits & ~SYSBITMASK_BAT) | ((eventArg & 1) << SYSBITOFF_BAT);
+		break;
+	case EVENT_ONBIKE:
+		sysBits = (sysBits & ~SYSBITMASK_BIK) | ((eventArg & 1) << SYSBITOFF_BIK);
+		break;
+	case EVENT_CHARGING:
+		sysBits = (sysBits & ~SYSBITMASK_CHG) | ((eventArg & 1) << SYSBITOFF_CHG);
+		if (eventArg) {
+			OSprintf("Charging\r\n");
+			//LEDStartSeries(LEDSERIES_FLASHTOP); // Show flashing top LED
+			// Animate current charged level instead, unless in motion
+		} else {
+			OSprintf("Charged\r\n");
+			//LEDStartSeries(LEDSERIES_OFF);	// All off and back to Idle
+			// Static display showing 100% charged, unless in motion
+		}
 		break;
 	case EVENT_DAYLIGHT:
-		sysBits = (sysBits & ~SYSBITMASK_DAY) | ((eventArg & 3) << SYSBITNUM_DAY);
+		sysBits = (sysBits & ~SYSBITMASK_DAY) | ((eventArg & 3) << SYSBITOFF_DAY);
 		break;
 	case EVENT_SLEEP:
 		wdt_disable();	// Don't need a watchdog when we're asleep
@@ -152,6 +158,9 @@ void OSEventHandler(Event event, U16 eventArg)
 		PRR0 = 0xA0;	// Re-enable Timer1, SPI and ADC.  Timer1 used by LEDs for PWM, SPI used by Accelerometer, ADC used by LDR & BattLvl
 		PRR1 = 0x00;	// Re-enable USB, Timer3, Timer4 and USART
 		wdt_enable(WDTO_500MS);
+		break;
+	case EVENT_INFO:
+		OSprintf("SysBits 0x%4x%s", sysBits, OS_NEWLINE);
 		break;
 	default:
 		break;	// Does nothing, but stops useless warnings from the compiler

@@ -11,6 +11,18 @@
 #define IND_LED (1 << 0) // on PORTF
 #define IND_LED_ON PORTF |= IND_LED
 #define IND_LED_OFF PORTF &= ~IND_LED
+#define DBG_LED_ON
+#define DBG_LED_OFF
+#define ACC_LED_ON
+#define ACC_LED_OFF
+#define BTN_LED_ON
+#define BTN_LED_OFF
+#define USB_LED_ON 
+#define USB_LED_OFF 
+#define BAT_LED_ON
+#define BAT_LED_OFF
+#define CHG_LED_ON IND_LED_ON
+#define CHG_LED_OFF IND_LED_OFF
 #define LED(n) (1 << (5+n))	// on PORTB.  LED(0)=Bottom left (8 o'clock), LED(1)=Bottom right (4 o'clock), LED(2)=Top (12 o'clock)
 #define TURNON_LED(led) DDRB |= LED(led)	// LEDs numbered 0,1,2
 #define TURNOFF_LED(led) DDRB &= ~LED(led)	// LEDs numbered 0,1,2.  Turn off by making the port an input

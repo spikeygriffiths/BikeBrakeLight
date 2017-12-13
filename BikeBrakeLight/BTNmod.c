@@ -20,7 +20,7 @@ static BtnState btnState;
 ISR(INT0_vect)	// Button edge detected
 {
 	btnDown = (0 != BTN);	// Read button as true when down
-	//if (btnDown) { IND_LED_ON; } else { IND_LED_OFF; }	// For debugging
+	//if (btnDown) { BTN_LED_ON; } else { BTN_LED_OFF; }	// For debugging
 	btnInt = true;
 }
 
@@ -73,7 +73,7 @@ void BTNEventHandler(Event event, U16 eventArg)
 		break;
 	case EVENT_BUTTON:
 		btnTimerMs = 0;	// Start timer if just pressed or just released
-		if (eventArg) { IND_LED_ON; } else { IND_LED_OFF; }	// For debugging
+		if (eventArg) { BTN_LED_ON; } else { BTN_LED_OFF; }	// For debugging
 		switch (btnState) {
 		case BTNSTATE_IDLE:
 			btnState = (eventArg) ? BTNSTATE_FIRSTPRESS : BTNSTATE_IDLE;	// If pressed when Idle, advance to FirstPress

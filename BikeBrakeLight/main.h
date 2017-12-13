@@ -20,7 +20,7 @@ typedef signed short S16;
 typedef signed long S32;
 typedef signed long long S64;
 
-#define OS_BANNER "Spikey Bike Light for ATmega32U4 v0.6"
+#define OS_BANNER "Spikey Bike Light for ATmega32U4 v0.7"
 #define OS_NEWLINE "\r\n"
 
 typedef void PUTC(char);
@@ -49,12 +49,13 @@ typedef enum {
 	EVENT_BRAKE,	// No arg
 	EVENT_USB,		// Arg is true if just connected
 	EVENT_NEXTLED,	// Select next LED series
-	EVENT_MOTION,	// True if bike in motion, false if stationary for too long
+	EVENT_MOTION,	// True if in motion, false if stationary for too long
 	EVENT_LDR,		// Arg is light level as a percentage
 	EVENT_DAYLIGHT,	// Arg is DAYLIGHT_xxx
 	EVENT_BATTERY,	// Arg is battery level as a percentage
-	EVENT_CHARGING,	// No arg - issued when USB attached
-	EVENT_CHARGED,	// No arg - issued once STAT line goes low from battery charging circuit
+	EVENT_CHARGING,	// Arg is true if charging.  Issued once STAT line changes state from battery charging circuit
+	EVENT_BATTGOOD,	// Arg is true if battery > 15% or false if < 10%
+	EVENT_ONBIKE,	// Arg is true if accelerometer indicates on a bike (low x and high +ve y), else false
 } Event;
 
 enum {
@@ -64,18 +65,24 @@ enum {
 	DAYTIME_DAY,
 };
 
-#define SYSBITNUM_DAY (0)	// 2 bits for this
-#define SYSBITNUM_MOTION (2)
-#define SYSBITNUM_USB (3)
-#define SYSBITMASK_DAY (3<<SYSBITNUM_DAY)	// Bits 0 & 1 for DAY (See DAYTIME_xxx above for values)
-#define SYSBITMASK_MOTION (1<<SYSBITNUM_MOTION)
-#define SYSBIT_STATIONARY (0<<SYSBITNUM_MOTION)	// Bit 2 for whether we're in motion or stationary
-#define SYSBIT_MOTION (1<<SYSBITNUM_MOTION)
-#define SYSBITMASK_USB (1<<SYSBITNUM_USB)
-#define SYSBIT_NOUSB (0<<SYSBITNUM_USB)	// Bit 3 for whether USB attached(1) or detached(0)
-#define SYSBIT_USB (1<<SYSBITNUM_USB)
+#define SYSBITOFF_DAY (0)	// 2 bits for this (See DAYTIME_xxx above)
+#define SYSBITOFF_MOT (2)	// Set if in motion
+#define SYSBITOFF_USB (3)	// Set if attached
+#define SYSBITOFF_CHG (4)	// Set if charging
+#define SYSBITOFF_BAT (5)	// Set if good, clear if low
+#define SYSBITOFF_BIK (6)	// Set if rightway up, on a bike
 
-typedef enum { SLEEPTYPE_LIGHT,	/* Allow accelerometer or button to wake us up*/ SLEEPTYPE_DEEP, /* Only button can wake from this */} SleepType;
+#define SYSBITMASK_DAY (3<<SYSBITOFF_DAY)	// Bits 0 & 1 for DAY (See DAYTIME_xxx above for values)
+#define SYSBITMASK_MOT (1<<SYSBITOFF_MOT)
+#define SYSBITMASK_USB (1<<SYSBITOFF_USB)
+#define SYSBITMASK_CHG (1<<SYSBITOFF_CHG)
+#define SYSBITMASK_BAT (1<<SYSBITOFF_BAT)
+#define SYSBITMASK_BIK (1<<SYSBITOFF_BIK)
+
+typedef enum {
+	SLEEPTYPE_LIGHT,	/* Allow accelerometer or button to wake us up*/
+	SLEEPTYPE_DEEP,		/* Only button can wake from this */
+} SleepType;
 
 #define NOTANUMBER_U8 0xFF
 #define NOTANUMBER_U16 0xFFFF

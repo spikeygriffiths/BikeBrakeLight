@@ -418,16 +418,6 @@ void LEDEventHandler(U8 eventId, U16 eventArg)
 	case EVENT_BRAKE:
 		LEDOverride(LedBrake);
 		break;
-	case EVENT_CHARGING:
-		OSprintf("Charging\r\n");
-		//LEDStartSeries(LEDSERIES_FLASHTOP); // Show flashing top LED
-		// Animate current charged level instead, unless in motion
-		break;
-	case EVENT_CHARGED:
-		OSprintf("Charged\r\n");
-		//LEDStartSeries(LEDSERIES_OFF);	// All off and back to Idle
-		// Static display showing 100% charged, unless in motion
-		break;
 	case EVENT_SINGLE_CLICK:
 		OSIssueEvent(EVENT_NEXTLED, 0);	// Select next light pattern based on button press
 		break;

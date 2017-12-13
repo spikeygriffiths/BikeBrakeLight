@@ -77,7 +77,7 @@ void OSprintf(char* str, ...)	// Actually UARTprintf()
 bool UARTgetc(char* c) {
 	if (UCSR1A & 0x80) {	//(1<<RXC1)) {
 		*c = UDR1;
-		PORTF ^= IND_LED;	// Toggle indicator LED
+		//PORTF ^= IND_LED;	// Toggle indicator LED
 		return true;
 	}
 	return false;

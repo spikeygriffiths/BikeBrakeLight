@@ -22,3 +22,5 @@ osstr.c
 
 UARTmod.c
 
+USBmod.c
+

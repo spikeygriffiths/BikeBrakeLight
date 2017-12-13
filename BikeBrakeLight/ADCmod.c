@@ -83,7 +83,7 @@ void ADCEventHandler(Event event, U16 eventArg)
 	}
 }
 
-U16 BATTget(void)	// Returns percentage of battery, where 100% is fully-charged
+U16 ADCGetBatt(void)	// Returns ADC reading for battery channel
 {
 	U16 battVal = 0;
 
@@ -97,7 +97,7 @@ U16 BATTget(void)	// Returns percentage of battery, where 100% is fully-charged
 	battVal = ADCL | (ADCH << 8);	// Sample 10-bit value
 	ADCSRA = 0x00;	// Shut down ADC to save power
 	DIDR0 &= ~BATT_VAL;	// Re-enable Digital input for ADC6
-	return (battVal / 10);	// Convert to percentage, where 100% is full, but 50% is half-nominal voltage.  Might need to adjust this, so that 0% is "About to die"
+	return battVal;
 }
 
 U16 LDRget(void)	// Returns light level as a percentage, where 100% is bright light

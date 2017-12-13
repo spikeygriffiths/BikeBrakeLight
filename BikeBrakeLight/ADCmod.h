@@ -13,7 +13,7 @@
 
 void ADCEventHandler(Event event, U16 eventArg);
 
-U16 BATTget(void);
+U16 ADCGetBatt(void);
 U16 LDRget(void);
 S16 TMPget(void);
 

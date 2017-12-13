@@ -3,7 +3,7 @@
  *
  * Created: 18/09/2017 20:53:21
  *  Author: Spikey
- */ 
+ */
 #include <avr/io.h>
 //#include <stdio.h>
 //#include <stdarg.h>
@@ -26,17 +26,18 @@ void ACCELWriteReg16(ADXL363_REG reg, U16 val);
 S16 ACCELReadReg16(ADXL363_REG reg);
 int ACCELGetAxis(ADXL363_REG reg);	// Use ADXL363_XDATA_L for X, ADXL363_YDATA_L for Y and ADXL363_ZDATA_L for Z
 U8 SPItrx(U8 cData);
+bool onBike;
 
 ISR(INT2_vect)	// Accelerometer interrupt
 {
-	IND_LED_ON;	// Turn it off by pressing the button.  Just for debugging
+	ACC_LED_ON;	// Turn it off by pressing the button.  Just for debugging
 	accelInt = true;
 }
 
 void ACCELEventHandler(U8 eventId, U16 eventArg)
 {
-	S16 /*x,y,*/z;
-	
+	S16 x,y,z;
+
 	switch (eventId) {
 	case EVENT_INIT:
 		accelInt = false;
@@ -56,13 +57,16 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 		ACCELWriteReg8(ADXL363_INTMAP2, 0x10);	// Map Activity (but not Inactivity) state to INT2
 		ACCELWriteReg8(ADXL363_FILTER_CTL, 0x03);	// Set ADXL at 100Hz sampling rate
 		ACCELWriteReg8(ADXL363_POWER_CTL, 0x0A);	// Set ADXL into Measurement and Wakeup state
+		onBike = false;	// Until we know better
 		break;
 	case EVENT_TICK:
 		if (accelInt) {
 			/*U8 accelStatus = */ACCELReadReg8(ADXL363_STATUS)/* & 0x70*/;	// Read whether we're awake (and acknowledge it as well) as well as Active or Inactive
 			accelInt = false;
-			accelState = ACCELSTATE_MONITOR;
-			accelTimeoutMs = eventArg;	// So that it'll immediately monitor the accelerometer
+			if (accelState != ACCELSTATE_IGNORING) {
+				accelState = ACCELSTATE_MONITOR;
+				accelTimeoutMs = eventArg;	// So that it'll immediately monitor the accelerometer
+			}
 		}
 		if (accelTimeoutMs > eventArg) {
 			accelTimeoutMs -= eventArg;
@@ -76,24 +80,30 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 				accelState = ACCELSTATE_IDLE;	// Finished ignoring accelerometer
 				break;
 			case ACCELSTATE_JUSTFIRED:
-				IND_LED_OFF;
+				ACC_LED_OFF;
 				// Fall through to MONITOR...
 			case ACCELSTATE_MONITOR:	//  Monitor accelerometer every 100ms when active.  If Z-axis goes too low for motion for too long (60s?) then issue EVENT_MOTION with False (to indicate stationary).  Otherwise, issue EVENT_MOTION with True (to indicate moving)
+				x = ACCELGetAxis(ADXL363_XDATA_L);
+				y = ACCELGetAxis(ADXL363_YDATA_L);
 				z = ACCELGetAxis(ADXL363_ZDATA_L);
-				//OSprintf("z = %d\r\n", z);	// X = Left / right, Y = Up / Down, Z = Forward / Back
-				if (z < -BRAKING_ACCELERATION) {
-					OSIssueEvent(EVENT_BRAKE, 0);	// Less than deceleration (is this right?) to cause a BRAKE event
-					accelState = ACCELSTATE_JUSTFIRED;	// Turn IND_LED off next time
-				} else accelState = ACCELSTATE_MONITOR;	// Continue monitoring
-				if (abs(z) > FORWARD_MOTION) {
-					if (0 == activityCount) OSIssueEvent(EVENT_MOTION, true);	// If we were stationary previously
-					activityCount = ACTIVITY_TIMEOUT_S * 10;	// We monitor accelerometer 10 times a second, hence the *10
-				} else {
-					if (activityCount) {	// Count down activity timeout if not moving
-						if (0 == --activityCount) {
-							OSIssueEvent(EVENT_MOTION, false);	// Finally timed out waiting for movement, so admit that we're stationary
+				if ((abs(x) < 200) && (y > 900)) {	// Make sure light is right way up (and thus assumed to be on a bike) before declaring a braking, or a motion event
+					if (!onBike) OSIssueEvent(EVENT_ONBIKE, true);
+					if (z < -BRAKING_ACCELERATION) {
+						OSIssueEvent(EVENT_BRAKE, 0);	// Less than deceleration (is this right?) to cause a BRAKE event
+						accelState = ACCELSTATE_JUSTFIRED;	// Turn LED off next time
+					} else accelState = ACCELSTATE_MONITOR;	// Continue monitoring
+					if (abs(z) > FORWARD_MOTION) {
+						if (0 == activityCount) OSIssueEvent(EVENT_MOTION, true);	// If we were stationary previously
+						activityCount = ACTIVITY_TIMEOUT_S * 10;	// We monitor accelerometer 10 times a second, hence the *10
+					} else {
+						if (activityCount) {	// Count down activity timeout if not moving
+							if (0 == --activityCount) {
+								OSIssueEvent(EVENT_MOTION, false);	// Finally timed out waiting for movement, so admit that we're stationary
+							}
 						}
 					}
+				} else {	// Not on a bike}
+					if (onBike) OSIssueEvent(EVENT_ONBIKE, false);
 				}
 				accelTimeoutMs = 100;	// Check motion again in 100ms
 				break;
@@ -103,15 +113,18 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 			} // end switch()
 		}
 		break;
+	case EVENT_ONBIKE:
+		onBike = (bool)eventArg;
+		break;
 	case EVENT_BUTTON:
 		accelState = ACCELSTATE_IGNORING;
 		accelTimeoutMs = 2 * MS_PERSEC;	// Disable Accelerometer events while pressing button and for a short while afterwards
 		break;
 	case EVENT_SINGLE_CLICK:
-		//OSprintf("PortD = 0x%2x\r\n", PORTD);	
-		//OSprintf("ADXL AD = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID_AD));	
+		//OSprintf("PortD = 0x%2x\r\n", PORTD);
+		//OSprintf("ADXL AD = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID_AD));
 		//OSprintf("ADXL Thresh_Act = %d\r\n", ACCELReadReg16(ADXL363_THRESH_ACT_L));
-		//OSprintf("ADXL DevId register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID));	
+		//OSprintf("ADXL DevId register = 0x%2x\r\n", ACCELReadReg8(ADXL363_DEVID));
 		//OSprintf("ADXL_Power_Ctl 0x%2x\r\n", ACCELReadReg8(ADXL363_POWER_CTL));
 		//OSprintf("%d, %d, %d\r\n", ACCELReadReg16(ADXL363_XDATA_L), ACCELReadReg16(ADXL363_YDATA_L), ACCELReadReg16(ADXL363_ZDATA_L));	// X = Left / right, Y = Up / Down, Z = Forward / Back
 		break;
@@ -122,6 +135,16 @@ void ACCELEventHandler(U8 eventId, U16 eventArg)
 		accelState =  ACCELSTATE_IDLE;	// Ready to handle interrupt
 		accelTimeoutMs = 0;
 		break;
+	case EVENT_INFO: {
+		S16 x,y,z;
+		x = ACCELGetAxis(ADXL363_XDATA_L);
+		y = ACCELGetAxis(ADXL363_YDATA_L);
+		z = ACCELGetAxis(ADXL363_ZDATA_L);
+		OSprintf("x = %d\r\n", x);	// X = Left(+) / right, Y = Up(+) / Down, Z = Forward(+) / Back
+		OSprintf("y = %d\r\n", y);	// X = Left / right, Y = Up / Down, Z = Forward / Back
+		OSprintf("z = %d\r\n", z);	// X = Left / right, Y = Up / Down, Z = Forward / Back
+		OSprintf("Onbike %d%s", onBike, OS_NEWLINE);
+		} break;
 	default:
 		break;	// Does nothing, but stops useless warnings from the compiler
 	}

@@ -46,7 +46,8 @@ C_SRCS +=  \
 ../log.c \
 ../main.c \
 ../osstr.c \
-../UARTmod.c
+../UARTmod.c \
+../USBmod.c
 
 
 PREPROCESSING_SRCS += 
@@ -65,7 +66,8 @@ OSCLI.o \
 log.o \
 main.o \
 osstr.o \
-UARTmod.o
+UARTmod.o \
+USBmod.o
 
 OBJS_AS_ARGS +=  \
 ACCELmod.o \
@@ -77,7 +79,8 @@ OSCLI.o \
 log.o \
 main.o \
 osstr.o \
-UARTmod.o
+UARTmod.o \
+USBmod.o
 
 C_DEPS +=  \
 ACCELmod.d \
@@ -89,7 +92,8 @@ OSCLI.d \
 log.d \
 main.d \
 osstr.d \
-UARTmod.d
+UARTmod.d \
+USBmod.d
 
 C_DEPS_AS_ARGS +=  \
 ACCELmod.d \
@@ -101,7 +105,8 @@ OSCLI.d \
 log.d \
 main.d \
 osstr.d \
-UARTmod.d
+UARTmod.d \
+USBmod.d
 
 OUTPUT_FILE_PATH +=BikeBrakeLight.elf
 
@@ -117,6 +122,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
